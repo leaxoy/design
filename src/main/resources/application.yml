@@ -1,0 +1,43 @@
+# 应用
+spring:
+  # 应用配置
+  application:
+    name: design
+  # 数据源配置
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost/home?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password:
+    max-active: 20
+    validation-query: select 'x'
+    max-idle: 6
+    min-idle: 2
+    initial-size: 6
+  # zookeeper 配置
+  cloud:
+    zookeeper:
+      discovery:
+        enabled: true
+  # 移动端配置
+  mobile:
+    devicedelegatingviewresolver:
+      enabled: true
+
+# 服务器配置
+server:
+  port: 3000
+
+# zuul 配置
+zuul:
+  routes:
+    # api 应用
+    api:
+      url: /api/**
+      path: http://localhost:8080
+      serviceId: api
+
+# MyBatis 配置
+mybatis:
+  executor-type: simple
+  mapper-locations: com.example.design.mapper
