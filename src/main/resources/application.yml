@@ -36,8 +36,3 @@ zuul:
       url: /api/**
       path: http://localhost:8080
       serviceId: api
-
-# MyBatis 配置
-mybatis:
-  executor-type: simple
-  mapper-locations: com.example.design.mapper
