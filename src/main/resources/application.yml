@@ -36,3 +36,18 @@ zuul:
       url: /api/**
       path: http://localhost:8080
       serviceId: api
+    xjh:
+      url: /xjh/**
+      path: http://localhost:8081
+      serviceId: xjh
+
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:3000/oauth/check_token
+    client:
+      client-id: clientId
+      client-secret: secretId
+      user-authorization-uri: http://localhost:3000/oauth/authorize
+      access-token-uri: http://localhost:3000/oauth/token
+      grant-type: client_credentials
