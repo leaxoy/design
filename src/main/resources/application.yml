@@ -40,6 +40,8 @@ zuul:
       url: /xjh/**
       path: http://localhost:8081
       serviceId: xjh
+  ignored-services: "*"
+
 
 security:
   oauth2:
@@ -50,4 +52,20 @@ security:
       client-secret: secretId
       user-authorization-uri: http://localhost:3000/oauth/authorize
       access-token-uri: http://localhost:3000/oauth/token
-      grant-type: client_credentials
+      grant-type: client_credential
+endpoints:
+  actuator:
+    enabled: true
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    enabled: true
+
+logging:
+  level:
+    ROOT: info
+    org.springframework.web: info
+
+
