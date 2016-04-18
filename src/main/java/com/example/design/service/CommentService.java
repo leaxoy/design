@@ -17,4 +17,8 @@ public class CommentService {
     public Comment id(int id) {
         return null;
     }
+
+    public List<Comment> findCommentsByUserId(int id) {
+        return null;
+    }
 }

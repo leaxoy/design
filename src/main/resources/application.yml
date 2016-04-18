@@ -23,6 +23,13 @@ spring:
   mobile:
     devicedelegatingviewresolver:
       enabled: true
+  aop:
+    auto: true
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: 127.0.0.1:9300
 
 # 服务器配置
 server:
@@ -53,6 +60,8 @@ security:
       user-authorization-uri: http://localhost:3000/oauth/authorize
       access-token-uri: http://localhost:3000/oauth/token
       grant-type: client_credential
+      authentication-scheme: query
+
 endpoints:
   actuator:
     enabled: true
@@ -67,5 +76,3 @@ logging:
   level:
     ROOT: info
     org.springframework.web: info
-
-

@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
+
 /**
  * Created by lxh on 4/14/16.
  */
@@ -21,8 +22,7 @@ public class User {
     private String job;
     private String city;
     private String userIntro;
-    private int userAuthority;
-    private int authority;
+    private ROLE role;
 
     public Long getId() {
         return id;
@@ -120,20 +120,15 @@ public class User {
         this.userIntro = userIntro;
     }
 
-    public int getUserAuthority() {
-        return userAuthority;
+    public ROLE getRole() {
+        return role;
     }
 
-    public void setUserAuthority(int userAuthority) {
-        this.userAuthority = userAuthority;
+    public void setRole(ROLE role) {
+        this.role = role;
     }
 
-    public int getAuthority() {
-        return authority;
+    private enum ROLE {
+        admin, user, guest;
     }
-
-    public void setAuthority(int authority) {
-        this.authority = authority;
-    }
-
 }

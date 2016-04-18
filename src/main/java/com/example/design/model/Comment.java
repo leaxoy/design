@@ -1,12 +1,14 @@
 package com.example.design.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 
 /**
  * Created by lxh on 4/14/16.
  */
+@Document(indexName = "comment", type = "simple")
 public class Comment {
     @Id
     private Long commentId;
