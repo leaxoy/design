@@ -10,20 +10,20 @@ import java.util.Date;
  */
 public class User {
     @Id
-    private Long id;
-    private String accountName;
-    private String password;
-    private String email;
-    private String nickname;
-    private String userPicture;
-    private String name;
-    private String sex;
-    private Date birthday;
-    private String job;
-    private String city;
-    private String userIntro;
-    private VISITROLE visitrole;
-    private ROLE role;
+    private Long id;                // 用户ID
+    private String accountName;     // 账户名称
+    private String password;        // 用户密码
+    private String email;           // 邮箱
+    private String nickname;        // 昵称
+    private String userPicture;     // 用户头像
+    private String name;            // 真实姓名
+    private String sex;             // 性别
+    private Date birthday;          // 出生日期
+    private String job;             // 工作
+    private String city;            // 居住城市
+    private String userIntro;       // 个人介绍
+    private VISITROLE visitrole;    // 其他用户的浏览权限
+    private ROLE role;              // 用户权限
 
     public Long getId() {
         return id;
