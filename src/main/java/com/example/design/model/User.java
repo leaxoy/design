@@ -22,6 +22,7 @@ public class User {
     private String job;
     private String city;
     private String userIntro;
+    private VISITROLE visitrole;
     private ROLE role;
 
     public Long getId() {
@@ -128,7 +129,19 @@ public class User {
         this.role = role;
     }
 
+    public VISITROLE getVisitrole() {
+        return visitrole;
+    }
+
+    public void setVisitrole(VISITROLE visitrole) {
+        this.visitrole = visitrole;
+    }
+
     private enum ROLE {
         admin, user, guest;
+    }
+
+    private enum VISITROLE {
+        SELF, FRIEND, ALL
     }
 }

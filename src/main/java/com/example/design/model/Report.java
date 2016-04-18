@@ -9,16 +9,17 @@ import java.util.Date;
  */
 public class Report {
     @Id
-    private Long reportId;
-    private Long userId;
-    private Long reportedUserId;
-    private Long menuId;
-    private Long cookingId;
-    private Long showId;
-    private Date reportDate;
-    private String reportReason;
-    private Integer reportState;
-    private Date closeDate;
+    private Long reportId;          //举报ID
+    private Long userId;            //举报者ID
+    private Long reportedUserId;    //被举报的用户ID
+    private Long menuId;            //被举报的菜单ID
+    private Long cookingId;         //被举报的菜谱ID
+    private Long showId;            //被举报的作品ID
+    private Date reportDate;        //举报状态
+    private String reportReason;    //举报原因
+    private Integer reportState;    //举报状态，“0”为未处理，“1”为已关闭
+    private Date closeDate;         //举报关闭时间
+
 
     public Long getReportId() {
         return reportId;

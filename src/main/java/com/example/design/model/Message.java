@@ -9,13 +9,14 @@ import java.util.Date;
  */
 public class Message {
     @Id
-    private Long messageId;
-    private Long messageUserId;
-    private Date messageDate;
-    private String message;
-    private Long userId;
-    private Long shareId;
-    private Long showId;
+    private Long messageId;     // 留言 ID
+    private Long messageUserId; // 留言的用户ID
+    private Date messageDate;   // 留言日期
+    private String message;     // 留言内容
+    private Long userId;        // 被留言用户 ID
+    private Long shareId;       // 被留言的分享ID
+    private Long showId;        // 被留言的作品ID
+    private int state;          // 留言状态
 
     public Long getMessageId() {
         return messageId;
@@ -73,4 +74,11 @@ public class Message {
         this.showId = showId;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 }
