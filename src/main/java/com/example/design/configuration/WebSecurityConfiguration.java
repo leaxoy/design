@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/home").permitAll()
+        http.authorizeRequests().antMatchers("/", "/home", "/company/**").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/signin").defaultSuccessUrl("/")
                 .permitAll().and().logout().permitAll();

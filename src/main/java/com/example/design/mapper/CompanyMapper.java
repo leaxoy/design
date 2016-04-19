@@ -2,6 +2,7 @@ package com.example.design.mapper;
 
 import com.example.design.model.Company;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * Created by lxh on 4/13/16.
  */
 @CacheNamespace(size = 100)
+@Component
 public interface CompanyMapper {
     @Select("SELECT * FROM company")
     @ResultType(Company.class)

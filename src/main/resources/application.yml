@@ -19,17 +19,8 @@ spring:
     zookeeper:
       discovery:
         enabled: true
-  # 移动端配置
-  mobile:
-    devicedelegatingviewresolver:
-      enabled: true
   aop:
     auto: true
-  data:
-    elasticsearch:
-      repositories:
-        enabled: true
-      cluster-nodes: 127.0.0.1:9300
 
 # 服务器配置
 server:

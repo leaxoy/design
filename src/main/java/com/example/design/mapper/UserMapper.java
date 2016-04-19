@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by lxh on 4/14/16.
  */
+@Component
 public interface UserMapper {
     @Select("SELECT COUNT(*) FROM `user` WHERE `name`=#{name} AND `password`=#{password}")
     int count(@Param("name") String name, @Param("password") String password);

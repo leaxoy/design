@@ -1,6 +1,6 @@
 package com.example.design.controller;
 
-import com.example.design.service.ArticleService;
+import com.example.design.service.ArticleMapper;
 import com.example.design.service.CommentService;
 import com.example.design.service.MessageService;
 import com.example.design.service.UserService;
@@ -27,7 +27,7 @@ public class UserProfileController {
     @Autowired
     private MessageService messageService;
     @Autowired
-    private ArticleService articleService;
+    private ArticleMapper articleService;
     @Autowired
     private CommentService commentService;
 

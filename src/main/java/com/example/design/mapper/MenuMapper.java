@@ -3,6 +3,7 @@ package com.example.design.mapper;
 import com.example.design.model.Menu;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Optional;
 /**
  * Created by lxh on 4/17/16.
  */
+@Component
 public interface MenuMapper {
 
     /**

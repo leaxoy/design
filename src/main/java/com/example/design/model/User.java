@@ -1,5 +1,7 @@
 package com.example.design.model;
 
+import com.example.design.constant.Role;
+import com.example.design.constant.Visitor;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -22,8 +24,8 @@ public class User {
     private String job;             // 工作
     private String city;            // 居住城市
     private String userIntro;       // 个人介绍
-    private VISITROLE visitrole;    // 其他用户的浏览权限
-    private ROLE role;              // 用户权限
+    private Visitor visitor;    // 其他用户的浏览权限
+    private Role role;              // 用户权限
 
     public Long getId() {
         return id;
@@ -121,27 +123,19 @@ public class User {
         this.userIntro = userIntro;
     }
 
-    public ROLE getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(ROLE role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public VISITROLE getVisitrole() {
-        return visitrole;
+    public Visitor getVisitor() {
+        return visitor;
     }
 
-    public void setVisitrole(VISITROLE visitrole) {
-        this.visitrole = visitrole;
-    }
-
-    private enum ROLE {
-        admin, user, guest;
-    }
-
-    private enum VISITROLE {
-        SELF, FRIEND, ALL
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
     }
 }
