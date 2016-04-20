@@ -1,5 +1,6 @@
 package com.example.design.controller;
 
+import com.example.design.model.resource.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.ui.Model;
 
@@ -22,7 +23,8 @@ public class SignInController {
     public String signin(HttpServletRequest request, Model model) {
         String phone = request.getParameter("phone");
         String passwd = request.getParameter("passwd");
-        if (userService.count(phone, passwd) != 0) {
+        User user = userService.getByAccountName(phone);
+        if (user != null) {
             model.addAttribute("noSuchUserError", "No such user.");
             return "redirect:/signin";
         }

@@ -1,6 +1,6 @@
 package com.example.design.controller.rest;
 
-import com.example.design.model.Comment;
+import com.example.design.model.resource.Comment;
 import com.example.design.service.impl.CommentService;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

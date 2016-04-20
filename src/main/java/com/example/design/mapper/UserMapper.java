@@ -1,7 +1,7 @@
 package com.example.design.mapper;
 
 import com.example.design.constant.Role;
-import com.example.design.model.User;
+import com.example.design.model.resource.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
@@ -13,31 +13,28 @@ import java.util.List;
  */
 @Repository("userMapper")
 public interface UserMapper {
-    @Select("SELECT COUNT(*) FROM `user` WHERE `name`=#{name} AND `password`=#{password}")
-    int count(@Param("name") String name, @Param("password") String password);
-
-    @Select("SELECT * FROM `user`")
-    List<User> all();
-
     @Insert("INSERT INTO `user` () VALUES ()")
     int add(User user);
 
     @Update("UPDATE `user` () VALUES() WHERE `id`=#{id}")
     int update(User user);
 
-    @Select("SELECT * FROM `user` WHERE `account`=#{name}")
-    List<User> selectByName(@Param("name") String name);
+    @Select("SELECT * FROM `user`")
+    List<User> all();
 
-    @Select("")
-    List<User> selectByPhone(@Param("phone") String phone);
+    @Select("SELECT `id`, `role`, `accountName`, `password`, `email`, `nickName`, `userPicture`, `name`, `sex`, `birthday`, `job`, `city`, `userIntro` FROM `user` WHERE `accountName`=#{name}")
+    User selectByAccountName(@Param("name") String name);
+
+    @Select("SELECT * FROM `user` WHERE `nickName`=#{nickname}")
+    List<User> selectByNickName(@Param("nickname") String nickname);
+
+    @Select("SELECT `role` FROM `user` WHERE `accountName`=#{name}")
+    @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class, jdbcType = JdbcType.CHAR)})
+    String getRole(String name);
 
     @Delete("DELETE FROM `user` WHERE `id`=#{id}")
     int delete(int id);
 
-    @Delete("DELETE FROM `user` WHERE `account`=#{phone}")
-    int deleteByPhone(@Param("phone") String phone);
-
-    @Select("SELECT role FROM `user` WHERE `account`=#{name}")
-    @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class, jdbcType = JdbcType.CHAR)})
-    String getRole(String name);
+    @Delete("DELETE FROM `user` WHERE `accountName`=#{accountName}")
+    int deleteByAccountName(@Param("accountName") String accountName);
 }

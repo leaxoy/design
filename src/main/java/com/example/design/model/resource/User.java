@@ -1,4 +1,4 @@
-package com.example.design.model;
+package com.example.design.model.resource;
 
 import com.example.design.constant.Role;
 import com.example.design.constant.Visitor;
@@ -16,7 +16,7 @@ public class User {
     private String accountName;     // 账户名称
     private String password;        // 用户密码
     private String email;           // 邮箱
-    private String nickname;        // 昵称
+    private String nickName;        // 昵称
     private String userPicture;     // 用户头像
     private String name;            // 真实姓名
     private String sex;             // 性别
@@ -24,8 +24,16 @@ public class User {
     private String job;             // 工作
     private String city;            // 居住城市
     private String userIntro;       // 个人介绍
-    private Visitor visitor;    // 其他用户的浏览权限
+    private Visitor visitor;        // 其他用户的浏览权限
     private Role role;              // 用户权限
+
+    @Override
+    public String toString() {
+        return "我的ID是:\t" + id + "\n我的账户名称:\t" + accountName + "\n密码是:\t" + password + "\n邮箱是:\t" + email +
+                "\n昵称是:\t" + nickName + "\n头像在:\t" + userPicture + "\n真是姓名是:\t" + name + "\n性别是:\t" + sex +
+                "\n生日是:\t" + birthday + "\n工作是:\t" + job
+                + "\n居住城市是:\t" + city + "\n个人介绍是:\t" + userIntro + "\n用户组是:\t" + role.name();
+    }
 
     public Long getId() {
         return id;
@@ -59,12 +67,12 @@ public class User {
         this.email = email;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getUserPicture() {

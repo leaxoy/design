@@ -14,6 +14,13 @@ spring:
     max-idle: 6
     min-idle: 2
     initial-size: 6
+  redis:
+    host: localhost
+    port: 6379
+    pool:
+      max-active: 8
+      min-idle: 0
+    database: 1
 
 # 服务器配置
 server:

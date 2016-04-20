@@ -1,7 +1,7 @@
 package com.example.design.controller.rest;
 
-import com.example.design.model.Comment;
-import com.example.design.model.User;
+import com.example.design.model.resource.Comment;
+import com.example.design.model.resource.User;
 import com.example.design.service.impl.CommentService;
 import com.example.design.service.impl.MenuService;
 import com.example.design.service.impl.UserService;
@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping("{id}")
     public ResponseEntity getById(@PathVariable int id) {
-        User user = userService.getByName(String.valueOf(id)).get(0);
+        User user = userService.getByAccountName(String.valueOf(id));
         if (user == null) {
             return ResponseEntity.notFound().build();
         }

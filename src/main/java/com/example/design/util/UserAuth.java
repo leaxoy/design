@@ -1,6 +1,6 @@
 package com.example.design.util;
 
-import com.example.design.model.User;
+import com.example.design.model.resource.User;
 import com.example.design.service.impl.UserService;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -35,31 +35,15 @@ public class UserAuth {
         String name = userInfo.split(":")[0];
         String hashedPasswd = userInfo.split(":")[1];
         String passwd = decrypt(hashedPasswd);
-        if (userService.count(name, passwd) != 0) {
-
-            return userService.getByName(name).get(0);
+        User user = userService.getByAccountName(name);
+        if (user != null) {
+            return userService.getByAccountName(name);
         }
         return null;
     }
 
     private static Key generateKey() throws Exception {
         return new SecretKeySpec(keyValue, ALGO);
-    }
-
-    /**
-     * 用来进行加密的操作
-     *
-     * @param Data
-     * @return
-     * @throws Exception
-     */
-    public String encrypt(String Data) throws Exception {
-        Key key = generateKey();
-        Cipher c = Cipher.getInstance(ALGO);
-        c.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encVal = c.doFinal(Data.getBytes());
-        String encryptedValue = new BASE64Encoder().encode(encVal);
-        return encryptedValue;
     }
 
     /**
@@ -77,5 +61,21 @@ public class UserAuth {
         byte[] decValue = c.doFinal(decordedValue);
         String decryptedValue = new String(decValue);
         return decryptedValue;
+    }
+
+    /**
+     * 用来进行加密的操作
+     *
+     * @param Data
+     * @return
+     * @throws Exception
+     */
+    public String encrypt(String Data) throws Exception {
+        Key key = generateKey();
+        Cipher c = Cipher.getInstance(ALGO);
+        c.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encVal = c.doFinal(Data.getBytes());
+        String encryptedValue = new BASE64Encoder().encode(encVal);
+        return encryptedValue;
     }
 }

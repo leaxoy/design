@@ -1,7 +1,7 @@
 package com.example.design.service.impl;
 
 import com.example.design.mapper.ArticleMapper;
-import com.example.design.model.Article;
+import com.example.design.model.resource.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

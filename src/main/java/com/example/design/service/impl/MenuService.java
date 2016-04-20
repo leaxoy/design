@@ -1,7 +1,7 @@
 package com.example.design.service.impl;
 
 import com.example.design.mapper.MenuMapper;
-import com.example.design.model.Menu;
+import com.example.design.model.resource.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package com.example.design.controller;
 
+import com.example.design.model.resource.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,8 @@ public class SignUpController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String signup(HttpServletRequest request, Model model) {
         String phone = request.getParameter("phone");
-        int count = userService.count(phone, "");
-        if (count > 0) {
+        User user = userService.getByAccountName(phone);
+        if (user != null) {
             model.addAttribute("exist", "该手机号已被使用,请换一个");
             return "signup";
         }
