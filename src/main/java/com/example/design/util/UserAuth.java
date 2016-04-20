@@ -1,7 +1,7 @@
 package com.example.design.util;
 
 import com.example.design.model.User;
-import com.example.design.service.UserService;
+import com.example.design.service.impl.UserService;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 

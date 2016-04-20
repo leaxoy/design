@@ -4,14 +4,14 @@ import com.example.design.constant.Role;
 import com.example.design.model.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by lxh on 4/14/16.
  */
-@Component
+@Repository("userMapper")
 public interface UserMapper {
     @Select("SELECT COUNT(*) FROM `user` WHERE `name`=#{name} AND `password`=#{password}")
     int count(@Param("name") String name, @Param("password") String password);

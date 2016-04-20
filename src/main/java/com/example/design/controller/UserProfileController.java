@@ -1,9 +1,9 @@
 package com.example.design.controller;
 
-import com.example.design.service.ArticleService;
-import com.example.design.service.CommentService;
-import com.example.design.service.MessageService;
-import com.example.design.service.UserService;
+import com.example.design.service.impl.ArticleService;
+import com.example.design.service.impl.CommentService;
+import com.example.design.service.impl.MessageService;
+import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

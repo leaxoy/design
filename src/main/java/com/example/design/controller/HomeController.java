@@ -1,9 +1,9 @@
 package com.example.design.controller;
 
 import com.example.design.model.User;
-import com.example.design.service.CookingService;
-import com.example.design.service.MenuService;
-import com.example.design.service.UserService;
+import com.example.design.service.impl.CookingService;
+import com.example.design.service.impl.MenuService;
+import com.example.design.service.impl.UserService;
 import com.example.design.util.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,19 +25,12 @@ import java.util.Objects;
 @RequestMapping("")
 public class HomeController {
 
-    private UserService userService;
-    private MenuService menuService;
-    private CookingService cookingService;
-
     @Autowired
-    public HomeController(
-            UserService userService,
-            MenuService menuService,
-            CookingService cookingService) {
-        this.userService = userService;
-        this.menuService = menuService;
-        this.cookingService = cookingService;
-    }
+    private UserService userService;
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private CookingService cookingService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Model model) throws Exception {

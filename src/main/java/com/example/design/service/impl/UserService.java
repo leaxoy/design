@@ -1,4 +1,4 @@
-package com.example.design.service;
+package com.example.design.service.impl;
 
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;

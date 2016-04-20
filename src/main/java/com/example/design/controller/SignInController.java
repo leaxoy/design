@@ -1,6 +1,6 @@
 package com.example.design.controller;
 
-import com.example.design.service.UserService;
+import com.example.design.service.impl.UserService;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;

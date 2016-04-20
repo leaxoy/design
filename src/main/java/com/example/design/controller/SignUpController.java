@@ -1,6 +1,6 @@
 package com.example.design.controller;
 
-import com.example.design.service.UserService;
+import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("signup")
 public class SignUpController {
 
-
-    private UserService userService;
-
     @Autowired
-    public SignUpController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @RequestMapping("")
     public String home(Model model) {

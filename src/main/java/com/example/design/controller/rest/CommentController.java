@@ -1,8 +1,8 @@
 package com.example.design.controller.rest;
 
 import com.example.design.model.Comment;
-import com.example.design.service.CommentService;
-import com.example.design.service.UserService;
+import com.example.design.service.impl.CommentService;
+import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
