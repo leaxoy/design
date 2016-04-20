@@ -3,15 +3,20 @@ package com.example.design.service;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lxh on 4/14/16.
  */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     UserMapper mapper;
 
@@ -59,5 +64,17 @@ public class UserService {
     public boolean hasUser(String username) {
         List<User> list = mapper.selectByName(username);
         return !list.isEmpty();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = getByName(username).get(0);
+        if (user == null) {
+            throw new UsernameNotFoundException("");
+        }
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
+        System.out.println(1 + user.getRole().name());
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
     }
 }

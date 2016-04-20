@@ -41,7 +41,7 @@ public class UserProfileController {
 
     // localhost:3000/profile
     // :GET
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping()
     public String home(Model model) {
         model.addAttribute("title", "Profile");

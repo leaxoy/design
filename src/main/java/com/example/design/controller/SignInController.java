@@ -1,13 +1,17 @@
 package com.example.design.controller;
 
 import com.example.design.service.UserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by lxh on 4/20/16.
  */
+@Controller
+@RequestMapping("/signin")
 public class SignInController {
     private UserService userService;
 
