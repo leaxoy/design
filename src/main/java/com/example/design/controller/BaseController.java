@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by lxh on 4/20/16.
  */
 public class BaseController {
-    protected HttpServletRequest request;
+    HttpServletRequest request;
     protected HttpServletResponse response;
     protected Model model;
 
