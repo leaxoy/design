@@ -23,18 +23,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
-                .defaultSuccessUrl("/profile")
                 .permitAll()
                 .and()
-                .logout()
+                .logout().deleteCookies("JSESSIONID")
                 .permitAll();
-        http.rememberMe().rememberMeParameter("rememberMe");
-
     }
 
     @Override
