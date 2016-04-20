@@ -6,7 +6,7 @@ spring:
   # 数据源配置
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost/home?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost/design?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password:
     max-active: 20

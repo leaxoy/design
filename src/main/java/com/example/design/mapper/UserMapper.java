@@ -25,7 +25,7 @@ public interface UserMapper {
     @Update("UPDATE `user` () VALUES() WHERE `id`=#{id}")
     int update(User user);
 
-    @Select("")
+    @Select("SELECT * FROM `user` WHERE `account`=#{name}")
     List<User> selectByName(@Param("name") String name);
 
     @Select("")

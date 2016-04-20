@@ -24,7 +24,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,9 +39,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/", "/home", "/company/**")
-                .permitAll().anyRequest().authenticated().and()
-                .formLogin().loginPage("/signin").defaultSuccessUrl("/")
+        http.csrf().disable();
+        http.authorizeRequests()
+                .anyRequest().authenticated().and()
+                .formLogin().loginPage("/signin")
                 .permitAll().and().logout().logoutUrl("/logout").permitAll();
         http.rememberMe().rememberMeParameter("rememberMe");
 
@@ -51,12 +51,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder) {
+                System.out.println(3);
                 SecurityContext context = this.repository.loadContext(requestResponseHolder);
                 if (context != null && context.getAuthentication() != null) {
                     String username = context.getAuthentication().getPrincipal().toString();
                     String[] roles = userService.getRoles(username);
                     context.getAuthentication().getAuthorities();
-                    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, "password", convertStringArrayToAuthorities(roles));
+                    com.example.design.model.User user = userService.getByName(username).get(0);
+                    UsernamePasswordAuthenticationToken token =
+                            new UsernamePasswordAuthenticationToken(username, user.getPassword(),
+                                    convertStringArrayToAuthorities(roles));
                     context.setAuthentication(token);
                 }
                 return context;
@@ -64,11 +68,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
+                System.out.println(4);
                 this.repository.saveContext(context, request, response);
             }
 
             @Override
             public boolean containsContext(HttpServletRequest request) {
+                System.out.println(5);
                 return this.repository.containsContext(request);
             }
         });
@@ -84,27 +90,30 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(new AuthenticationProvider() {
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+                System.out.println(2);
                 String username = authentication.getName();
                 String password = authentication.getCredentials().toString();
                 if (userService.validateUser(username, password)) {
                     String[] roles = userService.getRoles(username);
-                    System.out.println(Arrays.toString(roles));
-                    System.out.println(1);
-                    return new UsernamePasswordAuthenticationToken(username, "password", convertStringArrayToAuthorities(roles));
+                    return new UsernamePasswordAuthenticationToken(username, password, convertStringArrayToAuthorities(roles));
                 }
                 return null;
             }
 
             @Override
             public boolean supports(Class<?> authentication) {
-                return false;
+                System.out.println(6);
+
+                return authentication.equals(UsernamePasswordAuthenticationToken.class);
             }
         });
 
         auth.userDetailsService(username -> {
+            System.out.println(1);
             if (userService.hasUser(username)) {
-                System.out.println(2);
-                return new User(username, "password", convertStringArrayToAuthorities(userService.getRoles(username)));
+                com.example.design.model.User user = userService.getByName(username).get(0);
+                return new User(username, user.getPassword(),
+                        convertStringArrayToAuthorities(userService.getRoles(username)));
             }
             return null;
         });

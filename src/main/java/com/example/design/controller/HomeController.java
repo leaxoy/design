@@ -41,16 +41,11 @@ public class HomeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Model model) throws Exception {
-        System.out.println("-------------------------------------------");
         Cookie[] allcookie = request.getCookies();
-        System.out.println("-------------------------------------------");
         if (allcookie == null) {
             return "index";
         }
         List<Cookie> cookies = new ArrayList<>(Arrays.asList(request.getCookies()));
-        System.out.println("-------------------------------------------");
-        System.out.println(cookies.size());
-        System.out.println("-------------------------------------------");
         for (Cookie cookie : cookies) {
             if (Objects.equals(cookie.getName(), "userId")) {
                 String value = cookie.getValue();
