@@ -3,84 +3,61 @@ package com.example.design.service;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by lxh on 4/14/16.
  */
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     @Autowired
-    Optional<UserMapper> mapper;
+    UserMapper mapper;
 
     public int count(String name, String passwd) {
-        if (mapper.isPresent()) {
-            return mapper.get().count(name, passwd);
-        }
-        return 0;
+        return mapper.count(name, passwd);
     }
 
     public List<User> all() {
-        if (mapper.isPresent()) {
-            return mapper.get().all();
-        }
-        return null;
+        return mapper.all();
     }
 
     public int addUser(User user) {
-        if (mapper.isPresent()) {
-            return mapper.get().add(user);
-        }
-        return -1;
+        return mapper.add(user);
     }
 
     public int updateInfo(User user) {
-        if (mapper.isPresent()) {
-            return mapper.get().update(user);
-        }
-        return -1;
+        return mapper.update(user);
     }
 
     public List<User> getByName(String name) {
-        if (mapper.isPresent()) {
-            return mapper.get().selectByName(name);
-        }
-        return null;
+        return mapper.selectByName(name);
     }
 
     public int removeById(int id) {
-        if (mapper.isPresent()) {
-            return mapper.get().delete(id);
-        }
-        return -1;
+        return mapper.delete(id);
     }
 
     public int removeByPhone(String phone) {
-        if (mapper.isPresent()) {
-            return mapper.get().deleteByPhone(phone);
-        }
-        return -1;
+        return mapper.deleteByPhone(phone);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (mapper.isPresent()) {
-            User user = mapper.get().selectByName(username).get(0);
-            if (user == null) {
-                throw new UsernameNotFoundException("No such user!");
-            }
-            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
-            return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
+    public String[] getRoles(String name) {
+        String role = mapper.getRole(name);
+        if (null == role) {
+            return null;
         }
-        return null;
+        return role.split(";");
+    }
+
+    public boolean validateUser(String name, String password) {
+        int count = mapper.count(name, password);
+        return count == 1;
+    }
+
+    public boolean hasUser(String username) {
+        List<User> list = mapper.selectByName(username);
+        return !list.isEmpty();
     }
 }

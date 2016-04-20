@@ -41,10 +41,11 @@ public class UserProfileController {
 
     // localhost:3000/profile
     // :GET
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping()
     public String home(Model model) {
         model.addAttribute("title", "Profile");
-        return "profile";
+        return "profile/index";
     }
 
     // localhost:3000/profile/edit

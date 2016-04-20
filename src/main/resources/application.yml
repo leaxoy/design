@@ -19,18 +19,6 @@ spring:
 server:
   port: 3000
 
-security:
-  oauth2:
-    resource:
-      token-info-uri: http://localhost:3000/oauth/check_token
-    client:
-      client-id: clientId
-      client-secret: secretId
-      user-authorization-uri: http://localhost:3000/oauth/authorize
-      access-token-uri: http://localhost:3000/oauth/token
-      grant-type: client_credential
-      authentication-scheme: query
-
 endpoints:
   actuator:
     enabled: true

@@ -3,12 +3,9 @@ package com.example.design.configuration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class WebMvc extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-
+        registry.addViewController("/signin").setViewName("signin");
     }
 
     @Bean
