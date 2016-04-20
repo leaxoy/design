@@ -4,6 +4,7 @@ import com.example.design.exception.MethodNotSupportException;
 import com.example.design.manager.TokenManager;
 
 /**
+ * Token管理的基础类
  * Created by lxh on 4/20/16.
  */
 public abstract class AbstractTokenManager implements TokenManager {

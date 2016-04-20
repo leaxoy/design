@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * 作品持久化接口.
  * Created by lxh on 4/14/16.
  */
 @Repository("articleMapper")

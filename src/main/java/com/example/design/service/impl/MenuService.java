@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * 菜单的服务接口
  * Created by lxh on 4/17/16.
  */
 @Service

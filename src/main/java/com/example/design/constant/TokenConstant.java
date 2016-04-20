@@ -1,6 +1,7 @@
 package com.example.design.constant;
 
 /**
+ * token的一些配置参数.
  * Created by lxh on 4/20/16.
  */
 public class TokenConstant {

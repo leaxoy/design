@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * 用户持久化接口.
  * Created by lxh on 4/14/16.
  */
 @Repository("userMapper")

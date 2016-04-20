@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 错误页面的controller
  * Created by lxh on 4/18/16.
  */
 @Controller

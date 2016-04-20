@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 评论的rest接口
  * Created by lxh on 4/14/16.
  */
 @RestController

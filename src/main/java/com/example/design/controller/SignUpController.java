@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 注册新用户的controller.
  * Created by lxh on 4/20/16.
  */
 @Controller

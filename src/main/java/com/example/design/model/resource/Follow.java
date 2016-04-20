@@ -3,6 +3,7 @@ package com.example.design.model.resource;
 import org.springframework.data.annotation.Id;
 
 /**
+ * 用户关系模型
  * Created by lxh on 4/14/16.
  */
 public class Follow {

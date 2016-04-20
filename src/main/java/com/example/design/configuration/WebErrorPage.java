@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
 /**
+ * 对常用的错误页面的一些定义.
  * Created by lxh on 4/18/16.
  */
 @Configuration

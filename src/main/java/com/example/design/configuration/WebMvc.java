@@ -9,6 +9,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 对spring mvc 的一些配置.
  * Created by lxh on 4/13/16.
  */
 @Configuration

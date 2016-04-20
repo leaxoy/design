@@ -8,6 +8,7 @@ import java.util.Date;
 
 
 /**
+ * 用户模型
  * Created by lxh on 4/14/16.
  */
 public class User {

@@ -1,6 +1,7 @@
 package com.example.design.constant;
 
 /**
+ * 资源返回状态的定义
  * Created by lxh on 4/20/16.
  */
 public enum ResultStatus {

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
+ * 留言模型
  * Created by lxh on 4/14/16.
  */
 public class Message {

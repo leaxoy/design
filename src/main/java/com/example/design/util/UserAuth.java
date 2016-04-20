@@ -11,6 +11,7 @@ import java.security.Key;
 import java.util.Base64;
 
 /**
+ * 用户登录的辅助类.
  * Created by lxh on 4/20/16.
  */
 public class UserAuth {

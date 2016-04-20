@@ -1,7 +1,10 @@
 package com.example.design.model.auth;
 
 /**
+ * 认证过程token
+ * <p>
  * Created by lxh on 4/20/16.
+ * </p>
  */
 public class AuthToken {
     private String accountName;

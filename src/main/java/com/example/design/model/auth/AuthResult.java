@@ -3,7 +3,13 @@ package com.example.design.model.auth;
 import com.example.design.constant.ResultStatus;
 
 /**
+ * 认证结果 AuthResult
+ * 返回值   code
+ * 返回信息 message
+ * 返回内容 content
+ * <p>
  * Created by lxh on 4/20/16.
+ * </p>
  */
 public class AuthResult {
     /**

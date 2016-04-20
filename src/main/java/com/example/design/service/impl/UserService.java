@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 提供用户信息的服务
  * Created by lxh on 4/14/16.
  */
 @Service

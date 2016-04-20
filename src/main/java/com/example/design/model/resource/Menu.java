@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
+ * 菜单模型
  * Created by lxh on 4/14/16.
  */
 public class Menu {

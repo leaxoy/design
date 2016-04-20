@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 用户认证的controller
  * Created by lxh on 4/20/16.
  */
 @RestController

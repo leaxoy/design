@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * 用户信息rest接口.
  * Created by lxh on 4/17/16.
  */
 @RestController

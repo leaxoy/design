@@ -4,6 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
+ * 使用Redis存储Token
  * Created by lxh on 4/20/16.
  */
 public class RedisTokenManager extends AbstractTokenManager {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * 评论服务
  * Created by lxh on 4/14/16.
  */
 @Service

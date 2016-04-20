@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 首页的controller
  * Created by lxh on 4/13/16.
  */
 @Controller
