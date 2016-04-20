@@ -1,5 +1,9 @@
 package com.example.design;
 
-class HomeControllerTest {
+import org.junit.Test;
 
+public class HomeControllerTest {
+    @Test
+    public void runTest() {
+    }
 }

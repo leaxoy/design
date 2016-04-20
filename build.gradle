@@ -35,22 +35,17 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
-    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-jetty')
-//    compile('org.springframework.boot:spring-boot-starter-mobile')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web') { exclude module: 'spring-boot-starter-tomcat' }
-    compile('org.springframework.cloud:spring-cloud-starter-zuul')
-    compile('org.springframework.cloud:spring-cloud-starter-zookeeper-discovery')
     compile('org.springframework.session:spring-session')
     compile('org.springframework.security.oauth:spring-security-oauth2:2.0.9.RELEASE')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.2')
 
-    compile('org.projectlombok:lombok')
     runtime('mysql:mysql-connector-java')
     runtime('org.postgresql:postgresql')
 

@@ -1,6 +1,6 @@
 package com.example.design.controller;
 
-import com.example.design.service.ArticleMapper;
+import com.example.design.service.ArticleService;
 import com.example.design.service.CommentService;
 import com.example.design.service.MessageService;
 import com.example.design.service.UserService;
@@ -22,15 +22,25 @@ import java.util.List;
 // localhost:3000/profile/**
 public class UserProfileController {
 
-    @Autowired
     private UserService userService;
-    @Autowired
     private MessageService messageService;
-    @Autowired
-    private ArticleMapper articleService;
-    @Autowired
+    private ArticleService articleService;
     private CommentService commentService;
 
+    @Autowired
+    public UserProfileController(
+            UserService userService1,
+            MessageService messageService1,
+            ArticleService articleService1,
+            CommentService commentService1) {
+        this.userService = userService1;
+        this.messageService = messageService1;
+        this.articleService = articleService1;
+        this.commentService = commentService1;
+    }
+
+    // localhost:3000/profile
+    // :GET
     @RequestMapping()
     public String home(Model model) {
         model.addAttribute("title", "Profile");
@@ -38,6 +48,7 @@ public class UserProfileController {
     }
 
     // localhost:3000/profile/edit
+    // :GET
     @RequestMapping("edit")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public String edit() {
@@ -45,12 +56,14 @@ public class UserProfileController {
     }
 
     // localhost:3000/profile/message
+    // :GET
     @RequestMapping("message")
     public String message() {
         return "profile/message";
     }
 
     // localhost:3000/profile/edit
+    // :POST
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String change(HttpServletRequest request) {
         List<Cookie> cookies = Arrays.asList(request.getCookies());

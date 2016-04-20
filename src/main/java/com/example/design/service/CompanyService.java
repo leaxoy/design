@@ -6,42 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by lxh on 4/13/16.
  */
 @Service
 public class CompanyService {
+    private final CompanyMapper companyMapper;
+
     @Autowired
-    Optional<CompanyMapper> companyMapper;
+    public CompanyService(CompanyMapper companyMapper) {
+        this.companyMapper = companyMapper;
+    }
 
     public List<Company> getAll() {
-        if (companyMapper.isPresent()) {
-            return companyMapper.get().getAll();
-        }
-        return null;
+        return companyMapper.getAll();
     }
 
     public List<Company> getByIs500() {
-
-        if (companyMapper.isPresent()) {
-            return companyMapper.get().getThoseIs500();
-        }
-        return null;
+        return companyMapper.getThoseIs500();
     }
 
     public int count() {
-        if (companyMapper.isPresent()) {
-            return companyMapper.get().count();
-        }
-        return 0;
+        return companyMapper.count();
     }
 
     public Company getById(int id) {
-        if (companyMapper.isPresent()) {
-            return companyMapper.get().getById(id);
-        }
-        return null;
+        return companyMapper.getById(id);
     }
 }
