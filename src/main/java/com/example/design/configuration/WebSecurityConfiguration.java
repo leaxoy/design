@@ -40,7 +40,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests()
+        http.authorizeRequests().antMatchers("/static/**", "/", "/signin", "/signup", "/home").permitAll()
+                .antMatchers("/profile/**").hasRole("USER")
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/signin")
                 .permitAll().and().logout().logoutUrl("/logout").permitAll();
@@ -51,7 +52,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder) {
-                System.out.println(3);
                 SecurityContext context = this.repository.loadContext(requestResponseHolder);
                 if (context != null && context.getAuthentication() != null) {
                     String username = context.getAuthentication().getPrincipal().toString();
@@ -68,13 +68,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-                System.out.println(4);
                 this.repository.saveContext(context, request, response);
             }
 
             @Override
             public boolean containsContext(HttpServletRequest request) {
-                System.out.println(5);
                 return this.repository.containsContext(request);
             }
         });
@@ -90,7 +88,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(new AuthenticationProvider() {
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                System.out.println(2);
                 String username = authentication.getName();
                 String password = authentication.getCredentials().toString();
                 if (userService.validateUser(username, password)) {
@@ -102,14 +99,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public boolean supports(Class<?> authentication) {
-                System.out.println(6);
-
                 return authentication.equals(UsernamePasswordAuthenticationToken.class);
             }
         });
 
         auth.userDetailsService(username -> {
-            System.out.println(1);
             if (userService.hasUser(username)) {
                 com.example.design.model.User user = userService.getByName(username).get(0);
                 return new User(username, user.getPassword(),
