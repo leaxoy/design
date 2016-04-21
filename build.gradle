@@ -50,6 +50,7 @@ dependencies {
     runtime('org.postgresql:postgresql')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
 }
 
 dependencyManagement {
