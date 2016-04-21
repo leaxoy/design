@@ -1,4 +1,4 @@
-package com.example.design.model.resource;
+package com.example.design.model;
 
 import org.springframework.data.annotation.Id;
 

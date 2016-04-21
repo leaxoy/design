@@ -1,7 +1,7 @@
 package com.example.design.service.impl;
 
 import com.example.design.mapper.UserMapper;
-import com.example.design.model.resource.User;
+import com.example.design.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

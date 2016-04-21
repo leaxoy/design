@@ -1,4 +1,4 @@
-package com.example.design.model.auth;
+package com.example.design.authorization.model;
 
 import com.example.design.constant.ResultStatus;
 

@@ -1,4 +1,4 @@
-package com.example.design.model.resource;
+package com.example.design.model;
 
 import com.example.design.constant.Role;
 import com.example.design.constant.Visitor;

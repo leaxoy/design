@@ -1,11 +1,12 @@
-package com.example.design.resolver;
+package com.example.design.authorization.resolver;
 
-import com.example.design.annotation.CurrentUser;
+import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.TokenConstant;
-import com.example.design.model.resource.User;
+import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
  * 增加方法注入，将含有CurrentUser注解的方法参数注入当前登录用户
  * Created by lxh on 4/20/16.
  */
+@Component
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
@@ -32,10 +34,10 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         //取出鉴权时存入的登录用户Id
-        Long currentUserId = (Long) webRequest.getAttribute(TokenConstant.CURRENT_USER_ID, RequestAttributes.SCOPE_REQUEST);
-        if (currentUserId != null) {
+        String accountName = (String) webRequest.getAttribute(TokenConstant.CURRENT_USER_ID, RequestAttributes.SCOPE_REQUEST);
+        if (accountName != null) {
             //从数据库中查询并返回
-            return userService.getByAccountName(String.valueOf(currentUserId));
+            return userService.getByAccountName(accountName);
         }
         throw new MissingServletRequestPartException(TokenConstant.CURRENT_USER_ID);
     }

@@ -1,10 +1,12 @@
 package com.example.design.controller;
 
-import com.example.design.annotation.Authorization;
-import com.example.design.annotation.CurrentUser;
+import com.example.design.authorization.annotation.Authorization;
+import com.example.design.authorization.annotation.CurrentUser;
+import com.example.design.authorization.manager.impl.RedisTokenManager;
+import com.example.design.authorization.model.AuthResult;
+import com.example.design.authorization.model.AuthToken;
 import com.example.design.constant.ResultStatus;
-import com.example.design.model.auth.AuthResult;
-import com.example.design.model.resource.User;
+import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +29,30 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RedisTokenManager tokenManager;
+
+    /**
+     * 处理用户查看跟人信息
+     *
+     * @param user 当前用户
+     * @return 当前用户信息
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String home() {
-        return "auth";
+    @Authorization
+    public ResponseEntity home(@CurrentUser User user) {
+        System.out.println("-----------------------------------------------------------------");
+        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
+    /**
+     * 处理用户登录
+     *
+     * @param request  请求
+     * @param username 用户名
+     * @param password 密码
+     * @return token 信息
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity auth(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
         Assert.notNull(username, "username can not be empty");
@@ -43,17 +64,35 @@ public class AuthController {
             //提示用户名或密码错误
             return new ResponseEntity<>(AuthResult.error(ResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
         }
-        System.out.println(user.toString());
         //生成一个token，保存用户登录状态
-        String name = user.getAccountName();
-        System.out.println(name);
-        request.getSession().setAttribute("userId", name);
+        AuthToken authToken = tokenManager.createToken(user.getAccountName());
+        return new ResponseEntity<>(AuthResult.ok(authToken), HttpStatus.OK);
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param user    当前用户
+     * @param request 请求参数
+     * @return 修改后的用户信息
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    @Authorization
+    public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
+    /**
+     * 退出登录
+     *
+     * @param user 当前用户
+     * @return 请求结果
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     @Authorization
     public ResponseEntity logout(@CurrentUser User user) {
-        return new ResponseEntity<>(AuthResult.ok(), HttpStatus.OK);
+        System.out.println(user);
+        tokenManager.deleteToken(user.getAccountName());
+        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 }
