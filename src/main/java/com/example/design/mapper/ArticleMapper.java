@@ -1,6 +1,7 @@
 package com.example.design.mapper;
 
 import com.example.design.model.Article;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,7 @@ public interface ArticleMapper {
 
     @Update("UPDATE `article` SET WHERE ``=#{id}")
     int updateOne(Article article);
+
+    @Delete("DELETE FROM `article` WHERE `id`=#{}")
+    int deleteId(long id);
 }

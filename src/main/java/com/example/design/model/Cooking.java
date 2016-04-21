@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Cooking {
     @Id
-    private Long cookingID;
+    private Long cookingId;
     private String cookingName;
     private String cookingStyle;
     private Integer cookingStyleID;
@@ -24,12 +24,12 @@ public class Cooking {
     private String ingredient;
     private Boolean state;
 
-    public Long getCookingID() {
-        return cookingID;
+    public Long getCookingId() {
+        return cookingId;
     }
 
-    public void setCookingID(Long cookingID) {
-        this.cookingID = cookingID;
+    public void setCookingId(Long cookingId) {
+        this.cookingId = cookingId;
     }
 
     public String getCookingName() {

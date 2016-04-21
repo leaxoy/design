@@ -56,7 +56,7 @@ CREATE TABLE `collection` (
   `collectionID` INT(11)  NOT NULL,
   `userID`       INT(11)  NOT NULL,
   `menuID`       INT(11) DEFAULT NULL,
-  `cookingID`    INT(11) DEFAULT NULL,
+  `cookingId`    INT(11) DEFAULT NULL,
   `collectDate`  DATETIME NOT NULL
   COMMENT '收藏时间',
   PRIMARY KEY (`collectionID`)
@@ -72,7 +72,7 @@ CREATE TABLE `comment` (
   `comment`     TEXT     NOT NULL
   COMMENT '评论内容',
   `menuID`      INT(11) DEFAULT NULL,
-  `cookingID`   INT(11) DEFAULT NULL,
+  `cookingId`   INT(11) DEFAULT NULL,
   `showID`      INT(11) DEFAULT NULL,
   PRIMARY KEY (`commentID`)
 )
@@ -84,7 +84,7 @@ CREATE TABLE `cooking` (
   `cookingName`    VARCHAR(20)
                    CHARACTER SET utf8
                    COLLATE utf8_bin NOT NULL,
-  `cookingID`      INT(11)          NOT NULL,
+  `cookingId`      INT(11)          NOT NULL,
   `cookingStyle`   VARCHAR(255)     NOT NULL
   COMMENT '菜谱类型',
   `cookingStyleID` INT(11)                   DEFAULT NULL,
@@ -101,27 +101,27 @@ CREATE TABLE `cooking` (
   `ingredient`     TEXT             NOT NULL,
   `state`          INT(1)           NOT NULL DEFAULT '0'
   COMMENT '菜单状态',
-  PRIMARY KEY (`cookingID`)
+  PRIMARY KEY (`cookingId`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 # user 表
 CREATE TABLE `cookinglike` (
-  `cookingID` INT(11) NOT NULL,
+  `cookingId` INT(11) NOT NULL,
   `userID`    INT(11) NOT NULL,
   `state`     INT(1)  NOT NULL DEFAULT '0'
   COMMENT '状态，取消点赞更改为1',
-  PRIMARY KEY (`cookingID`, `userID`)
+  PRIMARY KEY (`cookingId`, `userID`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 # user 表
 CREATE TABLE `cooking-show` (
-  `cookingID` INT(11) NOT NULL,
+  `cookingId` INT(11) NOT NULL,
   `showID`    INT(11) NOT NULL,
-  PRIMARY KEY (`cookingID`, `showID`)
+  PRIMARY KEY (`cookingId`, `showID`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -155,8 +155,8 @@ CREATE TABLE `menu` (
 # user 表
 CREATE TABLE `menu-cooking` (
   `menuID`    INT(11) NOT NULL,
-  `cookingID` INT(11) NOT NULL,
-  PRIMARY KEY (`menuID`, `cookingID`)
+  `cookingId` INT(11) NOT NULL,
+  PRIMARY KEY (`menuID`, `cookingId`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -202,7 +202,7 @@ CREATE TABLE `report` (
   COMMENT '被举报的用户ID',
   `menuID`         INT(11)          DEFAULT NULL
   COMMENT '被举报的菜单ID',
-  `cookingID`      INT(11)          DEFAULT NULL
+  `cookingId`      INT(11)          DEFAULT NULL
   COMMENT '被举报的菜谱ID',
   `showID`         INT(11)          DEFAULT NULL
   COMMENT '被举报的作品ID',
@@ -228,7 +228,7 @@ CREATE TABLE `share` (
   `shareDate`   DATETIME NOT NULL
   COMMENT '分享发布时间',
   `menuID`      INT(11) DEFAULT NULL,
-  `cookingID`   INT(11) DEFAULT NULL,
+  `cookingId`   INT(11) DEFAULT NULL,
   `shareConent` TEXT     NOT NULL
   COMMENT '分享配文',
   PRIMARY KEY (`shareID`)
