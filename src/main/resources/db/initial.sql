@@ -19,15 +19,15 @@ CREATE TABLE `user` (
   `id`             INT(11)     NOT NULL AUTO_INCREMENT,
   `role`           VARCHAR(20) NOT NULL
   COMMENT '用户权限',
-  `accountName`    INT(11)     NOT NULL
+  `username`    INT(11)     NOT NULL
   COMMENT '用户账号名（手机号）',
   `password`       VARCHAR(50) NOT NULL
   COMMENT '密码,应该是加密过的',
   `email`          VARCHAR(50)          DEFAULT NULL
   COMMENT '备用邮箱,找回密码',
-  `nickName`       VARCHAR(20)          DEFAULT NULL
+  `nickname`       VARCHAR(20)          DEFAULT NULL
   COMMENT '用户昵称',
-  `userPicture`    VARCHAR(50)          DEFAULT NULL
+  `avatar`    VARCHAR(50)          DEFAULT NULL
   COMMENT '用户头像',
   `name`           VARCHAR(20)          DEFAULT NULL
   COMMENT '用户真实姓名',
@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
   PRIMARY KEY (id),
   UNIQUE KEY `table_name_userID_uindex` (id),
-  UNIQUE KEY `table_name_account_uindex` (accountName)
+  UNIQUE KEY `table_name_account_uindex` (username)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -267,11 +267,11 @@ CREATE TABLE `show` (
 # mock 数据
 
 # user
-INSERT INTO design.user (role, accountName, password, email, nickName, userPicture,
+INSERT INTO design.user (role, username, password, email, nickname, avatar,
                          name, sex, birthday, job, city, userIntro, visitor) VALUES (
   'USER', '13377871349', '128098', '727615480@qq.com', 'lxh', NULL,
           'lxh', 'male', '1993-08-12', 'engineer', 'xingtai', 'I''m a student', '0');
-INSERT INTO design.user (role, accountName, password, email, nickName, userPicture,
+INSERT INTO design.user (role, username, password, email, nickname, avatar,
                          name, sex, birthday, job, city, userIntro, visitor) VALUES (
   'ADMIN', '12345678902', '123456', '727615480@qq.com', 'lily', NULL,
            'lily', 'female', '1993-09-25', 'engineer', 'chongqing', 'I''m a student', '0');

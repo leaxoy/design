@@ -2,8 +2,9 @@ package com.example.design.controller;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
-import com.example.design.constant.ResultStatus;
+import com.example.design.authorization.manager.TokenManager;
 import com.example.design.authorization.model.AuthResult;
+import com.example.design.constant.ResultStatus;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,29 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TokenManager tokenManager;
+
+    /**
+     * 处理用户查看跟人信息
+     *
+     * @param user 当前用户
+     * @return 当前用户信息
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String home() {
-        return "auth";
+    @Authorization
+    public ResponseEntity home(@CurrentUser User user) {
+        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
+    /**
+     * 处理用户登录
+     *
+     * @param request  请求
+     * @param username 用户名
+     * @param password 密码
+     * @return token 信息
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity auth(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
         Assert.notNull(username, "username can not be empty");
@@ -45,12 +64,31 @@ public class AuthController {
         }
         System.out.println(user.toString());
         //生成一个token，保存用户登录状态
-        String name = user.getAccountName();
+        String name = user.getUsername();
         request.getSession().setAttribute("userId", name);
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    /**
+     * 更新用户信息
+     *
+     * @param user    当前用户
+     * @param request 请求参数
+     * @return 修改后的用户信息
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    @Authorization
+    public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
+        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param user 当前用户
+     * @return 请求结果
+     */
+    @RequestMapping(value = "logout", method = RequestMethod.DELETE)
     @Authorization
     public ResponseEntity logout(@CurrentUser User user) {
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);

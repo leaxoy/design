@@ -1,12 +1,16 @@
 package com.example.design.configuration;
 
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.context.annotation.Bean;
+import com.example.design.authorization.interceptor.AuthorizationInterceptor;
+import com.example.design.authorization.resolver.CurrentUserMethodArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 /**
  * 对spring mvc 的一些配置.
@@ -15,34 +19,23 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableWebMvc
 public class WebMvc extends WebMvcConfigurerAdapter {
+    @Autowired
+    private AuthorizationInterceptor authorizationInterceptor;
+    @Autowired
+    private CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver;
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/signin").setViewName("signin");
     }
 
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        return new LocaleChangeInterceptor();
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.setUseSuffixPatternMatch(false).setUseTrailingSlashMatch(true);
+        registry.addInterceptor(authorizationInterceptor);
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
-    }
-
-    @Bean
-    public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizer() {
-        return container -> container.setSessionTimeout(1, TimeUnit.MINUTES);
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(currentUserMethodArgumentResolver);
     }
 }

@@ -3,6 +3,7 @@ package com.example.design.authorization.interceptor;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.TokenManager;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,6 +17,7 @@ import java.lang.reflect.Method;
  * 自定义拦截器，对请求进行身份验证
  * Created by lxh on 4/20/16.
  */
+@Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     /**
      * 存放登录用户模型Key的Request Key
