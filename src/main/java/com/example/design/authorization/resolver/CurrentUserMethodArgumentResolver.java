@@ -1,6 +1,6 @@
-package com.example.design.authentication.resolver;
+package com.example.design.authorization.resolver;
 
-import com.example.design.authentication.annotation.CurrentUser;
+import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.TokenConstant;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;

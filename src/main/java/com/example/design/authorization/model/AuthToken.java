@@ -1,4 +1,4 @@
-package com.example.design.authentication.model;
+package com.example.design.authorization.model;
 
 /**
  * 认证过程token

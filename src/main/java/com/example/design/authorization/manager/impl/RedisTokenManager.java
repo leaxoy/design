@@ -1,5 +1,6 @@
-package com.example.design.authentication.manager.impl;
+package com.example.design.authorization.manager.impl;
 
+import com.example.design.authorization.model.AuthToken;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -96,5 +97,15 @@ public class RedisTokenManager extends AbstractTokenManager {
 
     private String formatToken(String token) {
         return REDIS_TOKEN_PREFIX.concat(token);
+    }
+
+    @Override
+    public AuthToken createToken(String key) {
+        return null;
+    }
+
+    @Override
+    public boolean verifyToken(AuthToken token) {
+        return false;
     }
 }

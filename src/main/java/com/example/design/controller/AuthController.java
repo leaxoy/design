@@ -1,9 +1,9 @@
 package com.example.design.controller;
 
-import com.example.design.authentication.annotation.Authorization;
-import com.example.design.authentication.annotation.CurrentUser;
+import com.example.design.authorization.annotation.Authorization;
+import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.ResultStatus;
-import com.example.design.authentication.model.AuthResult;
+import com.example.design.authorization.model.AuthResult;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

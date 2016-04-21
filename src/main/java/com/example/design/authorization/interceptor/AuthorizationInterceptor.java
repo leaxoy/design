@@ -1,7 +1,7 @@
-package com.example.design.authentication.interceptor;
+package com.example.design.authorization.interceptor;
 
-import com.example.design.authentication.annotation.Authorization;
-import com.example.design.authentication.manager.TokenManager;
+import com.example.design.authorization.annotation.Authorization;
+import com.example.design.authorization.manager.TokenManager;
 import org.springframework.http.MediaType;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

@@ -1,4 +1,4 @@
-package com.example.design.authentication.annotation;
+package com.example.design.authorization.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
