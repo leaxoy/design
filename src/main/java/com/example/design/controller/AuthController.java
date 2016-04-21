@@ -6,6 +6,7 @@ import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthResult;
 import com.example.design.authorization.model.AuthToken;
 import com.example.design.constant.ResultStatus;
+import com.example.design.constant.Role;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class AuthController {
      * @return 当前用户信息
      */
     @RequestMapping(method = RequestMethod.GET)
-    @Authorization
+    @Authorization({Role.USER, Role.ADMIN})
     public ResponseEntity home(@CurrentUser User user) {
         System.out.println("-----------------------------------------------------------------");
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
@@ -77,7 +78,7 @@ public class AuthController {
      * @return 修改后的用户信息
      */
     @RequestMapping(method = RequestMethod.PUT)
-    @Authorization
+    @Authorization({Role.USER, Role.ADMIN})
     public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
@@ -89,7 +90,7 @@ public class AuthController {
      * @return 请求结果
      */
     @RequestMapping(method = RequestMethod.DELETE)
-    @Authorization
+    @Authorization({Role.USER, Role.ADMIN})
     public ResponseEntity logout(@CurrentUser User user) {
         System.out.println(user);
         tokenManager.deleteToken(user.getAccountName());

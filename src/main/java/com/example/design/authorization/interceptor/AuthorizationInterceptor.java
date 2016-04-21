@@ -3,7 +3,10 @@ package com.example.design.authorization.interceptor;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthToken;
+import com.example.design.constant.Role;
 import com.example.design.constant.TokenConstant;
+import com.example.design.model.User;
+import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 自定义拦截器，对请求进行身份验证
@@ -22,6 +28,8 @@ import java.lang.reflect.Method;
  */
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
+    @Autowired
+    private UserService userService;
     //管理身份验证操作的对象
     @Autowired
     private RedisTokenManager manager;
@@ -64,6 +72,16 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             if (token != null && manager.checkToken(token)) {
                 //如果token验证成功，将token对应的用户id存在request中，便于之后注入
                 request.setAttribute(TokenConstant.CURRENT_USER_ID, token.getAccountName());
+
+                Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
+                if (authorization != null) {
+                    List<Role> roles = new ArrayList<>(Arrays.asList(authorization.value()));
+                    if (roles.size() != 0) {
+                        User user = userService.getByAccountName(token.getAccountName());
+                        Role role = user.getRole();
+                        return roles.contains(role);
+                    }
+                }
                 return true;
             }
         }
