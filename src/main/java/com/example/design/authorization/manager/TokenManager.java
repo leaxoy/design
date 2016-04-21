@@ -14,7 +14,7 @@ public interface TokenManager {
      * @param accountName 指定用户的accountName
      * @return 生成的token
      */
-    public AuthToken createToken(String accountName);
+    AuthToken createToken(String accountName);
 
     /**
      * 检查token是否有效
@@ -22,22 +22,22 @@ public interface TokenManager {
      * @param model token
      * @return 是否有效
      */
-    public boolean checkToken(AuthToken model);
+    boolean checkToken(AuthToken model);
 
     /**
      * 从字符串中解析token
      *
      * @param authentication 加密后的字符串
-     * @return
+     * @return 获取到的token
      */
-    public AuthToken getToken(String authentication);
+    AuthToken getToken(String authentication);
 
     /**
      * 清除token
      *
      * @param accountName 登录用户的id
      */
-    public void deleteToken(String accountName);
+    void deleteToken(String accountName);
 
 }
 

@@ -1,6 +1,6 @@
 package com.example.design.model;
 
-import com.example.design.constant.Role;
+import com.example.design.constant.UserRole;
 import com.example.design.constant.Visitor;
 import org.springframework.data.annotation.Id;
 
@@ -26,14 +26,14 @@ public class User {
     private String city;            // 居住城市
     private String userIntro;       // 个人介绍
     private Visitor visitor;        // 其他用户的浏览权限
-    private Role role;              // 用户权限
+    private UserRole userRole;      // 用户权限
 
     @Override
     public String toString() {
         return "我的ID是:\t" + id + "\n我的账户名称:\t" + accountName + "\n密码是:\t" + password + "\n邮箱是:\t" + email +
                 "\n昵称是:\t" + nickName + "\n头像在:\t" + userPicture + "\n真是姓名是:\t" + name + "\n性别是:\t" + sex +
                 "\n生日是:\t" + birthday + "\n工作是:\t" + job
-                + "\n居住城市是:\t" + city + "\n个人介绍是:\t" + userIntro + "\n用户组是:\t" + role.name();
+                + "\n居住城市是:\t" + city + "\n个人介绍是:\t" + userIntro + "\n用户组是:\t" + userRole.name();
     }
 
     public Long getId() {
@@ -132,12 +132,12 @@ public class User {
         this.userIntro = userIntro;
     }
 
-    public Role getRole() {
-        return role;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public Visitor getVisitor() {
