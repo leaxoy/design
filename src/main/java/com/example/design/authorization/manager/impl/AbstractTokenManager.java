@@ -1,7 +1,8 @@
 package com.example.design.authorization.manager.impl;
 
-import com.example.design.exception.MethodNotSupportException;
 import com.example.design.authorization.manager.TokenManager;
+import com.example.design.authorization.model.AuthToken;
+import com.example.design.exception.MethodNotSupportException;
 
 /**
  * Token管理的基础类
@@ -28,13 +29,13 @@ public abstract class AbstractTokenManager implements TokenManager {
         this.flushExpireAfterOperation = flushExpireAfterOperation;
     }
 
-    public String getToken(String key) {
+    public AuthToken getToken(String key) {
         String token = getTokenByKey(key);
         //根据设置，在每次有效操作后刷新过期时间
         if (token != null && flushExpireAfterOperation) {
             flushExpireAfterOperation(key, token);
         }
-        return token;
+        return null;
     }
 
     public String getKey(String token) {

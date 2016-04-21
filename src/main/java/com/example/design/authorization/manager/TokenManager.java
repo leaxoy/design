@@ -9,41 +9,35 @@ import com.example.design.authorization.model.AuthToken;
 public interface TokenManager {
 
     /**
-     * 通过 key 获取token
+     * 创建一个token关联上指定用户
      *
-     * @param key token 的key
-     * @return token
+     * @param accountName 指定用户的accountName
+     * @return 生成的token
      */
-    String getToken(String key);
+    public AuthToken createToken(String accountName);
 
     /**
-     * 通过 token 获取key
+     * 检查token是否有效
      *
-     * @param token key 的token
-     * @return key
+     * @param model token
+     * @return 是否有效
      */
-    String getKey(String token);
+    public boolean checkToken(AuthToken model);
 
     /**
-     * 通过key 生成新的 token
+     * 从字符串中解析token
      *
-     * @param key key
-     * @return token
+     * @param authentication 加密后的字符串
+     * @return
      */
-    AuthToken createToken(String key);
+    public AuthToken getToken(String authentication);
 
     /**
-     * 通过key 删除token
+     * 清除token
      *
-     * @param key key
+     * @param accountName 登录用户的id
      */
-    void deleteToken(String key);
+    public void deleteToken(String accountName);
 
-    /**
-     * 验证 token 的可用性
-     *
-     * @param token token
-     * @return 可用true, 不可用false
-     */
-    boolean verifyToken(AuthToken token);
 }
+

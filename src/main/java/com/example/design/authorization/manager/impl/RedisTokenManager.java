@@ -1,111 +1,72 @@
 package com.example.design.authorization.manager.impl;
 
+import com.example.design.authorization.manager.TokenManager;
 import com.example.design.authorization.model.AuthToken;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import com.example.design.constant.TokenConstant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 使用Redis存储Token
  * Created by lxh on 4/20/16.
  */
-public class RedisTokenManager extends AbstractTokenManager {
+@Component
+public class RedisTokenManager implements TokenManager {
 
-    /**
-     * Redis中Key的前缀
-     */
-    private static final String REDIS_KEY_PREFIX = "AUTHORIZATION_KEY_";
+    private RedisTemplate<String, String> redis;
 
-    /**
-     * Redis中Token的前缀
-     */
-    private static final String REDIS_TOKEN_PREFIX = "AUTHORIZATION_TOKEN_";
-
-    /**
-     * Jedis连接池
-     */
-    protected JedisPool jedisPool;
-
-    public void setJedisPool(JedisPool jedisPool) {
-        this.jedisPool = jedisPool;
+    @Autowired
+    public void setRedis(RedisTemplate<String, String> redisTemplate) {
+        this.redis = redisTemplate;
+        redis.setKeySerializer(new JdkSerializationRedisSerializer());
     }
 
     @Override
-    protected String getKeyByToken(String token) {
-        return get(formatToken(token));
+    public AuthToken createToken(String accountName) {
+        //使用uuid作为源token
+        String token = UUID.randomUUID().toString().replace("-", "");
+        AuthToken model = new AuthToken(accountName, token);
+        //存储到redis并设置过期时间
+        redis.boundValueOps(accountName).set(token, TokenConstant.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
+        return model;
     }
 
     @Override
-    protected String getTokenByKey(String key) {
-        return get(formatKey(key));
-    }
-
-    @Override
-    protected void flushExpireAfterOperation(String key, String token) {
-        if (singleTokenWithUser) {
-            expire(formatKey(key), tokenExpireSeconds);
+    public boolean checkToken(AuthToken model) {
+        if (model == null) {
+            return false;
         }
-        expire(formatToken(token), tokenExpireSeconds);
+        String token = redis.boundValueOps(model.getAccountName()).get();
+        if (token == null || !token.equals(model.getTokenContent())) {
+            return false;
+        }
+        //如果验证成功，说明此用户进行了一次有效操作，延长token的过期时间
+        redis.boundValueOps(model.getAccountName()).expire(TokenConstant.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
+        return true;
     }
 
     @Override
-    protected void createMultipleRelationship(String key, String token) {
-        set(formatToken(token), key, tokenExpireSeconds);
+    public AuthToken getToken(String authentication) {
+        if (authentication == null || authentication.length() == 0) {
+            return null;
+        }
+        String[] param = authentication.split("_");
+        if (param.length != 2) {
+            return null;
+        }
+        //使用accountName和源token简单拼接成的token，可以增加加密措施
+        String accountName = param[0];
+        String token = param[1];
+        return new AuthToken(accountName, token);
     }
 
     @Override
-    protected void createSingleRelationship(String key, String token) {
-        String oldToken = get(formatKey(key));
-        if (oldToken != null) {
-            delete(formatToken(oldToken));
-        }
-        set(formatToken(token), key, tokenExpireSeconds);
-        set(formatKey(key), token, tokenExpireSeconds);
-    }
-
-    @Override
-    protected void delSingleRelationshipByKey(String key) {
-
-    }
-
-    private String get(String key) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            return jedis.get(key);
-        }
-    }
-
-    private String set(String key, String value, int expireSeconds) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            return jedis.setex(key, expireSeconds, value);
-        }
-    }
-
-    private void expire(String key, int seconds) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            jedis.expire(key, seconds);
-        }
-    }
-
-    private void delete(String... keys) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            jedis.del(keys);
-        }
-    }
-
-    private String formatKey(String key) {
-        return REDIS_KEY_PREFIX.concat(key);
-    }
-
-    private String formatToken(String token) {
-        return REDIS_TOKEN_PREFIX.concat(token);
-    }
-
-    @Override
-    public AuthToken createToken(String key) {
-        return null;
-    }
-
-    @Override
-    public boolean verifyToken(AuthToken token) {
-        return false;
+    public void deleteToken(String accountName) {
+        redis.delete(accountName);
     }
 }

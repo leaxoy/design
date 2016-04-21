@@ -2,8 +2,9 @@ package com.example.design.controller;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
-import com.example.design.authorization.manager.TokenManager;
+import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthResult;
+import com.example.design.authorization.model.AuthToken;
 import com.example.design.constant.ResultStatus;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
@@ -29,7 +30,7 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private TokenManager tokenManager;
+    private RedisTokenManager tokenManager;
 
     /**
      * 处理用户查看跟人信息
@@ -40,6 +41,7 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.GET)
     @Authorization
     public ResponseEntity home(@CurrentUser User user) {
+        System.out.println("-----------------------------------------------------------------");
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
@@ -62,11 +64,9 @@ public class AuthController {
             //提示用户名或密码错误
             return new ResponseEntity<>(AuthResult.error(ResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
         }
-        System.out.println(user.toString());
         //生成一个token，保存用户登录状态
-        String name = user.getUsername();
-        request.getSession().setAttribute("userId", name);
-        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
+        AuthToken authToken = tokenManager.createToken(user.getAccountName());
+        return new ResponseEntity<>(AuthResult.ok(authToken), HttpStatus.OK);
     }
 
     /**
@@ -88,9 +88,11 @@ public class AuthController {
      * @param user 当前用户
      * @return 请求结果
      */
-    @RequestMapping(value = "logout", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     @Authorization
     public ResponseEntity logout(@CurrentUser User user) {
+        System.out.println(user);
+        tokenManager.deleteToken(user.getAccountName());
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 }

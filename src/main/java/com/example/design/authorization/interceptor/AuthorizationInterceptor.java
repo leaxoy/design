@@ -1,7 +1,10 @@
 package com.example.design.authorization.interceptor;
 
 import com.example.design.authorization.annotation.Authorization;
-import com.example.design.authorization.manager.TokenManager;
+import com.example.design.authorization.manager.impl.RedisTokenManager;
+import com.example.design.authorization.model.AuthToken;
+import com.example.design.constant.TokenConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -19,16 +22,9 @@ import java.lang.reflect.Method;
  */
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
-    /**
-     * 存放登录用户模型Key的Request Key
-     */
-    public static final String REQUEST_CURRENT_KEY = "REQUEST_CURRENT_KEY";
-
     //管理身份验证操作的对象
-    private TokenManager manager;
-
-    //存放鉴权信息的Header名称，默认是Authorization
-    private String httpHeaderName = "Authorization";
+    @Autowired
+    private RedisTokenManager manager;
 
     //鉴权信息的无用前缀，默认为空
     private String httpHeaderPrefix = "";
@@ -38,14 +34,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     //鉴权失败后返回的HTTP错误码，默认为401
     private int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
-
-    public void setManager(TokenManager manager) {
-        this.manager = manager;
-    }
-
-    public void setHttpHeaderName(String httpHeaderName) {
-        this.httpHeaderName = httpHeaderName;
-    }
 
     public void setHttpHeaderPrefix(String httpHeaderPrefix) {
         this.httpHeaderPrefix = httpHeaderPrefix;
@@ -68,17 +56,18 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //从header中得到token
-        String token = request.getHeader(httpHeaderName);
-        if (token != null && token.startsWith(httpHeaderPrefix) && token.length() > 0) {
-            token = token.substring(httpHeaderPrefix.length());
+        String tokenValue = request.getHeader(TokenConstant.AUTHORIZATION);
+        if (tokenValue != null && tokenValue.startsWith(httpHeaderPrefix) && tokenValue.length() > 0) {
+            tokenValue = tokenValue.substring(httpHeaderPrefix.length());
             //验证token
-            String key = manager.getKey(token);
-            if (key != null) {
+            AuthToken token = manager.getToken(tokenValue);
+            if (token != null && manager.checkToken(token)) {
                 //如果token验证成功，将token对应的用户id存在request中，便于之后注入
-                request.setAttribute(REQUEST_CURRENT_KEY, key);
+                request.setAttribute(TokenConstant.CURRENT_USER_ID, token.getAccountName());
                 return true;
             }
         }
+
         //如果验证token失败，并且方法注明了Authorization，返回401错误
         if (method.getAnnotation(Authorization.class) != null   //查看方法上是否有注解
                 || handlerMethod.getBeanType().getAnnotation(Authorization.class) != null) {    //查看方法所在的Controller是否有注解
@@ -89,8 +78,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             writer.close();
             return false;
         }
+
         //为了防止以恶意操作直接在REQUEST_CURRENT_KEY写入key，将其设为null
-        request.setAttribute(REQUEST_CURRENT_KEY, null);
+        request.setAttribute(TokenConstant.CURRENT_USER_ID, null);
         return true;
     }
 }
