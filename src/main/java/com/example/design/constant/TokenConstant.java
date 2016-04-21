@@ -9,5 +9,9 @@ public class TokenConstant {
 
     public static final String CURRENT_USER_ID = "CURRENT_USER_ID";
 
-    public static final String AUTHORIZATION = "authorization";
+    public static final String CURRENT_USER_ROLE = "CURRENT_USER_ROLE";
+
+    public static final String CURRENT_USER_COMPETENCE = "CURRENT_USER_COMPETENCE";
+
+    public static final String AUTHORIZATION = "Authorization";
 }

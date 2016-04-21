@@ -3,7 +3,7 @@ package com.example.design.authorization.interceptor;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthToken;
-import com.example.design.constant.Role;
+import com.example.design.constant.UserRole;
 import com.example.design.constant.TokenConstant;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
@@ -75,11 +75,11 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
                 Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
                 if (authorization != null) {
-                    List<Role> roles = new ArrayList<>(Arrays.asList(authorization.value()));
-                    if (roles.size() != 0) {
+                    List<UserRole> userRoles = new ArrayList<>(Arrays.asList(authorization.value()));
+                    if (userRoles.size() != 0) {
                         User user = userService.getByAccountName(token.getAccountName());
-                        Role role = user.getRole();
-                        return roles.contains(role);
+                        UserRole userRole = user.getUserRole();
+                        return userRoles.contains(userRole);
                     }
                 }
                 return true;

@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS `user`;
 # user 表
 CREATE TABLE `user` (
   `id`             INT(11)     NOT NULL AUTO_INCREMENT,
-  `role`           VARCHAR(20) NOT NULL
+  `userRole`           VARCHAR(20) NOT NULL
   COMMENT '用户权限',
   `username`    INT(11)     NOT NULL
   COMMENT '用户账号名（手机号）',
@@ -267,11 +267,11 @@ CREATE TABLE `show` (
 # mock 数据
 
 # user
-INSERT INTO design.user (role, username, password, email, nickname, avatar,
+INSERT INTO design.user (userRole, username, password, email, nickname, avatar,
                          name, sex, birthday, job, city, userIntro, visitor) VALUES (
   'USER', '13377871349', '128098', '727615480@qq.com', 'lxh', NULL,
           'lxh', 'male', '1993-08-12', 'engineer', 'xingtai', 'I''m a student', '0');
-INSERT INTO design.user (role, username, password, email, nickname, avatar,
+INSERT INTO design.user (userRole, username, password, email, nickname, avatar,
                          name, sex, birthday, job, city, userIntro, visitor) VALUES (
   'ADMIN', '12345678902', '123456', '727615480@qq.com', 'lily', NULL,
            'lily', 'female', '1993-09-25', 'engineer', 'chongqing', 'I''m a student', '0');

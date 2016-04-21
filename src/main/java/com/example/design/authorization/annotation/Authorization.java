@@ -1,6 +1,6 @@
 package com.example.design.authorization.annotation;
 
-import com.example.design.constant.Role;
+import com.example.design.constant.UserRole;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authorization {
-    Role[] value() default {Role.USER};
+    UserRole[] value() default {UserRole.USER};
 }

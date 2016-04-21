@@ -1,6 +1,6 @@
 package com.example.design.authorization.model;
 
-import com.example.design.constant.ResultStatus;
+import com.example.design.constant.AuthResultStatus;
 
 /**
  * 认证结果 AuthResult
@@ -39,27 +39,27 @@ public class AuthResult {
         this.content = content;
     }
 
-    public AuthResult(ResultStatus status) {
+    public AuthResult(AuthResultStatus status) {
         this.code = status.getCode();
         this.message = status.getMessage();
         this.content = "";
     }
 
-    public AuthResult(ResultStatus status, Object content) {
+    public AuthResult(AuthResultStatus status, Object content) {
         this.code = status.getCode();
         this.message = status.getMessage();
         this.content = content;
     }
 
     public static AuthResult ok(Object content) {
-        return new AuthResult(ResultStatus.SUCCESS, content);
+        return new AuthResult(AuthResultStatus.SUCCESS, content);
     }
 
     public static AuthResult ok() {
-        return new AuthResult(ResultStatus.SUCCESS);
+        return new AuthResult(AuthResultStatus.SUCCESS);
     }
 
-    public static AuthResult error(ResultStatus error) {
+    public static AuthResult error(AuthResultStatus error) {
         return new AuthResult(error);
     }
 

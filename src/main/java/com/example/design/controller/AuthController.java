@@ -5,8 +5,8 @@ import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthResult;
 import com.example.design.authorization.model.AuthToken;
-import com.example.design.constant.ResultStatus;
-import com.example.design.constant.Role;
+import com.example.design.constant.AuthResultStatus;
+import com.example.design.constant.UserRole;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class AuthController {
      * @return 当前用户信息
      */
     @RequestMapping(method = RequestMethod.GET)
-    @Authorization({Role.USER, Role.ADMIN})
+    @Authorization({UserRole.USER, UserRole.ADMIN})
     public ResponseEntity home(@CurrentUser User user) {
         System.out.println("-----------------------------------------------------------------");
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class AuthController {
         if (user == null ||  //未注册
                 !user.getPassword().equals(password)) {  //密码错误
             //提示用户名或密码错误
-            return new ResponseEntity<>(AuthResult.error(ResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
         }
         //生成一个token，保存用户登录状态
         AuthToken authToken = tokenManager.createToken(user.getAccountName());
@@ -78,7 +78,7 @@ public class AuthController {
      * @return 修改后的用户信息
      */
     @RequestMapping(method = RequestMethod.PUT)
-    @Authorization({Role.USER, Role.ADMIN})
+    @Authorization({UserRole.USER, UserRole.ADMIN})
     public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
@@ -90,7 +90,7 @@ public class AuthController {
      * @return 请求结果
      */
     @RequestMapping(method = RequestMethod.DELETE)
-    @Authorization({Role.USER, Role.ADMIN})
+    @Authorization({UserRole.USER, UserRole.ADMIN})
     public ResponseEntity logout(@CurrentUser User user) {
         System.out.println(user);
         tokenManager.deleteToken(user.getAccountName());

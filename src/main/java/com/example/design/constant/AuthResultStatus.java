@@ -4,7 +4,7 @@ package com.example.design.constant;
  * 资源返回状态的定义
  * Created by lxh on 4/20/16.
  */
-public enum ResultStatus {
+public enum AuthResultStatus {
     SUCCESS(100, "成功"),
     USERNAME_OR_PASSWORD_ERROR(-1001, "用户名或密码错误"),
     USER_NOT_FOUND(-1002, "用户不存在"),
@@ -20,7 +20,7 @@ public enum ResultStatus {
      */
     private String message;
 
-    ResultStatus(int code, String message) {
+    AuthResultStatus(int code, String message) {
         this.code = code;
         this.message = message;
     }
