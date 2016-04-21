@@ -23,6 +23,6 @@ public interface ArticleMapper {
     @Update("UPDATE `article` SET WHERE ``=#{id}")
     int updateOne(Article article);
 
-    @Delete("DELETE FROM `article` WHERE `id`=#{}")
+    @Delete("DELETE FROM `article` WHERE `id`=#{id}")
     int deleteId(long id);
 }

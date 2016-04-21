@@ -22,10 +22,6 @@ spring:
       min-idle: 0
     database: 1
   data:
-    elasticsearch:
-      cluster-name: elasticsearch_lxh
-      repositories:
-        enabled: true
     mongodb:
       database: test
       host: localhost
@@ -38,12 +34,12 @@ server:
 endpoints:
   actuator:
     enabled: true
-  restart:
-    enabled: true
   shutdown:
     enabled: true
   health:
     enabled: true
+  configprops:
+    sensitive: true
 
 logging:
   level:

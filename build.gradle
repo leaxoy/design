@@ -32,6 +32,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-aop')
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
@@ -45,6 +46,8 @@ dependencies {
     compile('org.springframework.session:spring-session')
     compile('io.jsonwebtoken:jjwt:0.6.0')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.2')
+
+    compile('com.google.code.gson:gson:2.6.2')
 
     runtime('mysql:mysql-connector-java')
     runtime('org.postgresql:postgresql')
