@@ -1,7 +1,7 @@
 package com.example.design.mapper;
 
 import com.example.design.constant.Role;
-import com.example.design.model.resource.User;
+import com.example.design.model.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;

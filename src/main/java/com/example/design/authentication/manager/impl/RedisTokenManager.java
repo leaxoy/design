@@ -1,4 +1,4 @@
-package com.example.design.manager.impl;
+package com.example.design.authentication.manager.impl;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

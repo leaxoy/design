@@ -1,7 +1,7 @@
-package com.example.design.manager.impl;
+package com.example.design.authentication.manager.impl;
 
 import com.example.design.exception.MethodNotSupportException;
-import com.example.design.manager.TokenManager;
+import com.example.design.authentication.manager.TokenManager;
 
 /**
  * Token管理的基础类

@@ -1,6 +1,6 @@
 package com.example.design.mapper;
 
-import com.example.design.model.resource.Menu;
+import com.example.design.model.Menu;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;

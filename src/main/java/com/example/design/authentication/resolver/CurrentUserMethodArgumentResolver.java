@@ -1,8 +1,8 @@
-package com.example.design.resolver;
+package com.example.design.authentication.resolver;
 
-import com.example.design.annotation.CurrentUser;
+import com.example.design.authentication.annotation.CurrentUser;
 import com.example.design.constant.TokenConstant;
-import com.example.design.model.resource.User;
+import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;

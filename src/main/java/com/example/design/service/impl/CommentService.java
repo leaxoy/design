@@ -1,6 +1,6 @@
 package com.example.design.service.impl;
 
-import com.example.design.model.resource.Comment;
+import com.example.design.model.Comment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

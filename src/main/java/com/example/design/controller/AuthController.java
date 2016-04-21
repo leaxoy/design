@@ -1,10 +1,10 @@
 package com.example.design.controller;
 
-import com.example.design.annotation.Authorization;
-import com.example.design.annotation.CurrentUser;
+import com.example.design.authentication.annotation.Authorization;
+import com.example.design.authentication.annotation.CurrentUser;
 import com.example.design.constant.ResultStatus;
-import com.example.design.model.auth.AuthResult;
-import com.example.design.model.resource.User;
+import com.example.design.authentication.model.AuthResult;
+import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +46,6 @@ public class AuthController {
         System.out.println(user.toString());
         //生成一个token，保存用户登录状态
         String name = user.getAccountName();
-        System.out.println(name);
         request.getSession().setAttribute("userId", name);
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
@@ -54,6 +53,6 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.DELETE)
     @Authorization
     public ResponseEntity logout(@CurrentUser User user) {
-        return new ResponseEntity<>(AuthResult.ok(), HttpStatus.OK);
+        return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 }

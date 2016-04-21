@@ -1,4 +1,4 @@
-package com.example.design.manager;
+package com.example.design.authentication.manager;
 
 /**
  * 对Token进行管理的接口
