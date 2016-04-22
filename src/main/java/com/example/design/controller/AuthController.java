@@ -40,9 +40,8 @@ public class AuthController {
      * @return 当前用户信息
      */
     @RequestMapping(method = RequestMethod.GET)
-    @Authorization({UserRole.USER, UserRole.ADMIN})
+    @Authorization({UserRole.GUEST, UserRole.USER, UserRole.ADMIN})
     public ResponseEntity home(@CurrentUser User user) {
-        System.out.println("-----------------------------------------------------------------");
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }
 
@@ -92,7 +91,6 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.DELETE)
     @Authorization({UserRole.USER, UserRole.ADMIN})
     public ResponseEntity logout(@CurrentUser User user) {
-        System.out.println(user);
         tokenManager.deleteToken(user.getAccountName());
         return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
     }

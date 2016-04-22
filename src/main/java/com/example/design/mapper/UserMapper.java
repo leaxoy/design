@@ -31,7 +31,7 @@ public interface UserMapper {
 
     @Select("SELECT `role` FROM `user` WHERE `accountName`=#{name}")
     @Results(value = {@Result(column = "role", property = "UserRole", javaType = UserRole.class, jdbcType = JdbcType.CHAR)})
-    String getRole(String name);
+    UserRole getRole(String name);
 
     @Delete("DELETE FROM `user` WHERE `id`=#{id}")
     int delete(int id);

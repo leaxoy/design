@@ -1,5 +1,6 @@
 package com.example.design.service.impl;
 
+import com.example.design.constant.UserRole;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,8 @@ public class UserService implements UserDetailsService {
         return mapper.deleteByAccountName(phone);
     }
 
-    public String[] getRoles(String name) {
-        String role = mapper.getRole(name);
-        if (null == role) {
-            return null;
-        }
-        return role.split(";");
+    public UserRole getRole(String name) {
+        return mapper.getRole(name);
     }
 
     public boolean validateUser(String name, String password) {
