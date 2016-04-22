@@ -75,7 +75,7 @@ public class LogAspect {
         if (loginInfo != null && !"".equals(loginInfo)) {
             userName = "username";
         } else {
-            userName = "用户未登录";
+            userName = "游客";
         }
         // 获取输入参数
         inputParamMap = request.getParameterMap();
