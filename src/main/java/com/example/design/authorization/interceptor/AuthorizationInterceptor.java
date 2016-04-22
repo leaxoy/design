@@ -3,8 +3,8 @@ package com.example.design.authorization.interceptor;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthToken;
-import com.example.design.constant.UserRole;
 import com.example.design.constant.TokenConstant;
+import com.example.design.constant.UserRole;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +55,10 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         this.unauthorizedErrorCode = unauthorizedErrorCode;
     }
 
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler) throws Exception {
         //如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
