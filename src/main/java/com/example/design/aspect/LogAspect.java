@@ -83,7 +83,7 @@ public class LogAspect {
         requestPath = request.getRequestURI();
 
         // 执行完方法的返回值：调用proceed()方法，就会触发切入点方法执行
-        outputParamMap = new HashMap<String, Object>();
+        outputParamMap = new HashMap<>();
         Object result = pjp.proceed();// result的值就是被拦截方法的返回值
         outputParamMap.put("result", result);
 

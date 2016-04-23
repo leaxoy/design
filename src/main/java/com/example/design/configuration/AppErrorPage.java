@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
  * Created by lxh on 4/18/16.
  */
 @Configuration
-public class WebErrorPage {
+public class AppErrorPage {
 
     @Bean
     public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizer() {

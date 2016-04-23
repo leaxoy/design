@@ -48,13 +48,12 @@ public class AuthController {
     /**
      * 处理用户登录
      *
-     * @param request  请求
      * @param username 用户名
      * @param password 密码
      * @return token 信息
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity auth(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
+    public ResponseEntity auth(@RequestParam String username, @RequestParam String password) {
         Assert.notNull(username, "username can not be empty");
         Assert.notNull(password, "password can not be empty");
 
@@ -62,7 +61,8 @@ public class AuthController {
         if (user == null ||  //未注册
                 !user.getPassword().equals(password)) {  //密码错误
             //提示用户名或密码错误
-            return new ResponseEntity<>(AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                    AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
         }
         //生成一个token，保存用户登录状态
         AuthToken authToken = tokenManager.createToken(user.getAccountName());
