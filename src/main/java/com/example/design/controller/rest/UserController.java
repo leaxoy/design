@@ -5,6 +5,7 @@ import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
 import com.example.design.service.impl.MenuService;
 import com.example.design.service.impl.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +16,42 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 用户信息rest接口.
- * Created by lxh on 4/17/16.
+ * 用户信息rest接口. Created by lxh on 4/17/16.
  */
 @RestController
 @RequestMapping("api/user")
 public class UserController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private MenuService menuService;
+  @Autowired
+  private UserService userService;
+  @Autowired
+  private CommentService commentService;
+  @Autowired
+  private MenuService menuService;
 
-    @RequestMapping("{id}")
-    public ResponseEntity getById(@PathVariable int id) {
-        User user = userService.getByAccountName(String.valueOf(id));
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(user);
+  /**
+   * @param id user id.
+   * @return user.
+   */
+  @RequestMapping("{id}")
+  public ResponseEntity getById(@PathVariable int id) {
+    User user = userService.getByAccountName(String.valueOf(id));
+    if (user == null) {
+      return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping("{id}/comment")
-    public ResponseEntity getCommentsByUserId(@PathVariable int id) {
-        List<Comment> comments = commentService.findCommentsByUserId(id);
-        if (comments == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+    return ResponseEntity.ok(user);
+  }
+
+  /**
+   * @param id user id.
+   * @return user's comments
+   */
+  @RequestMapping("{id}/comment")
+  public ResponseEntity getCommentsByUserId(@PathVariable int id) {
+    List<Comment> comments = commentService.findCommentsByUserId(id);
+    if (comments == null) {
+      return ResponseEntity.notFound().build();
     }
+    return new ResponseEntity<>(comments, HttpStatus.OK);
+  }
 }

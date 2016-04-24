@@ -7,13 +7,16 @@ import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 /**
- * Created by lxh on 4/21/16.
+ * App Session config. Created by lxh on 4/21/16.
  */
 @Configuration
 @EnableRedisHttpSession
 public class AppSessionConfig {
-    @Bean
-    public HttpSessionStrategy sessionStrategy() {
-        return new HeaderHttpSessionStrategy();
-    }
+  /**
+   * @return HttpSessionStrategy bean.
+   */
+  @Bean
+  public HttpSessionStrategy sessionStrategy() {
+    return new HeaderHttpSessionStrategy();
+  }
 }

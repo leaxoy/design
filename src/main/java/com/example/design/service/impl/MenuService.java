@@ -14,19 +14,19 @@ import java.util.Optional;
  */
 @Service
 public class MenuService {
-    @Autowired
-    Optional<MenuMapper> mapper;
+  @Autowired
+  Optional<MenuMapper> mapper;
 
-    public Optional<List<Menu>> all() {
-        Optional<List<Menu>> menus;
-        if (mapper.isPresent()) {
-            menus = mapper.get().all();
-        } else {
-            menus = null;
-        }
-        if (menus.isPresent()) {
-            return menus;
-        }
-        return null;
+  public Optional<List<Menu>> all() {
+    Optional<List<Menu>> menus;
+    if (mapper.isPresent()) {
+      menus = mapper.get().all();
+    } else {
+      menus = null;
     }
+    if (menus.isPresent()) {
+      return menus;
+    }
+    return null;
+  }
 }

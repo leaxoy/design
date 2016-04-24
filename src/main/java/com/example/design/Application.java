@@ -5,12 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * spring app 的运行接口
- * Created by lxh on 4/13/16.
+ * spring app 的运行接口. Created by lxh on 4/13/16.
  */
 @SpringBootApplication
 @EnableSwagger2
-public class Application {
+class Application {
+    /**
+     * @param args 命令行参数.
+     */
     public static void main(String... args) {
         SpringApplication.run(Application.class, args);
     }
