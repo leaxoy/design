@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 评论的rest接口 Created by lxh on 4/14/16.
+ * comment rest api.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @RestController
 @RequestMapping("api/comment")

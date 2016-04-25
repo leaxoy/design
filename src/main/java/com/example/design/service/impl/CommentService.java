@@ -15,11 +15,11 @@ public class CommentService {
     return null;
   }
 
-  public Comment id(int id) {
+  public Comment id(long id) {
     return null;
   }
 
-  public List<Comment> findCommentsByUserId(int id) {
+  public List<Comment> findCommentsByUserId(long id) {
     return null;
   }
 }

@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by lxh on 16/4/25.
+ * follow rest api.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @RestController
 @RequestMapping("api/follow")

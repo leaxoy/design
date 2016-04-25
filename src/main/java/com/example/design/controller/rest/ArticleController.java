@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * article rest api. Created by lxh on 16/4/25.
+ * article rest api.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @RestController
 @RequestMapping("api/article")
