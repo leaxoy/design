@@ -29,15 +29,15 @@ public interface UserMapper {
   @Select("SELECT * FROM `user`")
   List<User> all();
 
-  @Select("SELECT `id`, `role`, `accountName`, `password`, `email`, `nickName`, `userPicture`, "
-          + "`name`, `sex`, `birthday`, `job`, `city`, `userIntro` FROM `user` WHERE "
-          + "`accountName`=#{name}")
+  @Select("SELECT `userId`, `role`, `account`, `password`, `email`, `nickName`, `userPicture`, "
+          + "`name`, `gender`, `birth`, `job`, `city`, `userIntro` FROM `user` WHERE "
+          + "`account`=#{name}")
   User selectByAccountName(@Param("name") String name);
 
   @Select("SELECT * FROM `user` WHERE `nickName`=#{nickname}")
   List<User> selectByNickName(@Param("nickname") String nickname);
 
-  @Select("SELECT `role` FROM `user` WHERE `accountName`=#{name}")
+  @Select("SELECT `role` FROM `user` WHERE `account`=#{name}")
   @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class,
           jdbcType = JdbcType.CHAR)})
   Role getRole(String name);
@@ -45,6 +45,6 @@ public interface UserMapper {
   @Delete("DELETE FROM `user` WHERE `id`=#{id}")
   int delete(int id);
 
-  @Delete("DELETE FROM `user` WHERE `accountName`=#{accountName}")
-  int deleteByAccountName(@Param("accountName") String accountName);
+  @Delete("DELETE FROM `user` WHERE `account`=#{account}")
+  int deleteByAccountName(@Param("account") String account);
 }

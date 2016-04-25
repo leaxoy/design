@@ -26,6 +26,11 @@ spring:
       database: test
       host: localhost
       port: 27017
+    elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: elasticsearch_lxh
+      repositories:
+        enabled: true
 
 # 服务器配置
 server:

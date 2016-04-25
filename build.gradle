@@ -52,6 +52,8 @@ dependencies {
 
     compile('com.google.code.gson:gson:2.6.2')
 
+    compile('org.projectlombok:lombok:1.16.8')
+
     runtime('mysql:mysql-connector-java')
     runtime('org.postgresql:postgresql')
 

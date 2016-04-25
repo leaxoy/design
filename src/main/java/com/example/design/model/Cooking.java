@@ -1,12 +1,14 @@
 package com.example.design.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 
 /**
  * 菜谱模型 Created by lxh on 4/14/16.
  */
+@Document(indexName = "cooking", type = "cooking")
 public class Cooking {
   @Id
   private long cookingId;

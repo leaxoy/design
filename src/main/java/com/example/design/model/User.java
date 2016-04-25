@@ -6,10 +6,13 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
+import lombok.Data;
+
 
 /**
  * 用户模型 Created by lxh on 4/14/16.
  */
+@Data
 public class User {
   @Id
   private Long userId;            // 用户ID
@@ -26,125 +29,4 @@ public class User {
   private String userIntro;       // 个人介绍
   private Role role;              // 用户权限
   private int state;
-
-  @Override
-  public String toString() {
-    return "我的ID是:\t" + userId + "\n我的账户名称:\t" + account + "\n密码是:\t" + password
-            + "\n邮箱是:\t" + email + "\n昵称是:\t" + nickName + "\n头像在:\t" + userPicture
-            + "\n真是姓名是:\t" + name + "\n性别是:\t" + gender + "\n生日是:\t" + birth
-            + "\n工作是:\t" + job + "\n居住城市是:\t" + city + "\n个人介绍是:\t" + userIntro
-            + "\n用户组是:\t" + role.name();
-  }
-
-  public Long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(Long userId) {
-    this.userId = userId;
-  }
-
-  public String getAccount() {
-    return account;
-  }
-
-  public void setAccount(String account) {
-    this.account = account;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getNickName() {
-    return nickName;
-  }
-
-  public void setNickName(String nickName) {
-    this.nickName = nickName;
-  }
-
-  public String getUserPicture() {
-    return userPicture;
-  }
-
-  public void setUserPicture(String userPicture) {
-    this.userPicture = userPicture;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  public Date getBirth() {
-    return birth;
-  }
-
-  public void setBirth(Date birth) {
-    this.birth = birth;
-  }
-
-  public String getJob() {
-    return job;
-  }
-
-  public void setJob(String job) {
-    this.job = job;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  public String getUserIntro() {
-    return userIntro;
-  }
-
-  public void setUserIntro(String userIntro) {
-    this.userIntro = userIntro;
-  }
-
-  public Role getRole() {
-    return role;
-  }
-
-  public void setRole(Role role) {
-    this.role = role;
-  }
-
-  public int getState() {
-    return state;
-  }
-
-  public void setState(int state) {
-    this.state = state;
-  }
 }
