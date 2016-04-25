@@ -1,6 +1,6 @@
 package com.example.design.mapper;
 
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.model.User;
 
 import org.apache.ibatis.annotations.Delete;
@@ -38,9 +38,9 @@ public interface UserMapper {
   List<User> selectByNickName(@Param("nickname") String nickname);
 
   @Select("SELECT `role` FROM `user` WHERE `accountName`=#{name}")
-  @Results(value = {@Result(column = "role", property = "UserRole", javaType = UserRole.class,
+  @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class,
           jdbcType = JdbcType.CHAR)})
-  UserRole getRole(String name);
+  Role getRole(String name);
 
   @Delete("DELETE FROM `user` WHERE `id`=#{id}")
   int delete(int id);

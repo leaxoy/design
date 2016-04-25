@@ -79,7 +79,7 @@ public class AppSwaggerUi {
   }
 
   /**
-   * @return article api info.
+   * @return show api info.
    */
   private ApiInfo articleApiInfo() {
     return new ApiInfo("Cooking Rest API", "", "0.0.1", "", "lxh", "", "");

@@ -1,7 +1,7 @@
 package com.example.design.controller.rest;
 
 import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.model.Comment;
 import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
@@ -47,8 +47,14 @@ public class UserController {
     return ResponseEntity.ok(user);
   }
 
+  /**
+   * 获取用户作品.
+   *
+   * @param id 用户id.
+   * @return 作品列表.
+   */
   @RequestMapping("{id}/article")
-  @Authorization({UserRole.ADMIN, UserRole.USER})
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity getArticlesByUserId(@PathVariable long id) {
     return null;
   }
@@ -60,7 +66,7 @@ public class UserController {
    * @return user's comments
    */
   @RequestMapping("{id}/comment")
-  @Authorization({UserRole.USER, UserRole.ADMIN})
+  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity getCommentsByUserId(@PathVariable long id) {
     List<Comment> comments = commentService.findCommentsByUserId(id);
     if (comments == null) {
@@ -69,26 +75,56 @@ public class UserController {
     return new ResponseEntity<>(comments, HttpStatus.OK);
   }
 
+  /**
+   * 获取用户菜谱.
+   *
+   * @param id 用户id.
+   * @return 菜谱列表.
+   */
   @RequestMapping("{id}/cooking")
   public ResponseEntity getCookingsByUserId(@PathVariable long id) {
     return null;
   }
 
+  /**
+   * 获取用户点赞信息.
+   *
+   * @param id 用户id.
+   * @return 点赞数据.
+   */
   @RequestMapping("{id}/like")
   public ResponseEntity getLikesInfoByUserId(@PathVariable long id) {
     return null;
   }
 
+  /**
+   * 获取用户朋友.
+   *
+   * @param id 用户id.
+   * @return 朋友列表.
+   */
   @RequestMapping("{id}/friend")
   public RequestMapping getFriendsByUserId(@PathVariable long id) {
     return null;
   }
 
+  /**
+   * 获取菜单信息.
+   *
+   * @param id 用户id.
+   * @return 菜单数据.
+   */
   @RequestMapping("{id}/menu")
   public ResponseEntity getMenusByUserId(@PathVariable long id) {
     return null;
   }
 
+  /**
+   * 获取关注信息
+   *
+   * @param id 用户id.
+   * @return 关注信息.
+   */
   @RequestMapping("{id}/star")
   public ResponseEntity getStarsByUserId(@PathVariable long id) {
     return null;

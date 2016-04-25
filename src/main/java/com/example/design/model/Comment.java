@@ -9,27 +9,27 @@ import java.util.Date;
  */
 public class Comment {
   @Id
-  private Long commentId;
-  private Long userId;
+  private long commentId;
+  private long userId;
   private String comment;
   private Date commentDate;
-  private Long menuId;
-  private Long cookingId;
-  private Long shodId;
+  private String commentType;
+  private long commentForId;
+  private int state;
 
-  public Long getCommentId() {
+  public long getCommentId() {
     return commentId;
   }
 
-  public void setCommentId(Long commentId) {
+  public void setCommentId(long commentId) {
     this.commentId = commentId;
   }
 
-  public Long getUserId() {
+  public long getUserId() {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  public void setUserId(long userId) {
     this.userId = userId;
   }
 
@@ -49,27 +49,27 @@ public class Comment {
     this.commentDate = commentDate;
   }
 
-  public Long getMenuId() {
-    return menuId;
+  public String getCommentType() {
+    return commentType;
   }
 
-  public void setMenuId(Long menuId) {
-    this.menuId = menuId;
+  public void setCommentType(String commentType) {
+    this.commentType = commentType;
   }
 
-  public Long getCookingId() {
-    return cookingId;
+  public long getCommentForId() {
+    return commentForId;
   }
 
-  public void setCookingId(Long cookingId) {
-    this.cookingId = cookingId;
+  public void setCommentForId(long commentForId) {
+    this.commentForId = commentForId;
   }
 
-  public Long getShodId() {
-    return shodId;
+  public int getState() {
+    return state;
   }
 
-  public void setShodId(Long shodId) {
-    this.shodId = shodId;
+  public void setState(int state) {
+    this.state = state;
   }
 }

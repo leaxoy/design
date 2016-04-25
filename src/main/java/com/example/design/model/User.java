@@ -1,7 +1,6 @@
 package com.example.design.model;
 
-import com.example.design.constant.UserRole;
-import com.example.design.constant.Visitor;
+import com.example.design.constant.Role;
 
 import org.springframework.data.annotation.Id;
 
@@ -13,44 +12,44 @@ import java.util.Date;
  */
 public class User {
   @Id
-  private Long id;                // 用户ID
-  private String accountName;     // 账户名称
+  private Long userId;            // 用户ID
+  private String account;         // 账户名称
   private String password;        // 用户密码
   private String email;           // 邮箱
   private String nickName;        // 昵称
   private String userPicture;     // 用户头像
   private String name;            // 真实姓名
-  private String sex;             // 性别
-  private Date birthday;          // 出生日期
+  private String gender;          // 性别
+  private Date birth;             // 出生日期
   private String job;             // 工作
   private String city;            // 居住城市
   private String userIntro;       // 个人介绍
-  private Visitor visitor;        // 其他用户的浏览权限
-  private UserRole userRole;      // 用户权限
+  private Role role;              // 用户权限
+  private int state;
 
   @Override
   public String toString() {
-    return "我的ID是:\t" + id + "\n我的账户名称:\t" + accountName + "\n密码是:\t" + password
+    return "我的ID是:\t" + userId + "\n我的账户名称:\t" + account + "\n密码是:\t" + password
             + "\n邮箱是:\t" + email + "\n昵称是:\t" + nickName + "\n头像在:\t" + userPicture
-            + "\n真是姓名是:\t" + name + "\n性别是:\t" + sex + "\n生日是:\t" + birthday
+            + "\n真是姓名是:\t" + name + "\n性别是:\t" + gender + "\n生日是:\t" + birth
             + "\n工作是:\t" + job + "\n居住城市是:\t" + city + "\n个人介绍是:\t" + userIntro
-            + "\n用户组是:\t" + userRole.name();
+            + "\n用户组是:\t" + role.name();
   }
 
-  public Long getId() {
-    return id;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
-  public String getAccountName() {
-    return accountName;
+  public String getAccount() {
+    return account;
   }
 
-  public void setAccountName(String accountName) {
-    this.accountName = accountName;
+  public void setAccount(String account) {
+    this.account = account;
   }
 
   public String getPassword() {
@@ -93,20 +92,20 @@ public class User {
     this.name = name;
   }
 
-  public String getSex() {
-    return sex;
+  public String getGender() {
+    return gender;
   }
 
-  public void setSex(String sex) {
-    this.sex = sex;
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
-  public Date getBirthday() {
-    return birthday;
+  public Date getBirth() {
+    return birth;
   }
 
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
+  public void setBirth(Date birth) {
+    this.birth = birth;
   }
 
   public String getJob() {
@@ -133,19 +132,19 @@ public class User {
     this.userIntro = userIntro;
   }
 
-  public UserRole getUserRole() {
-    return userRole;
+  public Role getRole() {
+    return role;
   }
 
-  public void setUserRole(UserRole userRole) {
-    this.userRole = userRole;
+  public void setRole(Role role) {
+    this.role = role;
   }
 
-  public Visitor getVisitor() {
-    return visitor;
+  public int getState() {
+    return state;
   }
 
-  public void setVisitor(Visitor visitor) {
-    this.visitor = visitor;
+  public void setState(int state) {
+    this.state = state;
   }
 }

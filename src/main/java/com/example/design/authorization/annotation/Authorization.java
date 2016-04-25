@@ -1,6 +1,6 @@
 package com.example.design.authorization.annotation;
 
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,5 +17,5 @@ public @interface Authorization {
   /**
    * @return ROLES has permission to access this method.
    */
-  UserRole[] value() default {UserRole.USER};
+  Role[] value() default {Role.USER};
 }

@@ -1,6 +1,6 @@
 package com.example.design.service.impl;
 
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
 
@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
     return mapper.deleteByAccountName(phone);
   }
 
-  public UserRole getRole(String name) {
+  public Role getRole(String name) {
     return mapper.getRole(name);
   }
 
@@ -68,8 +68,8 @@ public class UserService implements UserDetailsService {
       throw new UsernameNotFoundException("");
     }
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(user.getUserRole().name()));
-    System.out.println(1 + user.getUserRole().name());
+    authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
+    System.out.println(1 + user.getRole().name());
     return new org.springframework.security.core.userdetails.User(username,
             user.getPassword(), authorities);
   }

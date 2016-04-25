@@ -9,28 +9,28 @@ import java.util.Date;
  */
 public class Message {
   @Id
-  private Long messageId;     // 留言 ID
-  private Long messageUserId; // 留言的用户ID
+  private long messageId;     // 留言 ID
+  private long messageUserId; // 留言的用户ID
   private Date messageDate;   // 留言日期
   private String message;     // 留言内容
-  private Long userId;        // 被留言用户 ID
-  private Long shareId;       // 被留言的分享ID
-  private Long showId;        // 被留言的作品ID
-  private int state;          // 留言状态
+  private long userId;        // 被留言用户 ID
+  private long shareId;       // 被留言的分享ID
+  private long showId;        // 被留言的作品ID
+  private int state;        // 留言状态
 
-  public Long getMessageId() {
+  public long getMessageId() {
     return messageId;
   }
 
-  public void setMessageId(Long messageId) {
+  public void setMessageId(long messageId) {
     this.messageId = messageId;
   }
 
-  public Long getMessageUserId() {
+  public long getMessageUserId() {
     return messageUserId;
   }
 
-  public void setMessageUserId(Long messageUserId) {
+  public void setMessageUserId(long messageUserId) {
     this.messageUserId = messageUserId;
   }
 
@@ -50,27 +50,27 @@ public class Message {
     this.message = message;
   }
 
-  public Long getUserId() {
+  public long getUserId() {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  public void setUserId(long userId) {
     this.userId = userId;
   }
 
-  public Long getShareId() {
+  public long getShareId() {
     return shareId;
   }
 
-  public void setShareId(Long shareId) {
+  public void setShareId(long shareId) {
     this.shareId = shareId;
   }
 
-  public Long getShowId() {
+  public long getShowId() {
     return showId;
   }
 
-  public void setShowId(Long showId) {
+  public void setShowId(long showId) {
     this.showId = showId;
   }
 

@@ -4,7 +4,7 @@ import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthToken;
 import com.example.design.constant.TokenConstant;
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,10 +111,10 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
         Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
         if (authorization != null) {
-          List<UserRole> userRoles = new ArrayList<>(Arrays.asList(authorization.value()));
-          if (userRoles.size() != 0) {
-            UserRole userRole = userService.getRole(token.getAccountName());
-            return userRoles.contains(userRole);
+          List<Role> roles = new ArrayList<>(Arrays.asList(authorization.value()));
+          if (roles.size() != 0) {
+            Role role = userService.getRole(token.getAccountName());
+            return roles.contains(role);
           }
         }
         return true;

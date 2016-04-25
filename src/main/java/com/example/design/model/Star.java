@@ -9,33 +9,19 @@ import java.util.Date;
  */
 public class Star {
   @Id
-  private Long userId;
-  private Long menuId;
-  private Long cookingId;
+  private long starId;
+  private long userId;
+  private String starType;
+  private String itemId;
+  private int state;
   private Date starDate;
 
-  public Long getUserId() {
+  public long getUserId() {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  public void setUserId(long userId) {
     this.userId = userId;
-  }
-
-  public Long getMenuId() {
-    return menuId;
-  }
-
-  public void setMenuId(Long menuId) {
-    this.menuId = menuId;
-  }
-
-  public Long getCookingId() {
-    return cookingId;
-  }
-
-  public void setCookingId(Long cookingId) {
-    this.cookingId = cookingId;
   }
 
   public Date getStarDate() {
@@ -44,5 +30,37 @@ public class Star {
 
   public void setStarDate(Date starDate) {
     this.starDate = starDate;
+  }
+
+  public long getStarId() {
+    return starId;
+  }
+
+  public void setStarId(long starId) {
+    this.starId = starId;
+  }
+
+  public String getStarType() {
+    return starType;
+  }
+
+  public void setStarType(String starType) {
+    this.starType = starType;
+  }
+
+  public String getItemId() {
+    return itemId;
+  }
+
+  public void setItemId(String itemId) {
+    this.itemId = itemId;
+  }
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
   }
 }

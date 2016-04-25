@@ -6,7 +6,7 @@ import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthResult;
 import com.example.design.authorization.model.AuthToken;
 import com.example.design.constant.AuthResultStatus;
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
 
@@ -40,7 +40,7 @@ public class AuthController {
    * @return 当前用户信息.
    */
   @RequestMapping(method = RequestMethod.GET)
-  @Authorization({UserRole.GUEST, UserRole.USER, UserRole.ADMIN})
+  @Authorization({Role.GUEST, Role.USER, Role.ADMIN})
   public ResponseEntity home(@CurrentUser User user) {
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
   }
@@ -65,7 +65,7 @@ public class AuthController {
               AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
     }
     //生成一个token，保存用户登录状态
-    AuthToken authToken = tokenManager.createToken(user.getAccountName());
+    AuthToken authToken = tokenManager.createToken(user.getAccount());
     return new ResponseEntity<>(AuthResult.ok(authToken), HttpStatus.OK);
   }
 
@@ -77,7 +77,7 @@ public class AuthController {
    * @return 修改后的用户信息.
    */
   @RequestMapping(method = RequestMethod.PUT)
-  @Authorization({UserRole.USER, UserRole.ADMIN})
+  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
   }
@@ -89,9 +89,9 @@ public class AuthController {
    * @return 请求结果.
    */
   @RequestMapping(method = RequestMethod.DELETE)
-  @Authorization({UserRole.USER, UserRole.ADMIN})
+  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity logout(@CurrentUser User user) {
-    tokenManager.deleteToken(user.getAccountName());
+    tokenManager.deleteToken(user.getAccount());
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
   }
 }

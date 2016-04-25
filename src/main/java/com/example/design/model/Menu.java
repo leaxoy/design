@@ -9,19 +9,19 @@ import java.util.Date;
  */
 public class Menu {
   @Id
-  private Long menuId;
+  private long menuId;
   private String menuName;
   private String menuPicture;
-  private String cookingName;
-  private String cookingId;
-  private Integer menuLike;
+  private int menuLike;
+  private long authorId;
   private Date menuDate;
+  private int state;
 
-  public Long getMenuId() {
+  public long getMenuId() {
     return menuId;
   }
 
-  public void setMenuId(Long menuId) {
+  public void setMenuId(long menuId) {
     this.menuId = menuId;
   }
 
@@ -41,27 +41,11 @@ public class Menu {
     this.menuPicture = menuPicture;
   }
 
-  public String getCookingName() {
-    return cookingName;
-  }
-
-  public void setCookingName(String cookingName) {
-    this.cookingName = cookingName;
-  }
-
-  public String getCookingId() {
-    return cookingId;
-  }
-
-  public void setCookingId(String cookingId) {
-    this.cookingId = cookingId;
-  }
-
-  public Integer getMenuLike() {
+  public int getMenuLike() {
     return menuLike;
   }
 
-  public void setMenuLike(Integer menuLike) {
+  public void setMenuLike(int menuLike) {
     this.menuLike = menuLike;
   }
 
@@ -71,5 +55,21 @@ public class Menu {
 
   public void setMenuDate(Date menuDate) {
     this.menuDate = menuDate;
+  }
+
+  public long getAuthorId() {
+    return authorId;
+  }
+
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
+  }
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
   }
 }

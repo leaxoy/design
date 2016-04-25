@@ -9,26 +9,27 @@ import java.util.Date;
  */
 public class Share {
   @Id
-  private Long shareId;
-  private Long shareUserId;
+  private long shareId;
+  private long shareUserId;
   private Date shareDate;
-  private Long menuId;
-  private Long cookingId;
+  private String shareType;
+  private long itemId;
   private String shareContent;
+  private int state;
 
-  public Long getShareId() {
+  public long getShareId() {
     return shareId;
   }
 
-  public void setShareId(Long shareId) {
+  public void setShareId(long shareId) {
     this.shareId = shareId;
   }
 
-  public Long getShareUserId() {
+  public long getShareUserId() {
     return shareUserId;
   }
 
-  public void setShareUserId(Long shareUserId) {
+  public void setShareUserId(long shareUserId) {
     this.shareUserId = shareUserId;
   }
 
@@ -40,21 +41,6 @@ public class Share {
     this.shareDate = shareDate;
   }
 
-  public Long getMenuId() {
-    return menuId;
-  }
-
-  public void setMenuId(Long menuId) {
-    this.menuId = menuId;
-  }
-
-  public Long getCookingId() {
-    return cookingId;
-  }
-
-  public void setCookingId(Long cookingId) {
-    this.cookingId = cookingId;
-  }
 
   public String getShareContent() {
     return shareContent;
@@ -62,5 +48,29 @@ public class Share {
 
   public void setShareContent(String shareContent) {
     this.shareContent = shareContent;
+  }
+
+  public String getShareType() {
+    return shareType;
+  }
+
+  public void setShareType(String shareType) {
+    this.shareType = shareType;
+  }
+
+  public long getItemId() {
+    return itemId;
+  }
+
+  public void setItemId(long itemId) {
+    this.itemId = itemId;
+  }
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
   }
 }

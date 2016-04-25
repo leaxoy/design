@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/follow")
-public class FollowController {
+public class FriendController {
 }

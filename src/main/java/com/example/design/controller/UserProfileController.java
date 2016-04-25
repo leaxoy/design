@@ -1,6 +1,6 @@
 package com.example.design.controller;
 
-import com.example.design.service.impl.ArticleService;
+import com.example.design.service.impl.ShowService;
 import com.example.design.service.impl.CommentService;
 import com.example.design.service.impl.MessageService;
 import com.example.design.service.impl.UserService;
@@ -22,24 +22,24 @@ public class UserProfileController {
 
   private UserService userService;
   private MessageService messageService;
-  private ArticleService articleService;
+  private ShowService showService;
   private CommentService commentService;
 
   /**
    * @param userService1    userService.
    * @param messageService1 messageService.
-   * @param articleService1 articleService.
+   * @param showService1 articleService.
    * @param commentService1 commentService.
    */
   @Autowired
   public UserProfileController(
           UserService userService1,
           MessageService messageService1,
-          ArticleService articleService1,
+          ShowService showService1,
           CommentService commentService1) {
     this.userService = userService1;
     this.messageService = messageService1;
-    this.articleService = articleService1;
+    this.showService = showService1;
     this.commentService = commentService1;
   }
 

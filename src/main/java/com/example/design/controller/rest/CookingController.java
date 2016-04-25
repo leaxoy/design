@@ -1,7 +1,7 @@
 package com.example.design.controller.rest;
 
 import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.UserRole;
+import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.service.impl.CookingService;
 
@@ -35,7 +35,7 @@ public class CookingController {
    * @return all articles list.
    */
   @RequestMapping("")
-  @Authorization({UserRole.ADMIN, UserRole.USER, UserRole.GUEST, UserRole.ROOT})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -68,7 +68,7 @@ public class CookingController {
    * @return 菜谱列表.
    */
   @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-  @Authorization({UserRole.USER, UserRole.ROOT, UserRole.ADMIN})
+  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
   public ResponseEntity userId(@PathVariable long userId) {
     List<Cooking> list = cookingService.findByUserId(userId);
     if (list == null) {
@@ -95,7 +95,7 @@ public class CookingController {
    * @return 更改的菜谱信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({UserRole.ADMIN, UserRole.ROOT, UserRole.USER})
+  @Authorization({Role.ADMIN, Role.ROOT, Role.USER})
   public ResponseEntity update(@RequestBody Cooking cooking) {
     return ResponseEntity.ok(cooking);
   }

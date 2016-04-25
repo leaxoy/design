@@ -1,9 +1,9 @@
 package com.example.design.controller.rest;
 
 import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.UserRole;
-import com.example.design.model.Article;
-import com.example.design.service.impl.ArticleService;
+import com.example.design.constant.Role;
+import com.example.design.model.Show;
+import com.example.design.service.impl.ShowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * article rest api.
+ * show rest api.
  *
  * @author lxh
  * @version 0.1
  */
 @RestController
-@RequestMapping("api/article")
-public class ArticleController {
+@RequestMapping("api/show")
+public class ShowController {
 
   /**
    * articleService DI.
    */
   @Autowired
-  private ArticleService articleService;
+  private ShowService showService;
 
   /**
    * 返回所有作品.
@@ -38,9 +38,9 @@ public class ArticleController {
    * @return all articles list.
    */
   @RequestMapping("")
-  @Authorization({UserRole.ADMIN, UserRole.USER, UserRole.GUEST, UserRole.ROOT})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
-    List<Article> list = articleService.all();
+    List<Show> list = showService.all();
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -55,12 +55,12 @@ public class ArticleController {
    */
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
   public ResponseEntity id(@PathVariable long id) {
-    Article article = articleService.id(id);
+    Show show = showService.id(id);
 
-    if (article == null) {
+    if (show == null) {
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.ok(article);
+    return ResponseEntity.ok(show);
   }
 
 
@@ -71,9 +71,9 @@ public class ArticleController {
    * @return 作品列表.
    */
   @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-  @Authorization({UserRole.USER, UserRole.ROOT, UserRole.ADMIN})
+  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
   public ResponseEntity userId(@PathVariable long userId) {
-    List<Article> list = articleService.findByUserId(userId);
+    List<Show> list = showService.findByUserId(userId);
     if (list == null) {
       return ResponseEntity.notFound().build();
     }
@@ -83,24 +83,24 @@ public class ArticleController {
   /**
    * 新添加作品.
    *
-   * @param article 作品body.
+   * @param show 作品body.
    * @return 新添加的作品信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity add(@RequestBody Article article) {
-    return ResponseEntity.ok(article);
+  public ResponseEntity add(@RequestBody Show show) {
+    return ResponseEntity.ok(show);
   }
 
   /**
    * 更新已存在作品.
    *
-   * @param article 作品body.
+   * @param show 作品body.
    * @return 更改的作品信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({UserRole.ADMIN, UserRole.ROOT, UserRole.USER})
-  public ResponseEntity update(@RequestBody Article article) {
-    return ResponseEntity.ok(article);
+  @Authorization({Role.ADMIN, Role.ROOT, Role.USER})
+  public ResponseEntity update(@RequestBody Show show) {
+    return ResponseEntity.ok(show);
   }
 
   /**

@@ -9,25 +9,24 @@ import java.util.Date;
  */
 public class Cooking {
   @Id
-  private Long cookingId;
+  private long cookingId;
   private String cookingName;
   private String cookingStyle;
-  private Integer cookingStyleID;
   private Date cookingDate;
-  private String author;
+  private long authorId;
   private String cookingPicture;
   private String cookingIntro;
   private String tips;
-  private Integer cookingLike;
+  private int cookingLikeNum;
   private String step;
   private String ingredient;
-  private Boolean state;
+  private int state;
 
-  public Long getCookingId() {
+  public long getCookingId() {
     return cookingId;
   }
 
-  public void setCookingId(Long cookingId) {
+  public void setCookingId(long cookingId) {
     this.cookingId = cookingId;
   }
 
@@ -47,14 +46,6 @@ public class Cooking {
     this.cookingStyle = cookingStyle;
   }
 
-  public Integer getCookingStyleID() {
-    return cookingStyleID;
-  }
-
-  public void setCookingStyleID(Integer cookingStyleID) {
-    this.cookingStyleID = cookingStyleID;
-  }
-
   public Date getCookingDate() {
     return cookingDate;
   }
@@ -63,12 +54,12 @@ public class Cooking {
     this.cookingDate = cookingDate;
   }
 
-  public String getAuthor() {
-    return author;
+  public long getAuthorId() {
+    return authorId;
   }
 
-  public void setAuthor(String author) {
-    this.author = author;
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
   }
 
   public String getCookingPicture() {
@@ -95,12 +86,12 @@ public class Cooking {
     this.tips = tips;
   }
 
-  public Integer getCookingLike() {
-    return cookingLike;
+  public int getCookingLikeNum() {
+    return cookingLikeNum;
   }
 
-  public void setCookingLike(Integer cookingLike) {
-    this.cookingLike = cookingLike;
+  public void setCookingLikeNum(int cookingLikeNum) {
+    this.cookingLikeNum = cookingLikeNum;
   }
 
   public String getStep() {
@@ -119,11 +110,11 @@ public class Cooking {
     this.ingredient = ingredient;
   }
 
-  public Boolean getState() {
+  public int getState() {
     return state;
   }
 
-  public void setState(Boolean state) {
+  public void setState(int state) {
     this.state = state;
   }
 

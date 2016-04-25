@@ -1,6 +1,6 @@
 package com.example.design.mapper;
 
-import com.example.design.model.Article;
+import com.example.design.model.Show;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
@@ -13,16 +13,16 @@ import java.util.List;
  * 作品持久化接口. Created by lxh on 4/14/16.
  */
 @Repository("articleMapper")
-public interface ArticleMapper {
-  @Select("SELECT * FROM article")
-  List<Article> getAll();
+public interface ShowMapper {
+  @Select("SELECT * FROM show")
+  List<Show> getAll();
 
-  @Select("SELECT * FROM article WHERE id = #{id}")
-  Article getById(int id);
+  @Select("SELECT * FROM show WHERE id = #{id}")
+  Show getById(int id);
 
-  @Update("UPDATE `article` SET WHERE ``=#{id}")
-  int updateOne(Article article);
+  @Update("UPDATE `show` SET WHERE ``=#{id}")
+  int updateOne(Show show);
 
-  @Delete("DELETE FROM `article` WHERE `id`=#{id}")
+  @Delete("DELETE FROM `show` WHERE `id`=#{id}")
   int deleteId(long id);
 }
