@@ -1,7 +1,15 @@
 package com.example.design.controller.rest;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
- * Created by lxh on 16/4/25.
+ * share rest api.
+ *
+ * @author lxh
+ * @version 0.1
  */
-public class ShareCOntroller {
+@RestController
+@RequestMapping("api/share")
+public class ShareController {
 }
