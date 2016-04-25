@@ -20,4 +20,29 @@ public class ArticleService {
   public List<Article> all() {
     return articleMapper.getAll();
   }
+
+
+  public Article id(long id) {
+    return null;
+  }
+
+  public List<Article> findByUserId(long userId) {
+    return null;
+  }
+
+  public List<Article> top10() {
+    return null;
+  }
+
+  public int update(Article article) {
+    return 0;
+  }
+
+  public int add(Article article) {
+    return 0;
+  }
+
+  public int delete(Article article) {
+    return 0;
+  }
 }
