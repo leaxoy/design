@@ -6,6 +6,7 @@ import com.example.design.authorization.resolver.CurrentUserMethodArgumentResolv
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,6 +31,12 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
    */
   @Autowired
   private CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver;
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    super.addCorsMappings(registry);
+    registry.addMapping("/api/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
+  }
 
   /**
    * @param registry ViewControllerRegistry.
