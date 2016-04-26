@@ -354,7 +354,7 @@ CREATE TABLE `user` (
   `userId`      INT(11)     NOT NULL AUTO_INCREMENT,
   `role`        VARCHAR(10) NOT NULL
   COMMENT '用户权限,user,admin',
-  `account`     INT(11)     NOT NULL
+  `account`     VARCHAR(15) NOT NULL
   COMMENT '用户账号名（手机号）',
   `password`    VARCHAR(50) NOT NULL,
   `email`       VARCHAR(50)          DEFAULT NULL,

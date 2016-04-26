@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class User {
   @Id
-  private Long userId;            // 用户ID
+  private long userId;            // 用户ID
   private String account;         // 账户名称
   private String password;        // 用户密码
   private String email;           // 邮箱
