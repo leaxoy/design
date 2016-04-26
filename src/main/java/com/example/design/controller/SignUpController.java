@@ -1,7 +1,5 @@
 package com.example.design.controller;
 
-import com.google.gson.Gson;
-
 import com.example.design.constant.Role;
 import com.example.design.constant.SignUpResponse;
 import com.example.design.constant.SignUpStatus;
@@ -37,12 +35,7 @@ public class SignUpController {
    */
   @CrossOrigin
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity signUp(@RequestBody String body) {
-    /**
-     * 把request data 映射到SignUpForm 里面.
-     */
-    Gson gson = new Gson();
-    SignUpForm signUpForm = gson.fromJson(body, SignUpForm.class);
+  public ResponseEntity signUp(@RequestBody SignUpForm signUpForm) {
     /**
      * 如果账户已存在, 则返回错误.
      */
@@ -83,9 +76,12 @@ public class SignUpController {
      */
     private String password;
 
-    private SignUpForm(String account, String password) {
+    public SignUpForm(String account, String password) {
       this.account = account;
       this.password = password;
+    }
+
+    public SignUpForm() {
     }
 
     public String getAccount() {
