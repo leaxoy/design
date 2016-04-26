@@ -39,11 +39,10 @@ public class UserController {
    */
   @RequestMapping("{id}")
   public ResponseEntity getById(@PathVariable long id) {
-    User user = userService.getByAccountName(String.valueOf(id));
+    User user = userService.id(id);
     if (user == null) {
       return ResponseEntity.notFound().build();
     }
-
     return ResponseEntity.ok(user);
   }
 

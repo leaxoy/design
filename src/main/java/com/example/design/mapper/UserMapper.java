@@ -30,6 +30,9 @@ public interface UserMapper {
   @Select("SELECT * FROM `user`")
   List<User> all();
 
+  @Select("SELECT * FROM `user` WHERE `userId`=#{id}")
+  User id(long id);
+
   @Select("SELECT `userId`, `role`, `account`, `password`, `email`, `nickName`, `userPicture`, "
           + "`name`, `gender`, `birth`, `job`, `city`, `userIntro` FROM `user` WHERE "
           + "`account`=#{account}")
