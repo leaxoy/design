@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 错误页面的controller Created by lxh on 4/18/16.
  */
 @Controller
-public class ErrorPageController {
-  @RequestMapping("unauthorith")
+public class ErrorResponseController {
+  @RequestMapping("unauthorization")
   public String unauth() {
-    return "403";
+    return "401";
   }
 
   @RequestMapping("notfound")
