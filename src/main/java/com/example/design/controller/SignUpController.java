@@ -33,7 +33,7 @@ public class SignUpController {
   /**
    * 新用户注册.
    */
-  @CrossOrigin
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity signUp(@RequestBody SignUpForm signUpForm) {
     /**

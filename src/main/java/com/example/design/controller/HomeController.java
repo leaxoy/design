@@ -28,13 +28,13 @@ public class HomeController {
   @Autowired
   private CookingService cookingService;
 
-  @CrossOrigin
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity home(HttpServletRequest request, Model model) throws Exception {
     return ResponseEntity.ok("Hello, world");
   }
 
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "/greeting", method = RequestMethod.GET)
   public ResponseEntity greeting() {
     Greeting greeting = new Greeting(1, "Hello,world");
