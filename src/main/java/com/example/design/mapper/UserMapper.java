@@ -1,36 +1,50 @@
 package com.example.design.mapper;
 
+import com.example.design.constant.Role;
 import com.example.design.model.User;
-import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.type.JdbcType;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Created by lxh on 4/14/16.
+ * 用户持久化接口. Created by lxh on 4/14/16.
  */
+@Repository("userMapper")
 public interface UserMapper {
-    @Select("SELECT COUNT(*) FROM `user` WHERE `name`=#{name} AND `password`=#{password}")
-    int count(@Param("name") String name, @Param("password") String password);
+  @Insert("INSERT INTO `user` () VALUES ()")
+  int add(User user);
 
-    @Select("SELECT * FROM `user`")
-    List<User> all();
+  @Update("UPDATE `user` () VALUES() WHERE `id`=#{id}")
+  int update(User user);
 
-    @Insert("INSERT INTO `user` () VALUES ()")
-    int add(User user);
+  @Select("SELECT * FROM `user`")
+  List<User> all();
 
-    @Update("UPDATE `user` () VALUES() WHERE `id`=#{id}")
-    int update(User user);
+  @Select("SELECT `userId`, `role`, `account`, `password`, `email`, `nickName`, `userPicture`, "
+          + "`name`, `gender`, `birth`, `job`, `city`, `userIntro` FROM `user` WHERE "
+          + "`account`=#{name}")
+  User selectByAccountName(@Param("name") String name);
 
-    @Select("")
-    List<User> selectByName(@Param("name") String name);
+  @Select("SELECT * FROM `user` WHERE `nickName`=#{nickname}")
+  List<User> selectByNickName(@Param("nickname") String nickname);
 
-    @Select("")
-    List<User> selectByPhone(@Param("phone") String phone);
+  @Select("SELECT `role` FROM `user` WHERE `account`=#{name}")
+  @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class,
+          jdbcType = JdbcType.CHAR)})
+  Role getRole(String name);
 
-    @Delete("DELETE FROM `user` WHERE `id`=#{id}")
-    int delete(int id);
+  @Delete("DELETE FROM `user` WHERE `id`=#{id}")
+  int delete(int id);
 
-    @Delete("DELETE FROM `user` WHERE `id`=#{id}")
-    int deleteByPhone(@Param("phone") String phone);
+  @Delete("DELETE FROM `user` WHERE `account`=#{account}")
+  int deleteByAccountName(@Param("account") String account);
 }

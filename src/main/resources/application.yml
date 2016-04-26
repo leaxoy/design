@@ -6,7 +6,7 @@ spring:
   # 数据源配置
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost/home?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost/design?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password:
     max-active: 20
@@ -14,63 +14,37 @@ spring:
     max-idle: 6
     min-idle: 2
     initial-size: 6
-  # zookeeper 配置
-  cloud:
-    zookeeper:
-      discovery:
-        enabled: true
-  # 移动端配置
-  mobile:
-    devicedelegatingviewresolver:
-      enabled: true
-  aop:
-    auto: true
+  redis:
+    host: localhost
+    port: 6379
+    pool:
+      max-active: 8
+      min-idle: 0
+    database: 1
   data:
+    mongodb:
+      database: test
+      host: localhost
+      port: 27017
     elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: elasticsearch_lxh
       repositories:
         enabled: true
-      cluster-nodes: 127.0.0.1:9300
 
 # 服务器配置
 server:
   port: 3000
 
-# zuul 配置
-zuul:
-  routes:
-    # api 应用
-    api:
-      url: /api/**
-      path: http://localhost:8080
-      serviceId: api
-    xjh:
-      url: /xjh/**
-      path: http://localhost:8081
-      serviceId: xjh
-  ignored-services: "*"
-
-
-security:
-  oauth2:
-    resource:
-      token-info-uri: http://localhost:3000/oauth/check_token
-    client:
-      client-id: clientId
-      client-secret: secretId
-      user-authorization-uri: http://localhost:3000/oauth/authorize
-      access-token-uri: http://localhost:3000/oauth/token
-      grant-type: client_credential
-      authentication-scheme: query
-
 endpoints:
   actuator:
-    enabled: true
-  restart:
     enabled: true
   shutdown:
     enabled: true
   health:
     enabled: true
+  configprops:
+    sensitive: true
 
 logging:
   level:

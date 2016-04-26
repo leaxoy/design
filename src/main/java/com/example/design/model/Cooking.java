@@ -1,130 +1,123 @@
 package com.example.design.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Date;
 
 /**
- * Created by lxh on 4/14/16.
+ * 菜谱模型 Created by lxh on 4/14/16.
  */
+@Document(indexName = "cooking", type = "cooking")
 public class Cooking {
-    @Id
-    private Long cookingID;
-    private String cookingName;
-    private String cookingStyle;
-    private Integer cookingStyleID;
-    private Date cookingDate;
-    private String author;
-    private String cookingPicture;
-    private String cookingIntro;
-    private String tips;
-    private Integer cookingLike;
-    private String step;
-    private String ingredient;
-    private Boolean state;
+  @Id
+  private long cookingId;
+  private String cookingName;
+  private String cookingStyle;
+  private Date cookingDate;
+  private long authorId;
+  private String cookingPicture;
+  private String cookingIntro;
+  private String tips;
+  private int cookingLikeNum;
+  private String step;
+  private String ingredient;
+  private int state;
 
-    public Long getCookingID() {
-        return cookingID;
-    }
+  public long getCookingId() {
+    return cookingId;
+  }
 
-    public void setCookingID(Long cookingID) {
-        this.cookingID = cookingID;
-    }
+  public void setCookingId(long cookingId) {
+    this.cookingId = cookingId;
+  }
 
-    public String getCookingName() {
-        return cookingName;
-    }
+  public String getCookingName() {
+    return cookingName;
+  }
 
-    public void setCookingName(String cookingName) {
-        this.cookingName = cookingName;
-    }
+  public void setCookingName(String cookingName) {
+    this.cookingName = cookingName;
+  }
 
-    public String getCookingStyle() {
-        return cookingStyle;
-    }
+  public String getCookingStyle() {
+    return cookingStyle;
+  }
 
-    public void setCookingStyle(String cookingStyle) {
-        this.cookingStyle = cookingStyle;
-    }
+  public void setCookingStyle(String cookingStyle) {
+    this.cookingStyle = cookingStyle;
+  }
 
-    public Integer getCookingStyleID() {
-        return cookingStyleID;
-    }
+  public Date getCookingDate() {
+    return cookingDate;
+  }
 
-    public void setCookingStyleID(Integer cookingStyleID) {
-        this.cookingStyleID = cookingStyleID;
-    }
+  public void setCookingDate(Date cookingDate) {
+    this.cookingDate = cookingDate;
+  }
 
-    public Date getCookingDate() {
-        return cookingDate;
-    }
+  public long getAuthorId() {
+    return authorId;
+  }
 
-    public void setCookingDate(Date cookingDate) {
-        this.cookingDate = cookingDate;
-    }
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
+  }
 
-    public String getAuthor() {
-        return author;
-    }
+  public String getCookingPicture() {
+    return cookingPicture;
+  }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+  public void setCookingPicture(String cookingPicture) {
+    this.cookingPicture = cookingPicture;
+  }
 
-    public String getCookingPicture() {
-        return cookingPicture;
-    }
+  public String getCookingIntro() {
+    return cookingIntro;
+  }
 
-    public void setCookingPicture(String cookingPicture) {
-        this.cookingPicture = cookingPicture;
-    }
+  public void setCookingIntro(String cookingIntro) {
+    this.cookingIntro = cookingIntro;
+  }
 
-    public String getCookingIntro() {
-        return cookingIntro;
-    }
+  public String getTips() {
+    return tips;
+  }
 
-    public void setCookingIntro(String cookingIntro) {
-        this.cookingIntro = cookingIntro;
-    }
+  public void setTips(String tips) {
+    this.tips = tips;
+  }
 
-    public String getTips() {
-        return tips;
-    }
+  public int getCookingLikeNum() {
+    return cookingLikeNum;
+  }
 
-    public void setTips(String tips) {
-        this.tips = tips;
-    }
+  public void setCookingLikeNum(int cookingLikeNum) {
+    this.cookingLikeNum = cookingLikeNum;
+  }
 
-    public Integer getCookingLike() {
-        return cookingLike;
-    }
+  public String getStep() {
+    return step;
+  }
 
-    public void setCookingLike(Integer cookingLike) {
-        this.cookingLike = cookingLike;
-    }
+  public void setStep(String step) {
+    this.step = step;
+  }
 
-    public String getStep() {
-        return step;
-    }
+  public String getIngredient() {
+    return ingredient;
+  }
 
-    public void setStep(String step) {
-        this.step = step;
-    }
+  public void setIngredient(String ingredient) {
+    this.ingredient = ingredient;
+  }
 
-    public String getIngredient() {
-        return ingredient;
-    }
+  public int getState() {
+    return state;
+  }
 
-    public void setIngredient(String ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public Boolean getState() {
-        return state;
-    }
-
-    public void setState(Boolean state) {
-        this.state = state;
-    }
+  public void setState(int state) {
+    this.state = state;
+  }
 
 }

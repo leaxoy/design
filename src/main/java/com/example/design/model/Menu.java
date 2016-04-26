@@ -5,71 +5,71 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
- * Created by lxh on 4/14/16.
+ * 菜单模型 Created by lxh on 4/14/16.
  */
 public class Menu {
-    @Id
-    private Long menuId;
-    private String menuName;
-    private String menuPicture;
-    private String cookingName;
-    private String cookingId;
-    private Integer menuLike;
-    private Date menuDate;
+  @Id
+  private long menuId;
+  private String menuName;
+  private String menuPicture;
+  private int menuLike;
+  private long authorId;
+  private Date menuDate;
+  private int state;
 
-    public Long getMenuId() {
-        return menuId;
-    }
+  public long getMenuId() {
+    return menuId;
+  }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
+  public void setMenuId(long menuId) {
+    this.menuId = menuId;
+  }
 
-    public String getMenuName() {
-        return menuName;
-    }
+  public String getMenuName() {
+    return menuName;
+  }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
+  public void setMenuName(String menuName) {
+    this.menuName = menuName;
+  }
 
-    public String getMenuPicture() {
-        return menuPicture;
-    }
+  public String getMenuPicture() {
+    return menuPicture;
+  }
 
-    public void setMenuPicture(String menuPicture) {
-        this.menuPicture = menuPicture;
-    }
+  public void setMenuPicture(String menuPicture) {
+    this.menuPicture = menuPicture;
+  }
 
-    public String getCookingName() {
-        return cookingName;
-    }
+  public int getMenuLike() {
+    return menuLike;
+  }
 
-    public void setCookingName(String cookingName) {
-        this.cookingName = cookingName;
-    }
+  public void setMenuLike(int menuLike) {
+    this.menuLike = menuLike;
+  }
 
-    public String getCookingId() {
-        return cookingId;
-    }
+  public Date getMenuDate() {
+    return menuDate;
+  }
 
-    public void setCookingId(String cookingId) {
-        this.cookingId = cookingId;
-    }
+  public void setMenuDate(Date menuDate) {
+    this.menuDate = menuDate;
+  }
 
-    public Integer getMenuLike() {
-        return menuLike;
-    }
+  public long getAuthorId() {
+    return authorId;
+  }
 
-    public void setMenuLike(Integer menuLike) {
-        this.menuLike = menuLike;
-    }
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
+  }
 
-    public Date getMenuDate() {
-        return menuDate;
-    }
+  public int getState() {
+    return state;
+  }
 
-    public void setMenuDate(Date menuDate) {
-        this.menuDate = menuDate;
-    }
+  public void setState(int state) {
+    this.state = state;
+  }
 }

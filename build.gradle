@@ -31,32 +31,34 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-cache')
+    compile('org.springframework.boot:spring-boot-starter-aop')
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
-    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-jetty')
-    compile('org.springframework.boot:spring-boot-starter-mobile')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-web') { exclude module: 'spring-boot-starter-tomcat' }
-    compile('org.springframework.cloud:spring-cloud-starter-zuul')
-    compile('org.springframework.cloud:spring-cloud-starter-zookeeper-discovery')
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
     compile('org.springframework.session:spring-session')
-    compile('org.springframework.security.oauth:spring-security-oauth2:2.0.9.RELEASE')
+    compile('io.jsonwebtoken:jjwt:0.6.0')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.2')
 
-    compile('org.apache.shiro:shiro-all:1.2.4')
+    compile('io.springfox:springfox-swagger-ui:2.4.0')
+    compile('io.springfox:springfox-swagger2:2.4.0')
 
-    compile('org.projectlombok:lombok')
+    compile('com.google.code.gson:gson:2.6.2')
+
+    compile('org.projectlombok:lombok:1.16.8')
+
     runtime('mysql:mysql-connector-java')
     runtime('org.postgresql:postgresql')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
 }
 
 dependencyManagement {

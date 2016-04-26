@@ -5,62 +5,72 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
- * Created by lxh on 4/14/16.
+ * 分享模型 Created by lxh on 4/14/16.
  */
 public class Share {
-    @Id
-    private Long shareId;
-    private Long shareUserId;
-    private Date shareDate;
-    private Long menuId;
-    private Long cookingId;
-    private String shareContent;
+  @Id
+  private long shareId;
+  private long shareUserId;
+  private Date shareDate;
+  private String shareType;
+  private long itemId;
+  private String shareContent;
+  private int state;
 
-    public Long getShareId() {
-        return shareId;
-    }
+  public long getShareId() {
+    return shareId;
+  }
 
-    public void setShareId(Long shareId) {
-        this.shareId = shareId;
-    }
+  public void setShareId(long shareId) {
+    this.shareId = shareId;
+  }
 
-    public Long getShareUserId() {
-        return shareUserId;
-    }
+  public long getShareUserId() {
+    return shareUserId;
+  }
 
-    public void setShareUserId(Long shareUserId) {
-        this.shareUserId = shareUserId;
-    }
+  public void setShareUserId(long shareUserId) {
+    this.shareUserId = shareUserId;
+  }
 
-    public Date getShareDate() {
-        return shareDate;
-    }
+  public Date getShareDate() {
+    return shareDate;
+  }
 
-    public void setShareDate(Date shareDate) {
-        this.shareDate = shareDate;
-    }
+  public void setShareDate(Date shareDate) {
+    this.shareDate = shareDate;
+  }
 
-    public Long getMenuId() {
-        return menuId;
-    }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
+  public String getShareContent() {
+    return shareContent;
+  }
 
-    public Long getCookingId() {
-        return cookingId;
-    }
+  public void setShareContent(String shareContent) {
+    this.shareContent = shareContent;
+  }
 
-    public void setCookingId(Long cookingId) {
-        this.cookingId = cookingId;
-    }
+  public String getShareType() {
+    return shareType;
+  }
 
-    public String getShareContent() {
-        return shareContent;
-    }
+  public void setShareType(String shareType) {
+    this.shareType = shareType;
+  }
 
-    public void setShareContent(String shareContent) {
-        this.shareContent = shareContent;
-    }
+  public long getItemId() {
+    return itemId;
+  }
+
+  public void setItemId(long itemId) {
+    this.itemId = itemId;
+  }
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
+  }
 }

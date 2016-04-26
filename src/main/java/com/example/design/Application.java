@@ -2,15 +2,19 @@ package com.example.design;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Created by lxh on 4/13/16.
+ * spring app 的运行接口. Created by lxh on 4/13/16.
  */
-@EnableZuulProxy
 @SpringBootApplication
+@EnableSwagger2
 public class Application {
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
-    }
+  /**
+   * @param args 命令行参数.
+   */
+  public static void main(String... args) {
+    SpringApplication.run(Application.class, args);
+  }
 }
