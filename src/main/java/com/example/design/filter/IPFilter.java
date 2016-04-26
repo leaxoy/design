@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
  * IP 过滤器. Created by lxh on 4/13/16.
  */
 @WebFilter(value = "ipFilter", urlPatterns = "/**")
-public class IPFilter implements Filter {
+public class IpFilter implements Filter {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IPFilter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(IpFilter.class);
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
