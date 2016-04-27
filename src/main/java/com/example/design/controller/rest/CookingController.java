@@ -3,17 +3,14 @@ package com.example.design.controller.rest;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
+import com.example.design.model.CookingLike;
 import com.example.design.service.impl.CookingService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +32,7 @@ public class CookingController {
    * @return all articles list.
    */
   @RequestMapping("")
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -44,15 +41,31 @@ public class CookingController {
     return ResponseEntity.notFound().build();
   }
 
+//  /**
+//   * 返回所有菜谱.
+//   *
+//   * @return all articles list by keywords.
+//   */
+//  @RequestMapping(value ="" , method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT, Role.LIMITED_USER})
+//  public ResponseEntity findALLByKeyWords(@PathVariable String keywords) {
+//    List<Cooking> list = cookingService.findAllCookingByKeywords(keywords);
+//    if (list != null) {
+//      return new ResponseEntity<>(list, HttpStatus.OK);
+//    }
+//    return ResponseEntity.notFound().build();
+//  }
+
   /**
    * 返回指定id的菜谱.
    *
-   * @param id 菜谱id.
+   * @param cookingId 菜谱id.
    * @return 指定id 的菜谱.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.GET)
-  public ResponseEntity id(@PathVariable long id) {
-    Cooking cooking = cookingService.id(id);
+  @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity cookingId(@PathVariable long cookingId) {
+    Cooking cooking = cookingService.findById(cookingId);
 
     if (cooking == null) {
       return ResponseEntity.notFound().build();
@@ -70,7 +83,7 @@ public class CookingController {
   @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
   @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
   public ResponseEntity userId(@PathVariable long userId) {
-    List<Cooking> list = cookingService.findByUserId(userId);
+    List<Cooking> list = cookingService.findAllCookingByUserId(userId);
     if (list == null) {
       return ResponseEntity.notFound().build();
     }
@@ -80,24 +93,56 @@ public class CookingController {
   /**
    * 新添加菜谱.
    *
-   * @param cooking 菜谱body.
+   * @param cookingForm 菜谱body.
    * @return 新添加的菜谱信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity add(@RequestBody Cooking cooking) {
-    return ResponseEntity.ok(cooking);
+  @Authorization({Role.USER})
+  public ResponseEntity add(@RequestBody CookingForm cookingForm) {
+    /**
+     * 创建菜单
+     */
+    Cooking cooking = new Cooking();
+    cooking.setCookingName(cookingForm.getCookingName());
+    cooking.setCookingStyle(cookingForm.getCookingStyle());
+    cooking.setCookingDate(cookingForm.getCookingDate());
+    cooking.setAuthorId(cookingForm.getAuthorId());
+    cooking.setCookingPicture(cookingForm.getCookingPicture());
+    cooking.setCookingIntro(cookingForm.getCookingIntro());
+    cooking.setTips(cookingForm.getTips());
+    cooking.setStep(cookingForm.getStep());
+    cooking.setIngredient(cookingForm.getIngredient());
+    int count = cookingService.addCooking(cooking);
+
+    if (count == 1) {
+      return ResponseEntity.ok(cooking);
+    }
+    return ResponseEntity.ok("添加失败");
   }
 
   /**
    * 更新已存在菜谱.
    *
-   * @param cooking 菜谱body.
+   * @param cookingForm 菜谱body.
    * @return 更改的菜谱信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({Role.ADMIN, Role.ROOT, Role.USER})
-  public ResponseEntity update(@RequestBody Cooking cooking) {
-    return ResponseEntity.ok(cooking);
+  @Authorization({Role.USER})
+  public ResponseEntity update(@RequestBody CookingForm cookingForm) {
+    Cooking cooking = new Cooking();
+    cooking.setCookingName(cookingForm.getCookingName());
+    cooking.setCookingStyle(cookingForm.getCookingStyle());
+    cooking.setCookingPicture(cookingForm.getCookingPicture());
+    cooking.setCookingIntro(cookingForm.getCookingIntro());
+    cooking.setTips(cookingForm.getTips());
+    cooking.setStep(cookingForm.getStep());
+    cooking.setIngredient(cookingForm.getIngredient());
+    int count = cookingService.updateCooking(cooking);
+
+    if (count == 1) {
+      return ResponseEntity.ok(cooking);
+    }
+    return ResponseEntity.ok("更新失败");
   }
 
   /**
@@ -107,8 +152,135 @@ public class CookingController {
    * @return 删除的菜谱信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-  public ResponseEntity remove(@PathVariable long id) {
-    return ResponseEntity.ok(null);
+  @Authorization({Role.ADMIN, Role.USER})
+  public ResponseEntity markDelete(@PathVariable long id) {
+    int count = cookingService.markCookingDetele(id);
+    if (count == 1) {
+      return ResponseEntity.ok("删除成功");
+    }
+    return ResponseEntity.ok("删除失败");
   }
 
+  @RequestMapping(value = "like", method = RequestMethod.POST)
+  @Authorization({Role.ADMIN, Role.USER})
+  public ResponseEntity LikeIt(@RequestBody CookingLikeForm cookingLikeForm) {
+    CookingLike cookingLike = new CookingLike();
+    cookingLike.setCookingId(cookingLikeForm.getCookingId());
+    cookingLike.setUserId(cookingLikeForm.getUserId());
+    if (cookingLikeForm.getLike() > 0) {
+      cookingService.addCookingLikeUser(cookingLike);
+      cookingService.updateLikeOfCooking(cookingLike.getCookingId(), 1);
+      return ResponseEntity.ok("已点赞");
+    }
+    cookingService.deleteCookingLike(cookingLike.getUserId(), cookingLike.getCookingId());
+    cookingService.updateLikeOfCooking(cookingLike.getCookingId(), -1);
+    return ResponseEntity.ok("已取消点赞");
+  }
+
+
+  public static class CookingLikeForm {
+    private long cookingId;
+    private long userId;
+    private int like;
+
+    public CookingLikeForm(long cookingId, long userId, int like) {
+      this.cookingId = cookingId;
+      this.userId = userId;
+      this.like = like;
+    }
+
+    public long getCookingId() {
+      return cookingId;
+    }
+
+    public long getUserId() {
+      return userId;
+    }
+
+    public int getLike() {
+      return like;
+    }
+
+
+  }
+
+  public static class CookingForm {
+    private long cookingId;
+    private String cookingName;
+    private String cookingStyle;
+    private Date cookingDate;
+    private long authorId;
+    private String cookingPicture;
+    private String cookingIntro;
+    private String tips;
+    private int cookingLikeNum;
+    private String step;
+    private String ingredient;
+    private int state;
+
+    public CookingForm(long cookingId, String cookingName, String cookingStyle, Date cookingDate, long authorId, String
+            cookingPicture, String cookingIntro, String tips, int cookingLikeNum, String step, String ingredient, int state) {
+      this.cookingId = cookingId;
+      this.cookingName = cookingName;
+      this.cookingStyle = cookingStyle;
+      this.cookingDate = cookingDate;
+      this.authorId = authorId;
+      this.cookingPicture = cookingPicture;
+      this.cookingIntro = cookingIntro;
+      this.tips = tips;
+      this.cookingLikeNum = cookingLikeNum;
+      this.step = step;
+      this.ingredient = ingredient;
+      this.state = state;
+    }
+
+    public long getCookingId() {
+      return cookingId;
+    }
+
+    public String getCookingName() {
+      return cookingName;
+    }
+
+    public String getCookingStyle() {
+      return cookingStyle;
+    }
+
+    public Date getCookingDate() {
+      return cookingDate;
+    }
+
+    public long getAuthorId() {
+      return authorId;
+    }
+
+    public String getCookingPicture() {
+      return cookingPicture;
+    }
+
+    public String getCookingIntro() {
+      return cookingIntro;
+    }
+
+    public String getTips() {
+      return tips;
+    }
+
+    public int getCookingLikeNum() {
+      return cookingLikeNum;
+    }
+
+    public String getStep() {
+      return step;
+    }
+
+    public String getIngredient() {
+      return ingredient;
+    }
+
+    public int getState() {
+      return state;
+    }
+  }
 }
+
