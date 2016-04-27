@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,7 @@ public class AuthController {
    * @param user 当前用户.
    * @return 当前用户信息.
    */
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.GET)
   @Authorization({Role.GUEST, Role.USER, Role.ADMIN})
   public ResponseEntity home(@CurrentUser User user) {
@@ -52,6 +54,7 @@ public class AuthController {
    * @param password 密码.
    * @return token 信息.
    */
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity auth(@RequestParam String username, @RequestParam String password) {
     Assert.notNull(username, "username can not be empty");
@@ -76,6 +79,7 @@ public class AuthController {
    * @param request 请求参数.
    * @return 修改后的用户信息.
    */
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.PUT)
   @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
@@ -88,6 +92,7 @@ public class AuthController {
    * @param user 当前用户.
    * @return 请求结果.
    */
+  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.DELETE)
   @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity logout(@CurrentUser User user) {

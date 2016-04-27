@@ -67,7 +67,7 @@ public class UserController {
   @RequestMapping("{id}/comment")
   @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity getCommentsByUserId(@PathVariable long id) {
-    List<Comment> comments = commentService.findCommentsByUserId(id);
+    List<Comment> comments = commentService.byUserId(id);
     if (comments == null) {
       return ResponseEntity.notFound().build();
     }
