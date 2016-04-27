@@ -132,9 +132,12 @@ public class CookingController {
     return ResponseEntity.ok("删除失败");
   }
 
+  /**
+   * 用户点赞或者取消点赞.
+   */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
-  public ResponseEntity LikeIt(@RequestBody CookingLikeForm cookingLikeForm) {
+  public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
@@ -160,6 +163,9 @@ public class CookingController {
       this.like = like;
     }
 
+    public CookingLikeForm() {
+    }
+
     public long getCookingId() {
       return cookingId;
     }
@@ -171,13 +177,6 @@ public class CookingController {
     public int getLike() {
       return like;
     }
-
-
   }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 38d740d48cc192adfd6cc6bd0adf211e1e3e6aa9
 }
 

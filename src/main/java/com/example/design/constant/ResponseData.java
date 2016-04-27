@@ -39,4 +39,8 @@ public class ResponseData {
   public static ResponseData ok(int code, String message, String event, Object content) {
     return new ResponseData(code, message, event, content);
   }
+
+  public static ResponseData ok(String event,  Object content) {
+    return new ResponseData(100, "success", event, content);
+  }
 }

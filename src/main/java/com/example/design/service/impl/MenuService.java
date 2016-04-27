@@ -22,7 +22,9 @@ import java.util.List;
 public class MenuService {
   @Autowired
   MenuMapper menuMapper;
+  @Autowired
   MenuLikeMapper menuLikeMapper;
+  @Autowired
   CookingMenuMapper cookingMenuMapper;
 
   /**

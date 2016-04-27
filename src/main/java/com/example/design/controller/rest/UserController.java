@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
 /**
  * user rest api.
  *
@@ -37,6 +41,8 @@ public class UserController {
    * @param id user id.
    * @return user.
    */
+  @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
+  @ApiParam(name = "id", value = "用户ID", required = true)
   @RequestMapping("{id}")
   public ResponseEntity getById(@PathVariable long id) {
     User user = userService.id(id);
