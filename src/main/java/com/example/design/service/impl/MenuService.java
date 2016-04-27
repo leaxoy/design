@@ -6,6 +6,7 @@ import com.example.design.mapper.MenuMapper;
 import com.example.design.model.Menu;
 import com.example.design.model.MenuCooking;
 import com.example.design.model.MenuLike;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,6 @@ public class MenuService {
 
   /**
    * add a menu
-   *
-   * @param menu
-   * @return
    */
   public int addMenu(Menu menu) {
     return menuMapper.addMenu(menu);
@@ -37,7 +35,6 @@ public class MenuService {
   /**
    * select all information by menuId
    *
-   * @param menuId
    * @return Menu
    */
   public Menu findByID(long menuId) {
@@ -46,9 +43,6 @@ public class MenuService {
 
   /**
    * update menu's information except authorID,menuId,menuLike menuDate,state
-   *
-   * @param menu
-   * @return
    */
   public int updateMenu(Menu menu) {
     return menuMapper.updateMenu(menu);
@@ -56,9 +50,6 @@ public class MenuService {
 
   /**
    * mark user's one menu as deleted
-   *
-   * @param menuId
-   * @return
    */
   public int markMenuDelete(long menuId) {
     return menuMapper.markMenuDelete(menuId);
@@ -66,9 +57,6 @@ public class MenuService {
 
   /**
    * select one user's all menu by user's Id
-   *
-   * @param userID
-   * @return
    */
   public List<Menu> findAllMenuByUserID(long userID) {
     return menuMapper.findAllMenuByUserID(userID);
@@ -76,8 +64,6 @@ public class MenuService {
 
   /**
    * select all menu
-   *
-   * @return
    */
   public List<Menu> all() {
     return menuMapper.all();
@@ -85,9 +71,6 @@ public class MenuService {
 
   /**
    * if one user click Like,his(her) behavior will be recorded,and set state as 1
-   *
-   * @param menuLike
-   * @return
    */
   public int addMenuLikeUser(MenuLike menuLike) {
     return menuLikeMapper.addMenuLikeUser(menuLike);
@@ -96,8 +79,6 @@ public class MenuService {
   /**
    * select user's one menu-like record
    *
-   * @param userId
-   * @param menuId
    * @return MenuLike
    */
   public MenuLike isLike(long userId, long menuId) {
@@ -106,11 +87,6 @@ public class MenuService {
 
   /**
    * update menuLike's state
-   *
-   * @param like
-   * @param userId
-   * @param menuId
-   * @return
    */
   public int markMenuLikeState(int like, long userId, long menuId) {
     return menuLikeMapper.markMenuLikeState(like, userId, menuId);
@@ -118,10 +94,6 @@ public class MenuService {
 
   /**
    * update menu's menuLike
-   *
-   * @param menuId
-   * @param like
-   * @return
    */
   public int updateLikeOfMenu(long menuId, int like) {
     return menuLikeMapper.updateLikeOfMenu(menuId, like);
@@ -129,9 +101,6 @@ public class MenuService {
 
   /**
    * add one recipe to a menu
-   *
-   * @param menuCooking
-   * @return
    */
   public int addCookingToMenu(MenuCooking menuCooking) {
     return cookingMenuMapper.addCookingToMenu(menuCooking);
@@ -139,12 +108,8 @@ public class MenuService {
 
   /**
    * delete one recipe from a menu
-   *
-   * @param menuId
-   * @param cookingId
-   * @return
    */
-  public int deleteCookingFromMenu(long menuId, long cookingId){
+  public int deleteCookingFromMenu(long menuId, long cookingId) {
     return cookingMenuMapper.deleteCookingFromMenu(menuId, cookingId);
   }
 }
