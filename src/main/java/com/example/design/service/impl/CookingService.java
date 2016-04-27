@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 菜谱服务 Created by lxh on 4/20/16.
+ * 菜谱服务
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Service
 public class CookingService {
   @Autowired
-  private CookingMapper mapper;
+  private CookingMapper cookingMapper;
 
   public List<Cooking> all() {
     return null;

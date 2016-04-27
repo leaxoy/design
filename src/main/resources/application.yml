@@ -53,3 +53,8 @@ logging:
   level:
     ROOT: info
     org.springframework.web: info
+
+multipart:
+  enabled: true
+  max-file-size: 1mb
+  max-request-size: 3mb

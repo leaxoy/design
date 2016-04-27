@@ -39,11 +39,10 @@ public class UserController {
    */
   @RequestMapping("{id}")
   public ResponseEntity getById(@PathVariable long id) {
-    User user = userService.getByAccountName(String.valueOf(id));
+    User user = userService.id(id);
     if (user == null) {
       return ResponseEntity.notFound().build();
     }
-
     return ResponseEntity.ok(user);
   }
 
@@ -68,7 +67,7 @@ public class UserController {
   @RequestMapping("{id}/comment")
   @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity getCommentsByUserId(@PathVariable long id) {
-    List<Comment> comments = commentService.findCommentsByUserId(id);
+    List<Comment> comments = commentService.byUserId(id);
     if (comments == null) {
       return ResponseEntity.notFound().build();
     }
