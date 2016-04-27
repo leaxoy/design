@@ -21,7 +21,7 @@ public interface MenuMapper {
    * @return 所有菜单
    */
   @Select("")
-  Optional<List<Menu>> all();
+  List<Menu> all();
 
   /**
    * 获取ID为id的菜单 or null.
@@ -30,7 +30,7 @@ public interface MenuMapper {
    * @return 菜单 or null.
    */
   @Select("")
-  Optional<Menu> id(int id);
+  Menu id(int id);
 
   /**
    * @param menu 需要更新的菜单.

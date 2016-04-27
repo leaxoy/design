@@ -20,7 +20,8 @@ import java.util.List;
  */
 @Repository("userMapper")
 public interface UserMapper {
-  @Insert("INSERT INTO `user` () VALUES ()")
+  @Insert("INSERT INTO `user`(`account`, `password`, `role`) VALUES"
+          + "(#{account}, #{password}, #{role})")
   int add(User user);
 
   @Update("UPDATE `user` () VALUES() WHERE `id`=#{id}")
@@ -29,10 +30,13 @@ public interface UserMapper {
   @Select("SELECT * FROM `user`")
   List<User> all();
 
+  @Select("SELECT * FROM `user` WHERE `userId`=#{id}")
+  User id(long id);
+
   @Select("SELECT `userId`, `role`, `account`, `password`, `email`, `nickName`, `userPicture`, "
           + "`name`, `gender`, `birth`, `job`, `city`, `userIntro` FROM `user` WHERE "
-          + "`account`=#{name}")
-  User selectByAccountName(@Param("name") String name);
+          + "`account`=#{account}")
+  User selectByAccountName(@Param("account") String account);
 
   @Select("SELECT * FROM `user` WHERE `nickName`=#{nickname}")
   List<User> selectByNickName(@Param("nickname") String nickname);

@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
     return mapper.all();
   }
 
+  public User id(long id) {
+    return mapper.id(id);
+  }
+
   public int addUser(User user) {
     return mapper.add(user);
   }
