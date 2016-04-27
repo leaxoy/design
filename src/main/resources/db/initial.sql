@@ -385,14 +385,14 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES
-  ('1', '1', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL, NULL,
+  ('1', 'ADMIN', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL, NULL,
    '0');
 INSERT INTO `user` VALUES
-  ('2', '0', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22', '学生',
+  ('2', 'USER', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22', '学生',
    '武汉', '老子日~', '0');
 INSERT INTO `user` VALUES
-  ('3', '0', '1283399465', '987654', '666666@162.com', '研', NULL, '石开', 'male', '2014-08-07',
+  ('3', 'USER', '1283399465', '987654', '666666@162.com', '研', NULL, '石开', 'male', '2014-08-07',
         'S6传奇选手', '武汉', '带不动啊', '0');
 INSERT INTO `user` VALUES
-  ('4', '0', '1888888888', 'cyw', '188888@115.com', '瓜伟', NULL, '陈宜伟', 'female', '2016-04-12',
+  ('4', 'USER', '1888888888', 'cyw', '188888@115.com', '瓜伟', NULL, '陈宜伟', 'female', '2016-04-12',
         '夜店王子', '武汉', '给我来十个', '1');

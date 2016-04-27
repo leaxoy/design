@@ -1,41 +1,67 @@
 package com.example.design.mapper;
 
 import com.example.design.model.Menu;
-
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 菜单持久化接口. Created by lxh on 4/17/16.
  */
 @Repository
 public interface MenuMapper {
+  /**
+   * add a menu
+   *
+   * @param menu
+   * @return
+   */
+  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName}, #{menuPicture}, #{authorId}, #{menuDate})")
+  int addMenu(Menu menu);
 
   /**
-   * 获取所有菜单 or null.
-   *
-   * @return 所有菜单
+   * select all information by menuId
+   * @param menuId
+   * @return Menu
    */
-  @Select("")
+  @Select("SELECT * FROM menu WHERE menuId = #{menuId}")
+  Menu findById(long menuId);
+
+  /**
+   * update menu's information except authorId,menuId,menuLike menuDate,state
+   * @param menu
+   * @return
+   */
+  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId = #{authorId} AND menuId = #{menuId}" +
+          " AND state = 0")
+  int updateMenu(Menu menu);
+
+  /**
+   *select one user's all menu by author's Id
+   * @param userId
+   * @return
+   */
+  @Select("SELECT * FROM menu WHERE authorId = #{authorId} AND state = 0")
+  List<Menu> findAllMenuByUserID(@Param("authorId") long userId);
+
+  /**
+   * mark user's one menu as deleted
+   *
+   * @param menuID
+   * @return
+   */
+  @Update("UPDATE menu SET state = 1 WHERE menuID = #{menuID} ")
+  int markMenuDelete(long menuID);
+
+  /**
+   * select all menus
+   *
+   * @return
+   */
+  @Select("SELECT * FROM menu")
   List<Menu> all();
-
-  /**
-   * 获取ID为id的菜单 or null.
-   *
-   * @param id 需要获取的菜单的id
-   * @return 菜单 or null.
-   */
-  @Select("")
-  Menu id(int id);
-
-  /**
-   * @param menu 需要更新的菜单.
-   */
-  @Update("")
-  void update(Menu menu);
-
 }
