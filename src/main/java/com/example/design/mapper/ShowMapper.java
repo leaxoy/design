@@ -1,6 +1,7 @@
 package com.example.design.mapper;
 
 import com.example.design.model.Show;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,28 +17,20 @@ import java.util.List;
 public interface ShowMapper {
   /**
    * add one cookingShow to a table
-   *
-   * @param show
-   * @return
    */
-  @Insert("INSERT INTO show(showIntro, showPicture, showDate, authorId, cookingId) VALUES(#{showIntro}, #{showPicture}," +
-          "#{showDate}, #{authorId}, #{cookingId})")
+  @Insert("INSERT INTO show(showIntro, showPicture, showDate, authorId, cookingId) " +
+          "VALUES(#{showIntro}, #{showPicture}, #{showDate}, #{authorId}, #{cookingId})")
   int addShow(Show show);
 
   /**
    * Update show information
-   *
-   * @param show
-   * @return
    */
-  @Update("UPDATE show SET showIntro = #{showIntro}, showPicture = #{showPicture} WHERE showId = #{showId} AND state = 0")
+  @Update("UPDATE show SET showIntro = #{showIntro}, showPicture = #{showPicture} " +
+          "WHERE showId = #{showId} AND state = 0")
   int updateShow(Show show);
 
   /**
    * mark show'state as "deleted"
-   *
-   * @param showId
-   * @return
    */
   @Update("UPDATE show SET state = 1 WHERE showId = #{showId} AND state = 0")
   int markShowDelete(long showId);
@@ -45,7 +38,6 @@ public interface ShowMapper {
   /**
    * select one show by it's Id
    *
-   * @param showId
    * @return Show
    */
   @Select("SELECT * FROM show WHERE showId = #{showId}")
@@ -54,7 +46,6 @@ public interface ShowMapper {
   /**
    * select one user's all show
    *
-   * @param userId
    * @return List<Show>
    */
   @Select("SELECT * FROM show WHERE authorId = #{authorId} AND state = 0 ")
@@ -63,7 +54,6 @@ public interface ShowMapper {
   /**
    * select one cooking's all show
    *
-   * @param cookingId
    * @return List<Show>
    */
   @Select("SELECT * FROM show WHERE cookingId = #{cookingId} AND state = 0 ")

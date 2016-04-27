@@ -1,6 +1,7 @@
 package com.example.design.mapper;
 
 import com.example.design.model.Menu;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,16 +17,14 @@ import java.util.List;
 public interface MenuMapper {
   /**
    * add a menu
-   *
-   * @param menu
-   * @return
    */
-  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName}, #{menuPicture}, #{authorId}, #{menuDate})")
+  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName}," +
+          " #{menuPicture}, #{authorId}, #{menuDate})")
   int addMenu(Menu menu);
 
   /**
    * select all information by menuId
-   * @param menuId
+   *
    * @return Menu
    */
   @Select("SELECT * FROM menu WHERE menuId = #{menuId}")
@@ -33,34 +32,26 @@ public interface MenuMapper {
 
   /**
    * update menu's information except authorId,menuId,menuLike menuDate,state
-   * @param menu
-   * @return
    */
-  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId = #{authorId} AND menuId = #{menuId}" +
+  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId =" +
+          " #{authorId} AND menuId = #{menuId}" +
           " AND state = 0")
   int updateMenu(Menu menu);
 
   /**
-   *select one user's all menu by author's Id
-   * @param userId
-   * @return
+   * select one user's all menu by author's Id
    */
   @Select("SELECT * FROM menu WHERE authorId = #{authorId} AND state = 0")
   List<Menu> findAllMenuByUserID(@Param("authorId") long userId);
 
   /**
    * mark user's one menu as deleted
-   *
-   * @param menuID
-   * @return
    */
   @Update("UPDATE menu SET state = 1 WHERE menuID = #{menuID} ")
   int markMenuDelete(long menuID);
 
   /**
    * select all menus
-   *
-   * @return
    */
   @Select("SELECT * FROM menu")
   List<Menu> all();
