@@ -5,12 +5,16 @@ import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
 import com.example.design.service.impl.CookingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +36,7 @@ public class CookingController {
    * @return all articles list.
    */
   @RequestMapping("")
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -41,21 +45,6 @@ public class CookingController {
     return ResponseEntity.notFound().build();
   }
 
-//  /**
-//   * 返回所有菜谱.
-//   *
-//   * @return all articles list by keywords.
-//   */
-//  @RequestMapping(value ="" , method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT, Role.LIMITED_USER})
-//  public ResponseEntity findALLByKeyWords(@PathVariable String keywords) {
-//    List<Cooking> list = cookingService.findAllCookingByKeywords(keywords);
-//    if (list != null) {
-//      return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//    return ResponseEntity.notFound().build();
-//  }
-
   /**
    * 返回指定id的菜谱.
    *
@@ -63,7 +52,7 @@ public class CookingController {
    * @return 指定id 的菜谱.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -93,25 +82,15 @@ public class CookingController {
   /**
    * 新添加菜谱.
    *
-   * @param cookingForm 菜谱body.
+   * @param cooking 菜谱body.
    * @return 新添加的菜谱信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
   @Authorization({Role.USER})
-  public ResponseEntity add(@RequestBody CookingForm cookingForm) {
+  public ResponseEntity add(@RequestBody Cooking cooking) {
     /**
      * 创建菜单
      */
-    Cooking cooking = new Cooking();
-    cooking.setCookingName(cookingForm.getCookingName());
-    cooking.setCookingStyle(cookingForm.getCookingStyle());
-    cooking.setCookingDate(cookingForm.getCookingDate());
-    cooking.setAuthorId(cookingForm.getAuthorId());
-    cooking.setCookingPicture(cookingForm.getCookingPicture());
-    cooking.setCookingIntro(cookingForm.getCookingIntro());
-    cooking.setTips(cookingForm.getTips());
-    cooking.setStep(cookingForm.getStep());
-    cooking.setIngredient(cookingForm.getIngredient());
     int count = cookingService.addCooking(cooking);
 
     if (count == 1) {
@@ -123,20 +102,12 @@ public class CookingController {
   /**
    * 更新已存在菜谱.
    *
-   * @param cookingForm 菜谱body.
+   * @param cooking 菜谱body.
    * @return 更改的菜谱信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
   @Authorization({Role.USER})
-  public ResponseEntity update(@RequestBody CookingForm cookingForm) {
-    Cooking cooking = new Cooking();
-    cooking.setCookingName(cookingForm.getCookingName());
-    cooking.setCookingStyle(cookingForm.getCookingStyle());
-    cooking.setCookingPicture(cookingForm.getCookingPicture());
-    cooking.setCookingIntro(cookingForm.getCookingIntro());
-    cooking.setTips(cookingForm.getTips());
-    cooking.setStep(cookingForm.getStep());
-    cooking.setIngredient(cookingForm.getIngredient());
+  public ResponseEntity update(@RequestBody Cooking cooking) {
     int count = cookingService.updateCooking(cooking);
 
     if (count == 1) {
@@ -178,7 +149,7 @@ public class CookingController {
   }
 
 
-  public static class CookingLikeForm {
+  private static class CookingLikeForm {
     private long cookingId;
     private long userId;
     private int like;
@@ -202,85 +173,6 @@ public class CookingController {
     }
 
 
-  }
-
-  public static class CookingForm {
-    private long cookingId;
-    private String cookingName;
-    private String cookingStyle;
-    private Date cookingDate;
-    private long authorId;
-    private String cookingPicture;
-    private String cookingIntro;
-    private String tips;
-    private int cookingLikeNum;
-    private String step;
-    private String ingredient;
-    private int state;
-
-    public CookingForm(long cookingId, String cookingName, String cookingStyle, Date cookingDate, long authorId, String
-            cookingPicture, String cookingIntro, String tips, int cookingLikeNum, String step, String ingredient, int state) {
-      this.cookingId = cookingId;
-      this.cookingName = cookingName;
-      this.cookingStyle = cookingStyle;
-      this.cookingDate = cookingDate;
-      this.authorId = authorId;
-      this.cookingPicture = cookingPicture;
-      this.cookingIntro = cookingIntro;
-      this.tips = tips;
-      this.cookingLikeNum = cookingLikeNum;
-      this.step = step;
-      this.ingredient = ingredient;
-      this.state = state;
-    }
-
-    public long getCookingId() {
-      return cookingId;
-    }
-
-    public String getCookingName() {
-      return cookingName;
-    }
-
-    public String getCookingStyle() {
-      return cookingStyle;
-    }
-
-    public Date getCookingDate() {
-      return cookingDate;
-    }
-
-    public long getAuthorId() {
-      return authorId;
-    }
-
-    public String getCookingPicture() {
-      return cookingPicture;
-    }
-
-    public String getCookingIntro() {
-      return cookingIntro;
-    }
-
-    public String getTips() {
-      return tips;
-    }
-
-    public int getCookingLikeNum() {
-      return cookingLikeNum;
-    }
-
-    public String getStep() {
-      return step;
-    }
-
-    public String getIngredient() {
-      return ingredient;
-    }
-
-    public int getState() {
-      return state;
-    }
   }
 }
 
