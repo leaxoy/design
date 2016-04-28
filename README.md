@@ -2,8 +2,9 @@
 
 ## `spring`
 
-- `spring-mvc`
+- `spring-web`
 - `spring-data`
+- `spring-session`
 - `mybatis`
 
 
@@ -17,3 +18,5 @@
 
 - `redis`
 - `mysql`
+
+![Architecture](doc/Architecture.svg)

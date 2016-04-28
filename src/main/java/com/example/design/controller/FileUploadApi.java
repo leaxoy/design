@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @RequestMapping("file")
-public class FileController {
+public class FileUploadApi {
 
   /**
    * 用户下载文件.
@@ -54,7 +54,7 @@ public class FileController {
   /**
    * 处理文件上传.
    *
-   * @param file 文件
+   * @param file 用户上传的文件对象
    * @return 返回值
    */
   @CrossOrigin(origins = {"http://localhost:8080"})

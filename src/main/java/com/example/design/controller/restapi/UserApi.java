@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
 /**
  * user rest api.
  *
@@ -24,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/user")
-public class UserController {
+public class UserApi {
   @Autowired
   private UserService userService;
   @Autowired
@@ -37,6 +41,8 @@ public class UserController {
    * @param id user id.
    * @return user.
    */
+  @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
+  @ApiParam(name = "id", value = "用户ID", required = true)
   @RequestMapping("{id}")
   public ResponseEntity getById(@PathVariable long id) {
     User user = userService.id(id);
