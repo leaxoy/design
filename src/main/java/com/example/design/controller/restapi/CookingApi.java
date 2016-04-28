@@ -1,9 +1,11 @@
 package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
+import com.example.design.constant.ResponseData;
 import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
+import com.example.design.model.Show;
 import com.example.design.service.impl.CookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +37,7 @@ public class CookingApi {
    *
    * @return all articles list.
    */
-<<<<<<< HEAD:src/main/java/com/example/design/controller/restapi/CookingApi.java
-  @RequestMapping("")
-=======
   @RequestMapping(value = "", method = RequestMethod.GET)
->>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849:src/main/java/com/example/design/controller/rest/CookingController.java
   @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
@@ -66,6 +64,24 @@ public class CookingApi {
     return ResponseEntity.ok(cooking);
   }
 
+
+  /**
+   *
+   * @param cookingId
+   * @param show
+   * @return
+   */
+  @RequestMapping(value = "{cookingId}/show", method = RequestMethod.POST)
+  public ResponseData addShow(@PathVariable long cookingId, @RequestBody Show show) {
+
+
+    return null;
+  }
+
+  @RequestMapping(value = "{cookingId}/show", method = RequestMethod.GET)
+  public ResponseData listShow(@PathVariable long cookingId) {
+    return null;
+  }
 
   /**
    * 返回指定用户id 的菜谱列表.
@@ -137,11 +153,7 @@ public class CookingApi {
   }
 
   /**
-<<<<<<< HEAD:src/main/java/com/example/design/controller/restapi/CookingApi.java
-   * 用户点赞或者取消点赞.
-=======
-   * 对某一菜谱点赞或取消赞
->>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849:src/main/java/com/example/design/controller/rest/CookingController.java
+   * 用户点赞或者取消点赞. 对某一菜谱点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})

@@ -4,13 +4,10 @@ import com.example.design.model.MenuCooking;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-<<<<<<< HEAD
-import org.springframework.stereotype.Repository;
-=======
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
->>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849
 
 /**
  * Created by viver on 16/4/27.
