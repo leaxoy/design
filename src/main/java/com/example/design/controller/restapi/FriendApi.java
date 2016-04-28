@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/follow")
-public class FriendController {
+public class FriendApi {
 
   @Autowired
   private FriendService friendService;

@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @RequestMapping("file")
-public class FileController {
+public class FileUploadApi {
 
   /**
    * 用户下载文件.

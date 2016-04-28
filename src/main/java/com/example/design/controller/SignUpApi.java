@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("signup")
 @CrossOrigin(origins = {"http://localhost:8080"}, methods = {RequestMethod.POST})
-public class SignUpController {
+public class SignUpApi {
 
   /**
    * 用户注册时,用来查重.

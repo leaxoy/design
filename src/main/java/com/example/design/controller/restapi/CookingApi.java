@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/cooking")
-public class CookingController {
+public class CookingApi {
 
   @Autowired
   private CookingService cookingService;

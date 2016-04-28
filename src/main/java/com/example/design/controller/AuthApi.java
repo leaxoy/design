@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthApi {
   @Autowired
   private UserService userService;
 

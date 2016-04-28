@@ -34,6 +34,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-aop')
+    compile("org.springframework.boot:spring-boot-starter-batch")
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
@@ -45,6 +46,9 @@ dependencies {
     compile('org.springframework.session:spring-session')
     compile('io.jsonwebtoken:jjwt:0.6.0')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.2')
+
+    compile('org.projectreactor:reactor-net:2.0.0.M1')
+    compile('org.projectreactor.spring:reactor-spring-context:2.0.0.M1')
 
     compile('com.google.code.gson:gson')
 

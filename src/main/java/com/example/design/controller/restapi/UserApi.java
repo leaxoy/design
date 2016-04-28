@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiParam;
  */
 @RestController
 @RequestMapping("api/user")
-public class UserController {
+public class UserApi {
   @Autowired
   private UserService userService;
   @Autowired

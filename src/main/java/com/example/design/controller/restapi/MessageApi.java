@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/message")
-public class MessageController {
+public class MessageApi {
 }
