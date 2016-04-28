@@ -22,6 +22,9 @@ public interface ShowMapper {
           "VALUES(#{showIntro}, #{showPicture}, #{showDate}, #{authorId}, #{cookingId})")
   int addShow(Show show);
 
+  @Insert("INSERT INTO show(cookingId) VALUES (#{cookingId} WHERE showId = #{showId})")
+  int addShowToCooking(Show show);
+
   /**
    * Update show information
    */

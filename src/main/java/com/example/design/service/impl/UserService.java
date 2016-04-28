@@ -3,6 +3,7 @@ package com.example.design.service.impl;
 import com.example.design.constant.Role;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -94,30 +95,51 @@ public class UserService implements UserDetailsService {
     return mapper.getRole(name);
   }
 
+  /**
+   * mark a user to limited.
+   *
+   * @param userId user's id.
+   */
   public int markLimit(Long userId) {
-    return mapper.markLimit(userId);        //标记用户受限
+    return mapper.markLimit(userId);
   }
 
+  /**
+   * mark a user unlimited.
+   *
+   * @param userId user's id.
+   */
   public int markNormal(Long userId) {
-    return mapper.markNormal(userId);       //标记受限用户正常
+    return mapper.markNormal(userId);
   }
 
+  /**
+   * change password.
+   */
   public int updatePassword(long account, String password) {
-    return mapper.updatepassword(account, password);        //修改密码
+    return mapper.updatepassword(account, password);
   }
 
+  /**
+   * get users by nickName.
+   */
   public List<User> getByNickName(String nickName) {
-    return mapper.selectByNickName(nickName);              //通过昵称查找用户
+    return mapper.selectByNickName(nickName);
   }
 
+  /**
+   * get users by city name.
+   */
   public List<User> getByCity(String city) {
-    return mapper.selectByCity(city);              //通过城市查找用户
+    return mapper.selectByCity(city);
   }
 
+  /**
+   * get all limited users.
+   */
   public List<User> getAllLimitUser() {
-    return mapper.findLimitUser();                           //查找受限用户
+    return mapper.findLimitUser();
   }
-
 
 
   @Override

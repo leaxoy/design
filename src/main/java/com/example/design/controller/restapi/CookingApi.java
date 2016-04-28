@@ -35,7 +35,11 @@ public class CookingApi {
    *
    * @return all articles list.
    */
+<<<<<<< HEAD:src/main/java/com/example/design/controller/restapi/CookingApi.java
   @RequestMapping("")
+=======
+  @RequestMapping(value = "", method = RequestMethod.GET)
+>>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849:src/main/java/com/example/design/controller/rest/CookingController.java
   @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
@@ -133,7 +137,11 @@ public class CookingApi {
   }
 
   /**
+<<<<<<< HEAD:src/main/java/com/example/design/controller/restapi/CookingApi.java
    * 用户点赞或者取消点赞.
+=======
+   * 对某一菜谱点赞或取消赞
+>>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849:src/main/java/com/example/design/controller/rest/CookingController.java
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
@@ -141,6 +149,9 @@ public class CookingApi {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
+    /**
+     * 根据like的值判断是点赞还是取消点赞
+     */
     if (cookingLikeForm.getLike() > 0) {
       cookingService.addCookingLikeUser(cookingLike);
       cookingService.updateLikeOfCooking(cookingLike.getCookingId(), 1);
