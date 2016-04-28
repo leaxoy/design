@@ -26,5 +26,4 @@ public class ShareService {
     }
 
     public List<Share> selectByUserId(long shareUserId){ return shareMapper.selectByUserId(shareUserId); }
-
 }
