@@ -39,7 +39,7 @@ public class MenuService {
    *
    * @return Menu
    */
-  public Menu findByID(long menuId) {
+  public Menu findById(long menuId) {
     return menuMapper.findById(menuId);
   }
 

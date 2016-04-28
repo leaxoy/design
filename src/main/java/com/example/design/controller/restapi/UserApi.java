@@ -3,8 +3,14 @@ package com.example.design.controller.restapi;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
 import com.example.design.model.Comment;
+import com.example.design.model.Cooking;
+import com.example.design.model.Menu;
+import com.example.design.model.Show;
 import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
+import com.example.design.service.impl.CookingService;
+import com.example.design.service.impl.MenuService;
+import com.example.design.service.impl.ShowService;
 import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,6 +40,12 @@ public class UserApi {
   private UserService userService;
   @Autowired
   private CommentService commentService;
+  @Autowired
+  private CookingService cookingService;
+  @Autowired
+  private ShowService showService;
+  @Autowired
+  private MenuService menuService;
 
 
   /**
@@ -150,4 +163,51 @@ public class UserApi {
     return null;
   }
 
+  /**
+   * 返回指定用户id 的菜谱列表.
+   *
+   * @param id 用户 id.
+   * @return 菜谱列表.
+   */
+  @RequestMapping(value = "{id}/cooking", method = RequestMethod.GET)
+  @Authorization({Role.USER, Role.ADMIN, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity cookingByuserId(@PathVariable long id) {
+    List<Cooking> list = cookingService.findAllCookingByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
+
+  /**
+   * 返回指定用户id 的作品列表.
+   *
+   * @param id 用户 id.
+   * @return 作品列表.
+   */
+  @RequestMapping(value = "{id}/show", method = RequestMethod.GET)
+  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+  public ResponseEntity showByUserId(@PathVariable long id) {
+    List<Show> list = showService.findAllShowByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
+
+  /**
+   * 返回指定用户id 的菜单列表.
+   *
+   * @param id 用户 id.
+   * @return 菜单列表.
+   */
+  @RequestMapping(value = "{id}/menu", method = RequestMethod.GET)
+  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+  public ResponseEntity menuByUserId(@PathVariable long id) {
+    List<Menu> list = menuService.findAllMenuByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
 }

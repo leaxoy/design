@@ -39,7 +39,7 @@ public class ShowApi {
    * @return all articles list.
    */
   @RequestMapping("")
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity all() {
     List<Show> list = showService.all();
     if (list != null) {
@@ -55,6 +55,7 @@ public class ShowApi {
    * @return 指定id 的作品.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity showId(@PathVariable long showId) {
     Show show = showService.findShowById(showId);
 
@@ -64,22 +65,6 @@ public class ShowApi {
     return ResponseEntity.ok(show);
   }
 
-
-  /**
-   * 返回指定用户id 的作品列表.
-   *
-   * @param userId 用户 id.
-   * @return 作品列表.
-   */
-  @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
-  public ResponseEntity userId(@PathVariable long userId) {
-    List<Show> list = showService.findAllShowByUserId(userId);
-    if (list == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(list);
-  }
 
   /**
    * 新添加作品.
@@ -104,7 +89,7 @@ public class ShowApi {
    * @return 更改的作品信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({Role.ADMIN, Role.ROOT, Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity update(@RequestBody Show show) {
     int count = showService.updateShow(show);
     if (count > 0) {
@@ -120,6 +105,7 @@ public class ShowApi {
    * @return 删除的作品信息.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long showId) {
     int count = showService.markShowDelete(showId);
     if (count > 0) {
