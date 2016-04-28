@@ -102,8 +102,8 @@ public class UserService implements UserDetailsService {
     return mapper.markNormal(userId);       //标记受限用户正常
   }
 
-  public int updatePassword(long account, String password) {
-    return mapper.updatepassword(account, password);        //修改密码
+  public int updatePassword(String account, String password) {
+    return mapper.updatePassword(account, password);        //修改密码
   }
 
   public List<User> getByNickName(String nickName) {

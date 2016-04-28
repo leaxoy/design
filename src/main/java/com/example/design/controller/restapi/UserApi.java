@@ -1,23 +1,21 @@
 package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
+import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.Role;
 import com.example.design.model.Comment;
 import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
 import com.example.design.service.impl.UserService;
-
+import io.jsonwebtoken.lang.Assert;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 
 /**
@@ -52,6 +50,38 @@ public class UserApi {
     return ResponseEntity.ok(user);
   }
 
+  /**
+   * 修改用户个人信息
+   */
+  @RequestMapping(value = "", method = RequestMethod.POST)
+  @Authorization({Role.USER})
+  public ResponseEntity changeInfo(@RequestBody User user) {
+    /**
+     * 修改个人信息
+     */
+    int count = userService.updateInfo(user);
+    if (1 == count) {
+      return ResponseEntity.ok(user);
+    }
+    return ResponseEntity.ok("修改失败");
+
+  }
+
+  /**
+   * 修改密码
+   */
+  @RequestMapping(value = "", method = RequestMethod.POST)
+  @Authorization({Role.USER})
+  public ResponseEntity changePassword(@CurrentUser User user, String password, String newPasswd) {
+    String account = user.getAccount();
+    User old = userService.getByAccountName(account);
+    Assert.notNull(password, "password cannot be empty");
+    Assert.notNull(newPasswd, "new password cannot be empty");
+    if (password.equals(old.getPassword())) {
+      userService.updatePassword(account, newPasswd);
+    }
+    return ResponseEntity.ok("密码有误");
+  }
   /**
    * 获取用户作品.
    *

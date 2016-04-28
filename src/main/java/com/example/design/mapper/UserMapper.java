@@ -23,7 +23,7 @@ public interface UserMapper {
   int update(User user);        //更新用户
 
   @Update("UPDATE `user` SET `password`=#{password} WHERE `account`=#{account}")
-  int updatepassword(long account, String password);        //修改密码。
+  int updatePassword(String account, String password);        //修改密码。
 
   @Update("UPDATE `user` SET `state`=1 WHERE `userId`=#{userId}")
   int markLimit(long userId);            //修改用户状态，表示受限。
