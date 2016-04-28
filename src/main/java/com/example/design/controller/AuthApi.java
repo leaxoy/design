@@ -50,18 +50,18 @@ public class AuthApi {
   /**
    * 处理用户登录.
    *
-   * @param signInFrom 用户登录表单.
+   * @param signInForm 用户登录表单.
    * @return token 信息.
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity auth(@RequestBody SignInFrom signInFrom) {
-    Assert.notNull(signInFrom.getAccount(), "username can not be empty");
-    Assert.notNull(signInFrom.getPassword(), "password can not be empty");
+  public ResponseEntity auth(@RequestBody SignInForm signInForm) {
+    Assert.notNull(signInForm.getAccount(), "username can not be empty");
+    Assert.notNull(signInForm.getPassword(), "password can not be empty");
 
-    User user = userService.getByAccountName(signInFrom.getAccount());
+    User user = userService.getByAccountName(signInForm.getAccount());
     if (user == null ||  //未注册
-            !user.getPassword().equals(signInFrom.getPassword())) {  //密码错误
+            !user.getPassword().equals(signInForm.getPassword())) {  //密码错误
       //提示用户名或密码错误
       return new ResponseEntity<>(
               AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
@@ -99,11 +99,11 @@ public class AuthApi {
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
   }
 
-  private static class SignInFrom {
+  private static class SignInForm {
     private String account;
     private String password;
 
-    public SignInFrom() {
+    public SignInForm() {
     }
 
 
