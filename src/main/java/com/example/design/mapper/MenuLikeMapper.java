@@ -2,6 +2,7 @@ package com.example.design.mapper;
 
 import com.example.design.model.MenuLike;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,13 +28,13 @@ public interface MenuLikeMapper {
   MenuLike isLike(long userId, long menuId);
 
   /**
-   * update menuLike's state
+   * delete menuLike's record
    */
-  @Update("UPDATE menulike SET state = #{like} WHERE userId = #{userId} AND menuId = #{menuId}")
-  int markMenuLikeState(int like, long userId, long menuId);
+  @Delete("DELETE FROM menulike WHERE userId = #{userId} AND menuId = #{menuId}")
+  int deleteMenuLike(long userId, long menuId);
 
   /**
-   * update menu's menuLike
+   * update menu's menuLikeNum
    */
   @Update("UPDATE menu SET menuLikeNum = menuLikeNum + #{like} WHERE menuId = #{menuId}")
   int updateLikeOfMenu(long menuId, int like);

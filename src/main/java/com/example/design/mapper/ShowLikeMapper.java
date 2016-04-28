@@ -2,6 +2,7 @@ package com.example.design.mapper;
 
 import com.example.design.model.ShowLike;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,10 +28,10 @@ public interface ShowLikeMapper {
   ShowLike isLike(long userId, long showId);
 
   /**
-   * update showLike's state
+   * delete showLike's record
    */
-  @Update("UPDATE showlike SET state = #{like} WHERE userId = #{userId} AND showId = #{showId}")
-  int markShowLikeState(int like, long userId, long showId);
+  @Delete("DELETE FROM showlike WHERE userId = #{userId} AND showId = #{showId}")
+  int deleteShowLike(long userId, long showId);
 
   /**
    * update show's showLike

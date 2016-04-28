@@ -42,7 +42,7 @@ public interface MenuMapper {
    * select one user's all menu by author's Id
    */
   @Select("SELECT * FROM menu WHERE authorId = #{authorId} AND state = 0")
-  List<Menu> findAllMenuByUserID(@Param("authorId") long userId);
+  List<Menu> findAllMenuByUserId(@Param("authorId") long userId);
 
   /**
    * mark user's one menu as deleted

@@ -9,9 +9,12 @@ import com.example.design.service.impl.CookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,8 +35,8 @@ public class CookingController {
    *
    * @return all articles list.
    */
-  @RequestMapping("")
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -144,12 +147,18 @@ public class CookingController {
     return ResponseEntity.ok("删除失败");
   }
 
+  /**
+   * 对某一菜谱点赞或取消赞
+   */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity LikeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
+    /**
+     * 根据like的值判断是点赞还是取消点赞
+     */
     if (cookingLikeForm.getLike() > 0) {
       cookingService.addCookingLikeUser(cookingLike);
       cookingService.updateLikeOfCooking(cookingLike.getCookingId(), 1);

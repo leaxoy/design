@@ -58,8 +58,8 @@ public class MenuService {
   /**
    * select one user's all menu by user's Id
    */
-  public List<Menu> findAllMenuByUserID(long userID) {
-    return menuMapper.findAllMenuByUserID(userID);
+  public List<Menu> findAllMenuByUserId(long userId) {
+    return menuMapper.findAllMenuByUserId(userId);
   }
 
   /**
@@ -77,19 +77,10 @@ public class MenuService {
   }
 
   /**
-   * select user's one menu-like record
-   *
-   * @return MenuLike
+   * delete menuLike's record
    */
-  public MenuLike isLike(long userId, long menuId) {
-    return menuLikeMapper.isLike(userId, menuId);
-  }
-
-  /**
-   * update menuLike's state
-   */
-  public int markMenuLikeState(int like, long userId, long menuId) {
-    return menuLikeMapper.markMenuLikeState(like, userId, menuId);
+  public int deleteMenuLike(long userId, long menuId) {
+    return menuLikeMapper.deleteMenuLike(userId, menuId);
   }
 
   /**
@@ -109,7 +100,14 @@ public class MenuService {
   /**
    * delete one recipe from a menu
    */
-  public int deleteCookingFromMenu(long menuId, long cookingId) {
-    return cookingMenuMapper.deleteCookingFromMenu(menuId, cookingId);
+  public int deleteCookingFromMenu(MenuCooking menuCooking) {
+    return cookingMenuMapper.deleteCookingFromMenu(menuCooking);
+  }
+
+  /**
+   * select one menu's all recipe
+   */
+  public List<MenuCooking> findAllCookingOfMenu(long menuId) {
+    return cookingMenuMapper.findAllCookingOfMenu(menuId);
   }
 }
