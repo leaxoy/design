@@ -35,11 +35,11 @@ public class CookingApi {
    *
    * @return all articles list.
    */
-<<<<<<< HEAD:src/main/java/com/example/design/controller/rest/CookingController.java
-  @RequestMapping(value = "", method = RequestMethod.GET)
-=======
+<<<<<<< Temporary merge branch 1:src/main/java/com/example/design/controller/restapi/CookingApi.java
   @RequestMapping("")
->>>>>>> 99c8e9225fc2f84a4ddb13569c6242ed62829de2:src/main/java/com/example/design/controller/restapi/CookingApi.java
+=======
+  @RequestMapping(value = "", method = RequestMethod.GET)
+>>>>>>> Temporary merge branch 2:src/main/java/com/example/design/controller/rest/CookingController.java
   @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
@@ -137,11 +137,11 @@ public class CookingApi {
   }
 
   /**
-<<<<<<< HEAD:src/main/java/com/example/design/controller/rest/CookingController.java
-   * 对某一菜谱点赞或取消赞
-=======
+<<<<<<< Temporary merge branch 1:src/main/java/com/example/design/controller/restapi/CookingApi.java
    * 用户点赞或者取消点赞.
->>>>>>> 99c8e9225fc2f84a4ddb13569c6242ed62829de2:src/main/java/com/example/design/controller/restapi/CookingApi.java
+=======
+   * 对某一菜谱点赞或取消赞
+>>>>>>> Temporary merge branch 2:src/main/java/com/example/design/controller/rest/CookingController.java
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
