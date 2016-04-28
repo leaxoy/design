@@ -1,9 +1,11 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
+import com.example.design.constant.ResponseData;
 import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
+import com.example.design.model.Show;
 import com.example.design.service.impl.CookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/cooking")
-public class CookingController {
+public class CookingApi {
 
   @Autowired
   private CookingService cookingService;
@@ -45,21 +47,6 @@ public class CookingController {
     return ResponseEntity.notFound().build();
   }
 
-//  /**
-//   * 返回所有菜谱.
-//   *
-//   * @return all articles list by keywords.
-//   */
-//  @RequestMapping(value ="" , method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT, Role.LIMITED_USER})
-//  public ResponseEntity findALLByKeyWords(@PathVariable String keywords) {
-//    List<Cooking> list = cookingService.findAllCookingByKeywords(keywords);
-//    if (list != null) {
-//      return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//    return ResponseEntity.notFound().build();
-//  }
-
   /**
    * 返回指定id的菜谱.
    *
@@ -67,7 +54,7 @@ public class CookingController {
    * @return 指定id 的菜谱.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -77,6 +64,24 @@ public class CookingController {
     return ResponseEntity.ok(cooking);
   }
 
+
+  /**
+   *
+   * @param cookingId
+   * @param show
+   * @return
+   */
+  @RequestMapping(value = "{cookingId}/show", method = RequestMethod.POST)
+  public ResponseData addShow(@PathVariable long cookingId, @RequestBody Show show) {
+
+
+    return null;
+  }
+
+  @RequestMapping(value = "{cookingId}/show", method = RequestMethod.GET)
+  public ResponseData listShow(@PathVariable long cookingId) {
+    return null;
+  }
 
   /**
    * 返回指定用户id 的菜谱列表.
@@ -148,11 +153,11 @@ public class CookingController {
   }
 
   /**
-   * 对某一菜谱点赞或取消赞
+   * 用户点赞或者取消点赞. 对某一菜谱点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
-  public ResponseEntity LikeIt(@RequestBody CookingLikeForm cookingLikeForm) {
+  public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
@@ -170,7 +175,7 @@ public class CookingController {
   }
 
 
-  public static class CookingLikeForm {
+  private static class CookingLikeForm {
     private long cookingId;
     private long userId;
     private int like;
@@ -179,6 +184,9 @@ public class CookingController {
       this.cookingId = cookingId;
       this.userId = userId;
       this.like = like;
+    }
+
+    public CookingLikeForm() {
     }
 
     public long getCookingId() {
@@ -192,10 +200,6 @@ public class CookingController {
     public int getLike() {
       return like;
     }
-
-
   }
-
-
 }
 

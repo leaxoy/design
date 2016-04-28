@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/show")
-public class ShowController {
+public class ShowApi {
 
   /**
    * articleService DI.
@@ -82,22 +82,6 @@ public class ShowController {
   }
 
   /**
-   * 返回某一菜谱 的作品列表.
-   *
-   * @param cookingId 菜谱 id.
-   * @return 作品列表.
-   */
-  @RequestMapping(value = "}", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
-  public ResponseEntity cookingId(@PathVariable long cookingId) {
-    List<Show> list = showService.findAllShowByCookingId(cookingId);
-    if (list == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(list);
-  }
-
-  /**
    * 新添加作品.
    *
    * @param show 作品body.
@@ -107,19 +91,6 @@ public class ShowController {
   @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Show show) {
     int count = showService.addShow(show);
-    if (count > 0) {
-      return ResponseEntity.ok(show);
-    }
-    return ResponseEntity.ok("添加失败");
-  }
-
-  /**
-   * 将作品上传到菜谱中
-   */
-  @RequestMapping(value = "", method = RequestMethod.POST)
-  @Authorization({Role.USER})
-  public ResponseEntity addShowToCooking(@RequestBody Show show) {
-    int count = showService.addShowToCooking(show);
     if (count > 0) {
       return ResponseEntity.ok(show);
     }
