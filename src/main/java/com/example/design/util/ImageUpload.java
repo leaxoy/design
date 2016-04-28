@@ -30,6 +30,11 @@ public class ImageUpload implements Function<Event<Path>, Path> {
     this.maxLongSide = maxLongSide;
   }
 
+  /**
+   *
+   * @param pathEvent
+   * @return
+   */
   public Path apply(Event<Path> pathEvent) {
     try {
       Path srcPath = pathEvent.getData();

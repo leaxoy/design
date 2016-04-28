@@ -107,11 +107,11 @@ public class AuthApi {
     }
 
 
-    public String getAccount() {
+    String getAccount() {
       return account;
     }
 
-    public String getPassword() {
+    String getPassword() {
       return password;
     }
 

@@ -116,8 +116,8 @@ public class UserService implements UserDetailsService {
   /**
    * change password.
    */
-  public int updatePassword(long account, String password) {
-    return mapper.updatepassword(account, password);
+  public int updatePassword(String account, String password) {
+    return mapper.updatePassword(account, password);
   }
 
   /**

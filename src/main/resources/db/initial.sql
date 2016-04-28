@@ -45,7 +45,7 @@ CREATE TABLE `cooking` (
   `cookingName`    VARCHAR(20)
                    CHARACTER SET utf8
                    COLLATE utf8_bin NOT NULL,
-  `cookingId`      INT(11)          NOT NULL,
+  `cookingId`      INT(11)          NOT NULL AUTO_INCREMENT,
   `cookingStyle`   VARCHAR(50)      NOT NULL
   COMMENT '菜谱类型',
   `cookingDate`    DATETIME                  DEFAULT NULL
@@ -385,10 +385,12 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES
-  ('1', 'ADMIN', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL, NULL,
+  ('1', 'ADMIN', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL,
+   NULL,
    '0');
 INSERT INTO `user` VALUES
-  ('2', 'USER', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22', '学生',
+  ('2', 'USER', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22',
+        '学生',
    '武汉', '老子日~', '0');
 INSERT INTO `user` VALUES
   ('3', 'USER', '1283399465', '987654', '666666@162.com', '研', NULL, '石开', 'male', '2014-08-07',
