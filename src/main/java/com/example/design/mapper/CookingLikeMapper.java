@@ -4,17 +4,22 @@ import com.example.design.model.CookingLike;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by lxh on 16/4/25.
+ * cooking_like mapper.
+ *
+ * @author lxh
+ * @version 0.1
  */
+@Mapper
 @Repository
 public interface CookingLikeMapper {
   /**
-   * if one user click Like,his(her) behavior will be recorded,and set state as 1
+   * if one user click Like,his(her) behavior will be recorded,and set state as 1.
    */
   @Insert("INSERT INTO cookinglike(cookingId, userId) VALUES (#{cookingId}, #{userId})")
   int addCookingLikeUser(CookingLike cookingLike);

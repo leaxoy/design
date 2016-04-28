@@ -157,9 +157,9 @@ public class UserApi {
   /**
    * 修改用户个人信息.
    */
-  @RequestMapping(value = "", method = RequestMethod.POST)
+  @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
   @Authorization({Role.USER})
-  public ResponseEntity changeInfo(@RequestBody User user) {
+  public ResponseEntity changeInfo(@PathVariable long userId, @RequestBody User user) {
     int count = userService.updateInfo(user);
     if (1 == count) {
       return ResponseEntity.ok(user);

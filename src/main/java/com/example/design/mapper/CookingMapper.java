@@ -3,6 +3,7 @@ package com.example.design.mapper;
 import com.example.design.model.Cooking;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -11,12 +12,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 菜谱持久化接口 Created by lxh on 4/20/16.
+ * 菜谱持久化接口.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
+@Mapper
 public interface CookingMapper {
   /**
-   * insert one recipe into  table cooking
+   * insert one recipe into  table cooking.
    */
   @Insert("INSERT INTO cooking(cookingName, cookingStyle, cookingDate, authorId, cookingPicture, " +
           "cookingIntro, tips, step, ingredient) VALUES(#{cookingName}, #{cookingStyle}," +

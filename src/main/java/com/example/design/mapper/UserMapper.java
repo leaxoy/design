@@ -5,6 +5,7 @@ import com.example.design.model.User;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -18,7 +19,8 @@ import java.util.List;
 /**
  * 用户持久化接口. Created by lxh on 4/14/16.
  */
-@Repository("userMapper")
+@Repository
+@Mapper
 public interface UserMapper {
   @Insert("INSERT INTO `user`(`account`, `password`, `role`) VALUES"
           + "(#{account}, #{password}, #{role})")

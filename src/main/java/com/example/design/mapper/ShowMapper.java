@@ -3,6 +3,7 @@ package com.example.design.mapper;
 import com.example.design.model.Show;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -13,7 +14,8 @@ import java.util.List;
 /**
  * 作品持久化接口. Created by lxh on 4/14/16.
  */
-@Repository("articleMapper")
+@Repository
+@Mapper
 public interface ShowMapper {
   /**
    * add one cookingShow to a table

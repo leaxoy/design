@@ -3,6 +3,7 @@ package com.example.design.mapper;
 import com.example.design.model.Menu;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -17,6 +18,7 @@ import java.util.List;
  * @version 0.1
  */
 @Repository
+@Mapper
 public interface MenuMapper {
   /**
    * add a menu.

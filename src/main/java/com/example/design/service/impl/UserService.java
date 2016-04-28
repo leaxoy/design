@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService {
   @Autowired
-  UserMapper mapper;
+  UserMapper userMapper;
 
   /**
    * select all users.
@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
    * @return List
    */
   public List<User> all() {
-    return mapper.all();
+    return userMapper.all();
   }
 
   /**
@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
    * @return User
    */
   public User id(long userId) {
-    return mapper.id(userId);
+    return userMapper.id(userId);
   }
 
   /**
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int addUser(User user) {
-    return mapper.add(user);
+    return userMapper.add(user);
   }
 
   /**
@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int updateInfo(User user) {
-    return mapper.update(user);
+    return userMapper.update(user);
   }
 
   /**
@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
    * @return User.
    */
   public User getByAccountName(String name) {
-    return mapper.selectByAccountName(name);
+    return userMapper.selectByAccountName(name);
   }
 
   /**
@@ -78,21 +78,21 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int removeById(int userId) {
-    return mapper.delete(userId);
+    return userMapper.delete(userId);
   }
 
   /**
    * remove a user by account.
    */
   public int removeByAccountName(String account) {
-    return mapper.deleteByAccountName(account);
+    return userMapper.deleteByAccountName(account);
   }
 
   /**
    * get Role of a user.
    */
   public Role getRole(String name) {
-    return mapper.getRole(name);
+    return userMapper.getRole(name);
   }
 
   /**
@@ -101,7 +101,7 @@ public class UserService implements UserDetailsService {
    * @param userId user's id.
    */
   public int markLimit(Long userId) {
-    return mapper.markLimit(userId);
+    return userMapper.markLimit(userId);
   }
 
   /**
@@ -110,35 +110,35 @@ public class UserService implements UserDetailsService {
    * @param userId user's id.
    */
   public int markNormal(Long userId) {
-    return mapper.markNormal(userId);
+    return userMapper.markNormal(userId);
   }
 
   /**
    * change password.
    */
   public int updatePassword(String account, String password) {
-    return mapper.updatePassword(account, password);
+    return userMapper.updatePassword(account, password);
   }
 
   /**
    * get users by nickName.
    */
   public List<User> getByNickName(String nickName) {
-    return mapper.selectByNickName(nickName);
+    return userMapper.selectByNickName(nickName);
   }
 
   /**
    * get users by city name.
    */
   public List<User> getByCity(String city) {
-    return mapper.selectByCity(city);
+    return userMapper.selectByCity(city);
   }
 
   /**
    * get all limited users.
    */
   public List<User> getAllLimitUser() {
-    return mapper.findLimitUser();
+    return userMapper.findLimitUser();
   }
 
 

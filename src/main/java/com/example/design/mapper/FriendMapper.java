@@ -4,15 +4,20 @@ import com.example.design.model.Friend;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Created by lxh on 4/20/16.
+ * friend mapper.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
+@Mapper
 public interface FriendMapper {
 
   @Select("SELECT * FROM `friend` WHERE `userId`=#{id}")

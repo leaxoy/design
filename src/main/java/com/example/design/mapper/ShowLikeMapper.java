@@ -4,6 +4,7 @@ import com.example.design.model.ShowLike;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * Created by lxh on 16/4/25.
  */
 @Repository
+@Mapper
 public interface ShowLikeMapper {
   /**
    * *if one user click Like,his(her) behavior will be recorded,and set state as 1
