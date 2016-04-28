@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.model.Comment;
 import com.example.design.service.impl.CommentService;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/comment")
-public class CommentController {
+public class CommentApi {
   @Autowired
   private CommentService commentService;
 

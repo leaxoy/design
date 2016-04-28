@@ -11,19 +11,22 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 菜单持久化接口. Created by lxh on 4/17/16.
+ * 菜单持久化接口.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
 public interface MenuMapper {
   /**
-   * add a menu
+   * add a menu.
    */
-  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName}," +
-          " #{menuPicture}, #{authorId}, #{menuDate})")
+  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName},"
+          + " #{menuPicture}, #{authorId}, #{menuDate})")
   int addMenu(Menu menu);
 
   /**
-   * select all information by menuId
+   * select all information by menuId.
    *
    * @return Menu
    */
@@ -31,27 +34,26 @@ public interface MenuMapper {
   Menu findById(long menuId);
 
   /**
-   * update menu's information except authorId,menuId,menuLike menuDate,state
+   * update menu's information except authorId,menuId,menuLike menuDate,state.
    */
-  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId =" +
-          " #{authorId} AND menuId = #{menuId}" +
-          " AND state = 0")
+  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId ="
+          + " #{authorId} AND menuId = #{menuId} AND state = 0")
   int updateMenu(Menu menu);
 
   /**
-   * select one user's all menu by author's Id
+   * select one user's all menu by author's Id.
    */
   @Select("SELECT * FROM menu WHERE authorId = #{authorId} AND state = 0")
   List<Menu> findAllMenuByUserId(@Param("authorId") long userId);
 
   /**
-   * mark user's one menu as deleted
+   * mark user's one menu as deleted.
    */
-  @Update("UPDATE menu SET state = 1 WHERE menuID = #{menuID} ")
-  int markMenuDelete(long menuID);
+  @Update("UPDATE menu SET state = 1 WHERE menuID = #{menuId} ")
+  int markMenuDelete(long menuId);
 
   /**
-   * select all menus
+   * select all menus.
    */
   @Select("SELECT * FROM menu")
   List<Menu> all();

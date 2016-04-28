@@ -1,4 +1,4 @@
-package com.example.design.controller.rest;
+package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.constant.Role;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/cooking")
-public class CookingController {
+public class CookingApi {
 
   @Autowired
   private CookingService cookingService;
@@ -35,7 +35,11 @@ public class CookingController {
    *
    * @return all articles list.
    */
+<<<<<<< HEAD:src/main/java/com/example/design/controller/rest/CookingController.java
   @RequestMapping(value = "", method = RequestMethod.GET)
+=======
+  @RequestMapping("")
+>>>>>>> 99c8e9225fc2f84a4ddb13569c6242ed62829de2:src/main/java/com/example/design/controller/restapi/CookingApi.java
   @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
@@ -45,21 +49,6 @@ public class CookingController {
     return ResponseEntity.notFound().build();
   }
 
-//  /**
-//   * 返回所有菜谱.
-//   *
-//   * @return all articles list by keywords.
-//   */
-//  @RequestMapping(value ="" , method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT, Role.LIMITED_USER})
-//  public ResponseEntity findALLByKeyWords(@PathVariable String keywords) {
-//    List<Cooking> list = cookingService.findAllCookingByKeywords(keywords);
-//    if (list != null) {
-//      return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//    return ResponseEntity.notFound().build();
-//  }
-
   /**
    * 返回指定id的菜谱.
    *
@@ -67,7 +56,7 @@ public class CookingController {
    * @return 指定id 的菜谱.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -148,11 +137,15 @@ public class CookingController {
   }
 
   /**
+<<<<<<< HEAD:src/main/java/com/example/design/controller/rest/CookingController.java
    * 对某一菜谱点赞或取消赞
+=======
+   * 用户点赞或者取消点赞.
+>>>>>>> 99c8e9225fc2f84a4ddb13569c6242ed62829de2:src/main/java/com/example/design/controller/restapi/CookingApi.java
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.ADMIN, Role.USER})
-  public ResponseEntity LikeIt(@RequestBody CookingLikeForm cookingLikeForm) {
+  public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
@@ -170,7 +163,7 @@ public class CookingController {
   }
 
 
-  public static class CookingLikeForm {
+  private static class CookingLikeForm {
     private long cookingId;
     private long userId;
     private int like;
@@ -179,6 +172,9 @@ public class CookingController {
       this.cookingId = cookingId;
       this.userId = userId;
       this.like = like;
+    }
+
+    public CookingLikeForm() {
     }
 
     public long getCookingId() {
@@ -192,10 +188,6 @@ public class CookingController {
     public int getLike() {
       return like;
     }
-
-
   }
-
-
 }
 

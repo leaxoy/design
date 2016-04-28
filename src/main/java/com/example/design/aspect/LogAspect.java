@@ -49,6 +49,13 @@ public class LogAspect {
     this.printOptLog();
   }
 
+  /**
+   * 记录日志.
+   *
+   * @param pjp ProceedingJoinPoint
+   * @return Object
+   * @throws Throwable 可能抛出的错误
+   */
   @Around("execution(* com.example.design.controller..*.*(..))")
   public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
     /**
