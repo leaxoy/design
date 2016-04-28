@@ -17,31 +17,32 @@ import java.util.List;
 public class ShowService {
   @Autowired
   ShowMapper showMapper;
+  @Autowired
   ShowLikeMapper showLikeMapper;
 
   /**
-   * add one cookingShow to a table
+   * add one cookingShow to a table.
    */
   public int addShow(Show show) {
     return showMapper.addShow(show);
   }
 
   /**
-   * Update show information
+   * Update show information.
    */
   public int updateShow(Show show) {
     return showMapper.updateShow(show);
   }
 
   /**
-   * mark show'state as "deleted"
+   * mark show'state as "deleted".
    */
   public int markShowDelete(long showId) {
     return showMapper.markShowDelete(showId);
   }
 
   /**
-   * select one show by it's Id
+   * select one show by it's Id.
    *
    * @return Show
    */
@@ -50,18 +51,18 @@ public class ShowService {
   }
 
   /**
-   * select one user's all show
+   * select one user's all show.
    *
-   * @return List<Show>
+   * @return List
    */
   public List<Show> findAllShowByUserId(long userId) {
     return showMapper.findAllShowByUserId(userId);
   }
 
   /**
-   * select one cooking's all show
+   * select one cooking's all show.
    *
-   * @return List<Show>
+   * @return List
    */
   public List<Show> findAllShowByCookingID(long cookingId) {
     return showMapper.findAllShowByCookingId(cookingId);
@@ -72,14 +73,14 @@ public class ShowService {
   }
 
   /**
-   * *if one user click Like,his(her) behavior will be recorded,and set state as 1
+   * *if one user click Like,his(her) behavior will be recorded,and set state as 1.
    */
   public int addShowLikeUser(ShowLike showLike) {
     return showLikeMapper.addShowLikeUser(showLike);
   }
 
   /**
-   * select user's one show-like record
+   * select user's one show-like record.
    *
    * @return ShowLike
    */
@@ -88,14 +89,14 @@ public class ShowService {
   }
 
   /**
-   * update showLike's state
+   * update showLike's state.
    */
   public int markShowLikeState(int like, long userId, long showId) {
     return showLikeMapper.markShowLikeState(like, userId, showId);
   }
 
   /**
-   * update show's showLike
+   * update show's showLike.
    */
   public int updateLikeOfShow(long showId, int like) {
     return showLikeMapper.updateLikeOfShow(showId, like);

@@ -24,7 +24,7 @@ public class CookingService {
   CookingLikeMapper cookingLikeMapper;
 
   /**
-   * insert one recipe into  table cooking.
+   * insert one recipe into table cooking.
    */
   public int addCooking(Cooking cooking) {
     return cookingMapper.addCooking(cooking);

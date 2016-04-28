@@ -60,8 +60,8 @@ public class MenuService {
   /**
    * select one user's all menu by user's Id
    */
-  public List<Menu> findAllMenuByUserID(long userID) {
-    return menuMapper.findAllMenuByUserID(userID);
+  public List<Menu> findAllMenuByUserId(long userId) {
+    return menuMapper.findAllMenuByUserId(userId);
   }
 
   /**

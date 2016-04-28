@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 0.1
  */
 @RestController
-@RequestMapping("register")
+@RequestMapping("signup")
+@CrossOrigin(origins = {"http://localhost:8080"}, methods = {RequestMethod.POST})
 public class SignUpController {
 
   /**
@@ -33,7 +34,6 @@ public class SignUpController {
   /**
    * 新用户注册.
    */
-  @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity signUp(@RequestBody SignUpForm signUpForm) {
     /**
@@ -42,6 +42,7 @@ public class SignUpController {
     if (userService.getByAccountName(signUpForm.getAccount()) != null) {
       return ResponseEntity.ok(SignUpResponse.error(SignUpStatus.USER_HAS_EXISTS));
     }
+
     /**
      * 保存用户,并返回.
      */

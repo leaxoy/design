@@ -1,6 +1,7 @@
 package com.example.design.constant;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by lxh on 16/4/27.
@@ -40,7 +41,7 @@ public class ResponseData {
     return new ResponseData(code, message, event, content);
   }
 
-  public static ResponseData ok(String event,  Object content) {
+  public static ResponseData ok(String event, Object content) {
     return new ResponseData(100, "success", event, content);
   }
 }

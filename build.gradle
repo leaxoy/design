@@ -36,7 +36,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
-    compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-jetty')
     compile('org.springframework.boot:spring-boot-starter-security')
