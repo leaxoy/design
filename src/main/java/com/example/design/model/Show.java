@@ -13,7 +13,7 @@ public class Show {
   private String showIntro;
   private String showPicture;
   private Date showDate;
-  private long userId;
+  private long authorId;
   private long cookingId;
   private int showLikeNum;
   private int state;
@@ -50,14 +50,13 @@ public class Show {
     this.showDate = showDate;
   }
 
-  public long getUserId() {
-    return userId;
+  public long getAuthorId() {
+    return authorId;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
   }
-
 
   public long getCookingId() {
     return cookingId;

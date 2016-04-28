@@ -12,7 +12,7 @@ public class Menu {
   private long menuId;
   private String menuName;
   private String menuPicture;
-  private int menuLike;
+  private int menuLikeNum;
   private long authorId;
   private Date menuDate;
   private int state;
@@ -42,11 +42,11 @@ public class Menu {
   }
 
   public int getMenuLike() {
-    return menuLike;
+    return menuLikeNum;
   }
 
-  public void setMenuLike(int menuLike) {
-    this.menuLike = menuLike;
+  public void setMenuLike(int menuLikeNum) {
+    this.menuLikeNum = menuLikeNum;
   }
 
   public Date getMenuDate() {

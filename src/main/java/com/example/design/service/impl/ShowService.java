@@ -1,7 +1,9 @@
 package com.example.design.service.impl;
 
+import com.example.design.mapper.ShowLikeMapper;
 import com.example.design.mapper.ShowMapper;
 import com.example.design.model.Show;
+import com.example.design.model.ShowLike;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,35 +16,104 @@ import java.util.List;
 @Service
 public class ShowService {
   @Autowired
-  private ShowMapper showMapper;
+  ShowMapper showMapper;
+  @Autowired
+  ShowLikeMapper showLikeMapper;
 
+  /**
+   * add one cookingShow to a table.
+   */
+  public int addShow(Show show) {
+    return showMapper.addShow(show);
+  }
+
+  /**
+<<<<<<< HEAD
+   * Update show information.
+=======
+   * add show to one recipe
+   */
+  public int addShowToCooking(Show show) {
+    return showMapper.addShowToCooking(show);
+  }
+
+  /**
+   * Update show information
+>>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849
+   */
+  public int updateShow(Show show) {
+    return showMapper.updateShow(show);
+  }
+
+  /**
+   * mark show'state as "deleted".
+   */
+  public int markShowDelete(long showId) {
+    return showMapper.markShowDelete(showId);
+  }
+
+  /**
+   * select one show by it's Id.
+   *
+   * @return Show
+   */
+  public Show findShowById(long showId) {
+    return showMapper.findShowById(showId);
+  }
+
+  /**
+   * select one user's all show.
+   *
+   * @return List
+   */
+  public List<Show> findAllShowByUserId(long userId) {
+    return showMapper.findAllShowByUserId(userId);
+  }
+
+  /**
+   * select one cooking's all show.
+   *
+   * @return List
+   */
+  public List<Show> findAllShowByCookingId(long cookingId) {
+    return showMapper.findAllShowByCookingId(cookingId);
+  }
 
   public List<Show> all() {
-    return showMapper.getAll();
+    return showMapper.all();
   }
 
-
-  public Show id(long id) {
-    return null;
+  /**
+   * *if one user click Like,his(her) behavior will be recorded,and set state as 1.
+   */
+  public int addShowLikeUser(ShowLike showLike) {
+    return showLikeMapper.addShowLikeUser(showLike);
   }
 
-  public List<Show> findByUserId(long userId) {
-    return null;
+  /**
+<<<<<<< HEAD
+   * select user's one show-like record.
+   *
+   * @return ShowLike
+   */
+  public ShowLike isLike(long userId, long showId) {
+    return showLikeMapper.isLike(userId, showId);
   }
 
-  public List<Show> top10() {
-    return null;
+  /**
+   * update showLike's state.
+=======
+   * delete showLike's record
+>>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849
+   */
+  public int deleteShowLike(long userId, long showId) {
+    return showLikeMapper.deleteShowLike(userId, showId);
   }
 
-  public int update(Show show) {
-    return 0;
-  }
-
-  public int add(Show show) {
-    return 0;
-  }
-
-  public int delete(Show show) {
-    return 0;
+  /**
+   * update show's showLike.
+   */
+  public int updateLikeOfShow(long showId, int like) {
+    return showLikeMapper.updateLikeOfShow(showId, like);
   }
 }
