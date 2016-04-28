@@ -3,7 +3,6 @@ package com.example.design.service.impl;
 import com.example.design.constant.Role;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -94,6 +93,32 @@ public class UserService implements UserDetailsService {
   public Role getRole(String name) {
     return mapper.getRole(name);
   }
+
+  public int markLimit(Long userId) {
+    return mapper.markLimit(userId);        //标记用户受限
+  }
+
+  public int markNormal(Long userId) {
+    return mapper.markNormal(userId);       //标记受限用户正常
+  }
+
+  public int updatePassword(long account, String password) {
+    return mapper.updatepassword(account, password);        //修改密码
+  }
+
+  public List<User> getByNickName(String nickName) {
+    return mapper.selectByNickName(nickName);              //通过昵称查找用户
+  }
+
+  public List<User> getByCity(String city) {
+    return mapper.selectByCity(city);              //通过城市查找用户
+  }
+
+  public List<User> getAllLimitUser() {
+    return mapper.findLimitUser();                           //查找受限用户
+  }
+
+
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
