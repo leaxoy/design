@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,19 +50,18 @@ public class AuthApi {
   /**
    * 处理用户登录.
    *
-   * @param username 用户名.
-   * @param password 密码.
+   * @param signInFrom 用户登录表单.
    * @return token 信息.
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity auth(@RequestParam String username, @RequestParam String password) {
-    Assert.notNull(username, "username can not be empty");
-    Assert.notNull(password, "password can not be empty");
+  public ResponseEntity auth(@RequestBody SignInFrom signInFrom) {
+    Assert.notNull(signInFrom.getAccount(), "username can not be empty");
+    Assert.notNull(signInFrom.getPassword(), "password can not be empty");
 
-    User user = userService.getByAccountName(username);
+    User user = userService.getByAccountName(signInFrom.getAccount());
     if (user == null ||  //未注册
-            !user.getPassword().equals(password)) {  //密码错误
+            !user.getPassword().equals(signInFrom.getPassword())) {  //密码错误
       //提示用户名或密码错误
       return new ResponseEntity<>(
               AuthResult.error(AuthResultStatus.USERNAME_OR_PASSWORD_ERROR), HttpStatus.NOT_FOUND);
@@ -98,5 +97,26 @@ public class AuthApi {
   public ResponseEntity logout(@CurrentUser User user) {
     tokenManager.deleteToken(user.getAccount());
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
+  }
+
+  private static class SignInFrom {
+    private String account;
+    private String password;
+
+    public SignInFrom() {
+    }
+
+
+    public String getAccount() {
+      return account;
+    }
+
+    public String getPassword() {
+      return password;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
   }
 }
