@@ -284,10 +284,17 @@ CREATE TABLE `show` (
   `showIntro`   VARCHAR(255)           NOT NULL
   COMMENT '介绍',
   `showPicture` VARCHAR(50)            NOT NULL,
+<<<<<<< HEAD
   `cookingId`   INT(11)                NOT NULL
   COMMENT '关联菜谱Id',
   `showDate`    DATETIME               NOT NULL,
   `userId`      INT(11)                NOT NULL,
+=======
+  `cookingId`   INT(11) DEFAULT '0'    NOT NULL
+  COMMENT '关联菜谱Id',
+  `showDate`    DATETIME               NOT NULL,
+  `authorId`    INT(11)                NOT NULL,
+>>>>>>> 13d8d3671c1558c4b0167cd9f5af70b298ce74e8
   `showLikeNum` INT(10)                NOT NULL DEFAULT '0',
   `state`       INT(1)                 NOT NULL DEFAULT '0'
   COMMENT '作品状态，0为正常',

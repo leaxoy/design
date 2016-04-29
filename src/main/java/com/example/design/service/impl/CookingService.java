@@ -80,7 +80,7 @@ public class CookingService {
    * @return List
    */
   public List<Cooking> findAllCookingByKeywords(String keywords) {
-    return cookingMapper.findCookingByKerwords(keywords);
+    return cookingMapper.findCookingByKeywords(keywords);
   }
 
   /**
@@ -113,11 +113,12 @@ public class CookingService {
     return cookingLikeMapper.deleteCookingLike(userId, cookingId);
   }
 
-  /**
-   * update cooking's cooingLike.
-   */
-  public int updateLikeOfCooking(long cookingId, int like) {
-    return cookingLikeMapper.updateLikeOfCooking(cookingId, like);
+  public int likeNumIncr(long cookingId) {
+    return cookingMapper.likeNumIncr(cookingId);
+  }
+
+  public int likeNumDecr(long cookingId) {
+    return cookingMapper.likeNumDecr(cookingId);
   }
 
 }
