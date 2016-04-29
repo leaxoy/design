@@ -113,16 +113,11 @@ public class UserService implements UserDetailsService {
     return userMapper.markNormal(userId);
   }
 
-<<<<<<< HEAD
   /**
    * change password.
    */
   public int updatePassword(String account, String password) {
     return userMapper.updatePassword(account, password);
-=======
-  public int updatePassword(String account, String password) {
-    return mapper.updatePassword(account, password);        //修改密码
->>>>>>> 807af7e87464de10644aff0584f39a00b93e1851
   }
 
   /**
