@@ -1,17 +1,14 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.model.Message;
 import com.example.design.model.Show;
 import com.example.design.model.ShowLike;
+import com.example.design.service.impl.MessageService;
 import com.example.design.service.impl.ShowService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,8 @@ public class ShowApi {
   @Autowired
   private ShowService showService;
 
+  @Autowired
+  private MessageService messageService;
   /**
    * 返回所有作品.
    *
@@ -133,6 +132,21 @@ public class ShowApi {
     showService.deleteShowLike(showLike.getUserId(), showLike.getShowId());
     showService.likeNumDecr(showLike.getShowId());
     return ResponseEntity.ok("取消点赞");
+  }
+
+  /**
+   * 查找作品下的留言message
+   *
+   * @param id show id
+   * @return message
+   */
+  @RequestMapping("{id}/message")
+  public ResponseEntity getMessagesByShowId(@PathVariable long id) {
+    List<Message> messages = messageService.getByShowId(id);
+    if (messages == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(messages, HttpStatus.OK);
   }
 
 
