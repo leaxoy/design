@@ -20,7 +20,7 @@ public class ReportService {
     }
 
     public int addReport(Report report) {
-        return mapper.addreport(report);
+        return mapper.addReport(report);
     }
 
     public int dealReport(Report report) {
@@ -29,6 +29,10 @@ public class ReportService {
 
     public List<Report> getByState(int state) {
         return mapper.selectByState(state);               //按举报状态查询举报
+    }
+
+    public Report getByReportId(long reportId) {
+        return mapper.selectByReportId(reportId);
     }
 
     public List<Report> getByReportType(String reportType) {

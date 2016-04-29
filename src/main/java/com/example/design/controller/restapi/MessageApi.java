@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
  * message rest api.
  *
@@ -32,6 +34,7 @@ public class MessageApi {
         /**
          * 新建留言
          */
+        message.setMessageDate(new Date());
         int count = messageService.addMessage(message);
         if (1 == count) {
             return ResponseEntity.ok(message);
