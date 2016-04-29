@@ -3,27 +3,13 @@ package com.example.design.controller.restapi;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.Role;
-import com.example.design.model.Comment;
-import com.example.design.model.Cooking;
-import com.example.design.model.Menu;
-import com.example.design.model.Show;
-import com.example.design.model.User;
-import com.example.design.service.impl.CommentService;
-import com.example.design.service.impl.CookingService;
-import com.example.design.service.impl.FriendService;
-import com.example.design.service.impl.MenuService;
-import com.example.design.service.impl.ShowService;
-import com.example.design.service.impl.UserService;
-
+import com.example.design.model.*;
+import com.example.design.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,8 +34,8 @@ public class UserApi {
   private ShowService showService;
   @Autowired
   private MenuService menuService;
-
-
+  @Autowired
+  private MessageService messageService;
   /**
    * 获取用户信息
    *
@@ -199,10 +185,21 @@ public class UserApi {
     return null;
   }
 
+  /**
+   * 查找用户所发和所接所有message
+   *
+   * @param id messageUserId
+   * @return message
+   */
   @RequestMapping("{id}/message")
-  public ResponseEntity getMessageByUserId(@PathVariable long id) {
-    return null;
-  }
+  public ResponseEntity getMessagesByMessageUserId(@PathVariable long id) {
+    List<Message> messages = messageService.getByMessageUserId(id);
+    messages.addAll(messageService.getByUserId(id));
+    if (messages.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(messages, HttpStatus.OK);
+}
 
   /**
    * 修改用户个人信息.
