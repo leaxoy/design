@@ -170,7 +170,7 @@ public class UserApi {
    * @return 菜谱列表.
    */
   @RequestMapping(value = "{id}/cooking", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ADMIN, Role.GUEST, Role.LIMITED_USER})
+//  @Authorization({Role.USER, Role.ADMIN, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingByuserId(@PathVariable long id) {
     List<Cooking> list = cookingService.findAllCookingByUserId(id);
     if (list == null) {
@@ -186,7 +186,7 @@ public class UserApi {
    * @return 作品列表.
    */
   @RequestMapping(value = "{id}/show", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
   public ResponseEntity showByUserId(@PathVariable long id) {
     List<Show> list = showService.findAllShowByUserId(id);
     if (list == null) {
@@ -202,7 +202,7 @@ public class UserApi {
    * @return 菜单列表.
    */
   @RequestMapping(value = "{id}/menu", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
   public ResponseEntity menuByUserId(@PathVariable long id) {
     List<Menu> list = menuService.findAllMenuByUserId(id);
     if (list == null) {

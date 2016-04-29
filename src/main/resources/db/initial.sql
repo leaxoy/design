@@ -124,15 +124,15 @@ INSERT INTO `friend` VALUES ('3', '4', '0');
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
-  `menuId`      INT(11)     NOT NULL,
-  `authorId`    INT(11)     NOT NULL
+  `menuId`      INT(11) AUTO_INCREMENT NOT NULL,
+  `authorId`    INT(11)                NOT NULL
   COMMENT '作者Id',
-  `menuName`    VARCHAR(20) NOT NULL,
-  `menuPicture` VARCHAR(50) NOT NULL,
-  `menuLikeNum` INT(10)     NOT NULL DEFAULT '0'
+  `menuName`    VARCHAR(20)            NOT NULL,
+  `menuPicture` VARCHAR(50)            NOT NULL,
+  `menuLikeNum` INT(10)                NOT NULL DEFAULT '0'
   COMMENT '点赞数',
-  `menuDate`    DATETIME    NOT NULL,
-  `state`       INT(1)      NOT NULL DEFAULT '0'
+  `menuDate`    DATETIME               NOT NULL,
+  `state`       INT(1)                 NOT NULL DEFAULT '0'
   COMMENT '状态，0为正常,1表示删除',
   PRIMARY KEY (`menuId`)
 )
@@ -280,16 +280,16 @@ INSERT INTO `share` VALUES ('1', '4', '2016-04-23 15:49:41', 'cooking', '2', '�
 -- ----------------------------
 DROP TABLE IF EXISTS `show`;
 CREATE TABLE `show` (
-  `showId`      INT(11)      NOT NULL,
-  `showIntro`   VARCHAR(255) NOT NULL
+  `showId`      INT(11) AUTO_INCREMENT NOT NULL,
+  `showIntro`   VARCHAR(255)           NOT NULL
   COMMENT '介绍',
-  `showPicture` VARCHAR(50)  NOT NULL,
-  `cookingId`   INT(11)      NOT NULL
+  `showPicture` VARCHAR(50)            NOT NULL,
+  `cookingId`   INT(11) DEFAULT '0'    NOT NULL
   COMMENT '关联菜谱Id',
-  `showDate`    DATETIME     NOT NULL,
-  `userId`      INT(11)      NOT NULL,
-  `showLikeNum` INT(10)      NOT NULL DEFAULT '0',
-  `state`       INT(1)       NOT NULL DEFAULT '0'
+  `showDate`    DATETIME               NOT NULL,
+  `authorId`    INT(11)                NOT NULL,
+  `showLikeNum` INT(10)                NOT NULL DEFAULT '0',
+  `state`       INT(1)                 NOT NULL DEFAULT '0'
   COMMENT '作品状态，0为正常',
   PRIMARY KEY (`showId`)
 )
@@ -385,10 +385,12 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES
-  ('1', 'ADMIN', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL, NULL,
+  ('1', 'ADMIN', '1111111111', 'xiuchuwang', '', '管理员', NULL, 'admin', 'male', NULL, NULL, NULL,
+   NULL,
    '0');
 INSERT INTO `user` VALUES
-  ('2', 'USER', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22', '学生',
+  ('2', 'USER', '1337315561', '123456', '123456@qq.com', '队长', NULL, '杨永宁', 'male', '2012-09-22',
+        '学生',
    '武汉', '老子日~', '0');
 INSERT INTO `user` VALUES
   ('3', 'USER', '1283399465', '987654', '666666@162.com', '研', NULL, '石开', 'male', '2014-08-07',

@@ -21,7 +21,7 @@ public interface MenuMapper {
   /**
    * add a menu.
    */
-  @Insert("INSERT INTO menu(menuName, menuPicture, authorId, menuDate) VALUES(#{menuName},"
+  @Insert("INSERT INTO `menu`(`menuName`, `menuPicture`, `authorId`, `menuDate`) VALUES(#{menuName},"
           + " #{menuPicture}, #{authorId}, #{menuDate})")
   int addMenu(Menu menu);
 
@@ -30,31 +30,39 @@ public interface MenuMapper {
    *
    * @return Menu
    */
-  @Select("SELECT * FROM menu WHERE menuId = #{menuId}")
+  @Select("SELECT * FROM `menu` WHERE `menuId` = #{menuId}")
   Menu findById(long menuId);
 
   /**
    * update menu's information except authorId,menuId,menuLike menuDate,state.
    */
-  @Update("UPDATE menu SET menuName = #{menuName}, menuPicture = #{menuPicture} WHERE authorId ="
-          + " #{authorId} AND menuId = #{menuId} AND state = 0")
+  @Update("UPDATE `menu` SET `menuName` = #{menuName}, `menuPicture` = #{menuPicture} WHERE `authorId` ="
+          + " #{authorId} AND `menuId` = #{menuId} AND `state` = 0")
   int updateMenu(Menu menu);
 
   /**
    * select one user's all menu by author's Id.
    */
-  @Select("SELECT * FROM menu WHERE authorId = #{authorId} AND state = 0")
+  @Select("SELECT * FROM `menu` WHERE `authorId` = #{authorId} AND `state` = 0")
   List<Menu> findAllMenuByUserId(@Param("authorId") long userId);
 
   /**
    * mark user's one menu as deleted.
    */
-  @Update("UPDATE menu SET state = 1 WHERE menuID = #{menuId} ")
+  @Update("UPDATE `menu` SET `state` = 1 WHERE `menuID` = #{menuId} ")
   int markMenuDelete(long menuId);
 
   /**
    * select all menus.
    */
-  @Select("SELECT * FROM menu")
+  @Select("SELECT * FROM `menu`")
   List<Menu> all();
+
+  @Update("UPDATE `menu` SET `menuLikeNum` = `menuLikeNum` + 1 WHERE `menuId`"
+          + " = #{menuId}")
+  int likeNumIncr(long menuId);
+
+  @Update("UPDATE `menu` SET `menuLikeNum` = `menuLikeNum` - 1 WHERE `menuId`"
+          + " = #{menuId}")
+  int likeNumDecr(long menuId);
 }

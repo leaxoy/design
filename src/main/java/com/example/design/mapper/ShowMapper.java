@@ -18,24 +18,24 @@ public interface ShowMapper {
   /**
    * add one cookingShow to a table
    */
-  @Insert("INSERT INTO show(showIntro, showPicture, showDate, authorId, cookingId) " +
+  @Insert("INSERT INTO `show`(`showIntro`, `showPicture`, `showDate`, `userId`, `cookingId`) " +
           "VALUES(#{showIntro}, #{showPicture}, #{showDate}, #{authorId}, #{cookingId})")
   int addShow(Show show);
 
-  @Insert("INSERT INTO show(cookingId) VALUES (#{cookingId} WHERE showId = #{showId})")
-  int addShowToCooking(Show show);
+  @Update("UPDATE `show` SET `cookingId` = #{cookingId} WHERE `showId` = #{showId}")
+  int addShowToCooking(@Param("cookingId") long cookingId, @Param("showId") long showId);
 
   /**
    * Update show information
    */
-  @Update("UPDATE show SET showIntro = #{showIntro}, showPicture = #{showPicture} " +
-          "WHERE showId = #{showId} AND state = 0")
+  @Update("UPDATE `show` SET `showIntro` = #{showIntro}, `showPicture` = #{showPicture} " +
+          "WHERE `showId` = #{showId} AND `state` = 0")
   int updateShow(Show show);
 
   /**
    * mark show'state as "deleted"
    */
-  @Update("UPDATE show SET state = 1 WHERE showId = #{showId} AND state = 0")
+  @Update("UPDATE `show` SET `state` = 1 WHERE `showId` = #{showId} AND `state` = 0")
   int markShowDelete(long showId);
 
   /**
@@ -43,7 +43,7 @@ public interface ShowMapper {
    *
    * @return Show
    */
-  @Select("SELECT * FROM show WHERE showId = #{showId}")
+  @Select("SELECT * FROM `show` WHERE `showId` = #{showId}")
   Show findShowById(long showId);
 
   /**
@@ -51,7 +51,7 @@ public interface ShowMapper {
    *
    * @return List<Show>
    */
-  @Select("SELECT * FROM show WHERE authorId = #{authorId} AND state = 0 ")
+  @Select("SELECT * FROM `show` WHERE `authorId` = #{userId} AND `state` = 0 ")
   List<Show> findAllShowByUserId(@Param("authorId") long userId);
 
   /**
@@ -59,7 +59,7 @@ public interface ShowMapper {
    *
    * @return List<Show>
    */
-  @Select("SELECT * FROM show WHERE cookingId = #{cookingId} AND state = 0 ")
+  @Select("SELECT * FROM `show` WHERE `cookingId` = #{cookingId} AND `state` = 0")
   List<Show> findAllShowByCookingId(long cookingId);
 
   /**
@@ -67,6 +67,14 @@ public interface ShowMapper {
    *
    * @return List<Show>
    */
-  @Select("SELECT * FROM show")
+  @Select("SELECT * FROM `show`")
   List<Show> all();
+
+  @Update("UPDATE `show` SET `showLikeNum` = `showLikeNum` + 1 WHERE `showId`"
+          + " = #{showId}")
+  int likeNumIncr(long showId);
+
+  @Update("UPDATE `show` SET `showLikeNum` = `showLikeNum` - 1 WHERE `showId`"
+          + " = #{showId}")
+  int likeNumDecr(long showId);
 }

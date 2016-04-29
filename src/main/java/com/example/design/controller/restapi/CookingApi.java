@@ -1,7 +1,5 @@
 package com.example.design.controller.restapi;
 
-import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
 import com.example.design.model.Show;
@@ -31,6 +29,7 @@ public class CookingApi {
 
   @Autowired
   private CookingService cookingService;
+  @Autowired
   private ShowService showService;
 
   /**
@@ -50,12 +49,12 @@ public class CookingApi {
 
   /**
    * 返回某一菜谱的所有作品
-   * @return
    */
-  @RequestMapping(value = "{cookingId}/show", method = RequestMethod.GET)
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
-  public ResponseEntity allShow() {
-    List<Show> list = showService.all();
+  @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity allShow(@PathVariable long cookingId) {
+    System.out.println(cookingId);
+    List<Show> list = showService.findAllShowByCookingId(cookingId);
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -66,8 +65,8 @@ public class CookingApi {
    * 返回某一菜谱的某一作品
    */
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
-  public ResponseEntity oneShow(long showId) {
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity oneShow(@PathVariable long cookingId, @PathVariable long showId) {
     Show show = showService.findShowById(showId);
     if (show == null) {
       return ResponseEntity.notFound().build();
@@ -78,10 +77,10 @@ public class CookingApi {
   /**
    * 为某一菜谱添加作品
    */
-  @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.POST)
-  @Authorization({Role.USER})
-  public ResponseEntity addShowToCooking(Show show) {
-    int count = showService.addShowToCooking(show);
+  @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.PUT)
+//  @Authorization({Role.USER})
+  public ResponseEntity addShowToCooking(@PathVariable long cookingId, @PathVariable long showId) {
+    int count = showService.addShowToCooking(cookingId, showId);
     if (count > 0) {
       return ResponseEntity.ok("添加成功");
     }
@@ -95,7 +94,7 @@ public class CookingApi {
    * @return 指定id 的菜谱.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -112,7 +111,7 @@ public class CookingApi {
    * @return 新添加的菜谱信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Cooking cooking) {
     /**
      * 创建菜单
@@ -132,8 +131,9 @@ public class CookingApi {
    * @return 更改的菜谱信息.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.PUT)
-  @Authorization({Role.USER})
-  public ResponseEntity update(@RequestBody Cooking cooking) {
+//  @Authorization({Role.USER})
+  public ResponseEntity update(@PathVariable long cookingId, @RequestBody Cooking cooking) {
+    cooking.setCookingId(cookingId);
     int count = cookingService.updateCooking(cooking);
 
     if (count == 1) {
@@ -149,7 +149,7 @@ public class CookingApi {
    * @return 删除的菜谱信息.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.DELETE)
-  @Authorization({Role.ADMIN, Role.USER})
+//  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long cookingId) {
     int count = cookingService.markCookingDetele(cookingId);
     if (count == 1) {
@@ -159,11 +159,10 @@ public class CookingApi {
   }
 
   /**
-   * 用户点赞或者取消点赞.
-   * 对某一菜谱点赞或取消赞
+   * 用户点赞或者取消点赞. 对某一菜谱点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
@@ -173,11 +172,11 @@ public class CookingApi {
      */
     if (cookingLikeForm.getLike() > 0) {
       cookingService.addCookingLikeUser(cookingLike);
-      cookingService.updateLikeOfCooking(cookingLike.getCookingId(), 1);
+      cookingService.likeNumIncr(cookingLike.getCookingId());
       return ResponseEntity.ok("已点赞");
     }
     cookingService.deleteCookingLike(cookingLike.getUserId(), cookingLike.getCookingId());
-    cookingService.updateLikeOfCooking(cookingLike.getCookingId(), -1);
+    cookingService.likeNumDecr(cookingLike.getCookingId());
     return ResponseEntity.ok("已取消点赞");
   }
 
