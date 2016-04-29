@@ -28,7 +28,15 @@ public class ShowService {
   }
 
   /**
-   * Update show information.
+   * Update show information. add show to one recipe
+   * add show to one recipe
+   */
+  public int addShowToCooking(long cookingId, long showId) {
+    return showMapper.addShowToCooking(cookingId, showId);
+  }
+
+  /**
+   * Update show information
    */
   public int updateShow(Show show) {
     return showMapper.updateShow(show);
@@ -64,7 +72,7 @@ public class ShowService {
    *
    * @return List
    */
-  public List<Show> findAllShowByCookingID(long cookingId) {
+  public List<Show> findAllShowByCookingId(long cookingId) {
     return showMapper.findAllShowByCookingId(cookingId);
   }
 
@@ -80,25 +88,21 @@ public class ShowService {
   }
 
   /**
-   * select user's one show-like record.
-   *
-   * @return ShowLike
+   * update showLike's state. delete showLike's record
+   * delete one showLike record
+   * @param userId
+   * @param showId
+   * @return
    */
-  public ShowLike isLike(long userId, long showId) {
-    return showLikeMapper.isLike(userId, showId);
+  public int deleteShowLike(long userId, long showId) {
+    return showLikeMapper.deleteShowLike(userId, showId);
   }
 
-  /**
-   * update showLike's state.
-   */
-  public int markShowLikeState(int like, long userId, long showId) {
-    return showLikeMapper.markShowLikeState(like, userId, showId);
+  public int likeNumIncr(long showId) {
+    return showMapper.likeNumIncr(showId);
   }
 
-  /**
-   * update show's showLike.
-   */
-  public int updateLikeOfShow(long showId, int like) {
-    return showLikeMapper.updateLikeOfShow(showId, like);
+  public int likeNumDecr(long showId) {
+    return showMapper.likeNumDecr(showId);
   }
 }

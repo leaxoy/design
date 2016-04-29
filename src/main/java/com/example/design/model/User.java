@@ -25,7 +25,7 @@ public class User {
   private String city;            // 居住城市
   private String userIntro;       // 个人介绍
   private Role role;              // 用户权限
-  private int state;
+  private int state;              // 已废弃
 
   public long getUserId() {
     return userId;

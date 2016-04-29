@@ -38,25 +38,15 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-jetty')
     compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-web') {
-        exclude module: 'spring-boot-starter-tomcat'
-    }
+    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.session:spring-session')
     compile('io.jsonwebtoken:jjwt:0.6.0')
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.2')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')
 
-    compile('org.projectreactor:reactor-net:2.0.0.M1')
-    compile('org.projectreactor.spring:reactor-spring-context:2.0.0.M1')
-
-    compile('com.google.code.gson:gson')
-
-    compile('io.springfox:springfox-swagger2:2.4.0')
-    compile('io.springfox:springfox-swagger-ui:2.4.0')
+    compile('com.google.code.gson:gson:2.6.2')
 
     runtime('mysql:mysql-connector-java')
-    runtime('org.postgresql:postgresql')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

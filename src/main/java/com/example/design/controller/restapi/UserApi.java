@@ -4,16 +4,26 @@ import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.Role;
 import com.example.design.model.Comment;
+import com.example.design.model.Cooking;
+import com.example.design.model.Menu;
+import com.example.design.model.Show;
 import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
+import com.example.design.service.impl.CookingService;
+import com.example.design.service.impl.FriendService;
+import com.example.design.service.impl.MenuService;
+import com.example.design.service.impl.ShowService;
 import com.example.design.service.impl.UserService;
-import io.jsonwebtoken.lang.Assert;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -31,6 +41,13 @@ public class UserApi {
   private UserService userService;
   @Autowired
   private CommentService commentService;
+  @Autowired
+  private CookingService cookingService;
+  @Autowired
+  private FriendService friendService;
+  private ShowService showService;
+  @Autowired
+  private MenuService menuService;
 
 
   /**
@@ -39,8 +56,6 @@ public class UserApi {
    * @param id user id.
    * @return user.
    */
-  @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
-  @ApiParam(name = "id", value = "用户ID", required = true)
   @RequestMapping("{id}")
   public ResponseEntity getById(@PathVariable long id) {
     User user = userService.id(id);
@@ -53,11 +68,11 @@ public class UserApi {
   /**
    * 修改用户个人信息
    */
-  @RequestMapping(value = "", method = RequestMethod.POST)
+  @RequestMapping(value = "", method = RequestMethod.PUT)
   @Authorization({Role.USER})
   public ResponseEntity changeInfo(@RequestBody User user) {
     /**
-     * 修改个人信息
+     * 修改个人信息.
      */
     int count = userService.updateInfo(user);
     if (1 == count) {
@@ -82,6 +97,7 @@ public class UserApi {
     }
     return ResponseEntity.ok("密码有误");
   }
+
   /**
    * 获取用户作品.
    *
@@ -118,7 +134,11 @@ public class UserApi {
    */
   @RequestMapping("{id}/cooking")
   public ResponseEntity getCookingsByUserId(@PathVariable long id) {
-    return null;
+    List<Cooking> cookings = cookingService.findAllCookingByUserId(id);
+    if (cookings == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(cookings, HttpStatus.OK);
   }
 
   /**
@@ -139,8 +159,12 @@ public class UserApi {
    * @return 朋友列表.
    */
   @RequestMapping("{id}/friend")
-  public RequestMapping getFriendsByUserId(@PathVariable long id) {
-    return null;
+  public ResponseEntity getFriendsByUserId(@PathVariable long id) {
+    List<User> friends = friendService.getFriendsByUserId(id);
+    if (friends == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(friends, HttpStatus.OK);
   }
 
   /**
@@ -180,4 +204,65 @@ public class UserApi {
     return null;
   }
 
+  /**
+   * 修改用户个人信息.
+   */
+  @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
+  @Authorization({Role.USER})
+  public ResponseEntity changeInfo(@PathVariable long userId, @RequestBody User user) {
+    int count = userService.updateInfo(user);
+    if (1 == count) {
+      return ResponseEntity.ok(user);
+    }
+    return ResponseEntity.ok("修改失败");
+
+  }
+
+  /**
+   * 返回指定用户id 的菜谱列表.
+   *
+   * @param id 用户 id.
+   * @return 菜谱列表.
+   */
+  @RequestMapping(value = "{id}/cooking", method = RequestMethod.GET)
+//  @Authorization({Role.USER, Role.ADMIN, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity cookingByuserId(@PathVariable long id) {
+    List<Cooking> list = cookingService.findAllCookingByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
+
+  /**
+   * 返回指定用户id 的作品列表.
+   *
+   * @param id 用户 id.
+   * @return 作品列表.
+   */
+  @RequestMapping(value = "{id}/show", method = RequestMethod.GET)
+//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+  public ResponseEntity showByUserId(@PathVariable long id) {
+    List<Show> list = showService.findAllShowByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
+
+  /**
+   * 返回指定用户id 的菜单列表.
+   *
+   * @param id 用户 id.
+   * @return 菜单列表.
+   */
+  @RequestMapping(value = "{id}/menu", method = RequestMethod.GET)
+//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
+  public ResponseEntity menuByUserId(@PathVariable long id) {
+    List<Menu> list = menuService.findAllMenuByUserId(id);
+    if (list == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(list);
+  }
 }

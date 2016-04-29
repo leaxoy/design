@@ -67,7 +67,7 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
 
 
   /**
-   * @param argumentResolvers List<>.
+   * @param argumentResolvers List.
    */
   @Override
   public final void addArgumentResolvers(

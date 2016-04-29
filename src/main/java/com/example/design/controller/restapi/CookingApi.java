@@ -1,10 +1,10 @@
 package com.example.design.controller.restapi;
 
-import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
+import com.example.design.model.Show;
 import com.example.design.service.impl.CookingService;
+import com.example.design.service.impl.ShowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,14 +29,16 @@ public class CookingApi {
 
   @Autowired
   private CookingService cookingService;
+  @Autowired
+  private ShowService showService;
 
   /**
    * 返回所有菜谱.
    *
-   * @return all articles list.
+   * @return all cooking list.
    */
-  @RequestMapping("")
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+  @RequestMapping(value = "", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -46,13 +48,53 @@ public class CookingApi {
   }
 
   /**
+   * 返回某一菜谱的所有作品
+   */
+  @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity allShow(@PathVariable long cookingId) {
+    System.out.println(cookingId);
+    List<Show> list = showService.findAllShowByCookingId(cookingId);
+    if (list != null) {
+      return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * 返回某一菜谱的某一作品
+   */
+  @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  public ResponseEntity oneShow(@PathVariable long cookingId, @PathVariable long showId) {
+    Show show = showService.findShowById(showId);
+    if (show == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(show);
+  }
+
+  /**
+   * 为某一菜谱添加作品
+   */
+  @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.PUT)
+//  @Authorization({Role.USER})
+  public ResponseEntity addShowToCooking(@PathVariable long cookingId, @PathVariable long showId) {
+    int count = showService.addShowToCooking(cookingId, showId);
+    if (count > 0) {
+      return ResponseEntity.ok("添加成功");
+    }
+    return ResponseEntity.ok("添加失败");
+  }
+
+  /**
    * 返回指定id的菜谱.
    *
    * @param cookingId 菜谱id.
    * @return 指定id 的菜谱.
    */
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -62,23 +104,6 @@ public class CookingApi {
     return ResponseEntity.ok(cooking);
   }
 
-
-  /**
-   * 返回指定用户id 的菜谱列表.
-   *
-   * @param userId 用户 id.
-   * @return 菜谱列表.
-   */
-  @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
-  public ResponseEntity userId(@PathVariable long userId) {
-    List<Cooking> list = cookingService.findAllCookingByUserId(userId);
-    if (list == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(list);
-  }
-
   /**
    * 新添加菜谱.
    *
@@ -86,7 +111,7 @@ public class CookingApi {
    * @return 新添加的菜谱信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Cooking cooking) {
     /**
      * 创建菜单
@@ -105,11 +130,11 @@ public class CookingApi {
    * @param cooking 菜谱body.
    * @return 更改的菜谱信息.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({Role.USER})
-  public ResponseEntity update(@RequestBody Cooking cooking) {
+  @RequestMapping(value = "{cookingId}", method = RequestMethod.PUT)
+//  @Authorization({Role.USER})
+  public ResponseEntity update(@PathVariable long cookingId, @RequestBody Cooking cooking) {
+    cooking.setCookingId(cookingId);
     int count = cookingService.updateCooking(cooking);
-
     if (count == 1) {
       return ResponseEntity.ok(cooking);
     }
@@ -119,13 +144,13 @@ public class CookingApi {
   /**
    * 删除指定id 的菜谱.
    *
-   * @param id 菜谱id
+   * @param cookingId 菜谱id
    * @return 删除的菜谱信息.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-  @Authorization({Role.ADMIN, Role.USER})
-  public ResponseEntity markDelete(@PathVariable long id) {
-    int count = cookingService.markCookingDetele(id);
+  @RequestMapping(value = "{cookingId}", method = RequestMethod.DELETE)
+//  @Authorization({Role.ADMIN, Role.USER})
+  public ResponseEntity markDelete(@PathVariable long cookingId) {
+    int count = cookingService.markCookingDelete(cookingId);
     if (count == 1) {
       return ResponseEntity.ok("删除成功");
     }
@@ -133,21 +158,24 @@ public class CookingApi {
   }
 
   /**
-   * 用户点赞或者取消点赞.
+   * 用户点赞或者取消点赞. 对某一菜谱点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
-  @Authorization({Role.ADMIN, Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());
     cookingLike.setUserId(cookingLikeForm.getUserId());
+    /**
+     * 根据like的值判断是点赞还是取消点赞
+     */
     if (cookingLikeForm.getLike() > 0) {
       cookingService.addCookingLikeUser(cookingLike);
-      cookingService.updateLikeOfCooking(cookingLike.getCookingId(), 1);
+      cookingService.likeNumIncr(cookingLike.getCookingId());
       return ResponseEntity.ok("已点赞");
     }
     cookingService.deleteCookingLike(cookingLike.getUserId(), cookingLike.getCookingId());
-    cookingService.updateLikeOfCooking(cookingLike.getCookingId(), -1);
+    cookingService.likeNumDecr(cookingLike.getCookingId());
     return ResponseEntity.ok("已取消点赞");
   }
 

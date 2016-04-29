@@ -2,7 +2,15 @@ package com.example.design.mapper;
 
 import com.example.design.constant.Role;
 import com.example.design.model.User;
-import org.apache.ibatis.annotations.*;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +19,16 @@ import java.util.List;
 /**
  * 用户持久化接口. Created by lxh on 4/14/16.
  */
-@Repository("userMapper")
+@Repository
+@Mapper
 public interface UserMapper {
   @Insert("INSERT INTO `user`(`account`, `password`, `role`) VALUES"
           + "(#{account}, #{password}, #{role})")
   int add(User user);                   //添加用户
 
-  @Update("UPDATE `user` SET `email`=#{email}, `nickName`=#{nickName}, `userPicture`=#{userPicture}," +
-          "`name`=#{name}, `gender`=#{gender}, `birth`=#{birth}, `job`=#{job}," +
-          "`city`=#{city}, `userIntro`=#{userIntor} WHERE `account`=#{account}")
+  @Update("UPDATE `user` SET `email`=#{email}, `nickName`=#{nickName}, `userPicture`="
+          + "#{userPicture}, `name`=#{name}, `gender`=#{gender}, `birth`=#{birth}, `job`=#{job},"
+          + "`city`=#{city}, `userIntro`=#{userIntro} WHERE `account`=#{account}")
   int update(User user);        //更新用户
 
   @Update("UPDATE `user` SET `password`=#{password} WHERE `account`=#{account}")

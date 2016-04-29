@@ -4,6 +4,7 @@ import com.example.design.model.Comment;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,11 @@ import java.util.List;
 
 /**
  * 评论持久化接口.
+ *
+ * @author lxh
+ * @version 0.1
  */
+@Mapper
 @Repository
 public interface CommentMapper {
 

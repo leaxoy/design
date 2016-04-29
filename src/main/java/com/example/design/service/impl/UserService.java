@@ -3,6 +3,7 @@ package com.example.design.service.impl;
 import com.example.design.constant.Role;
 import com.example.design.mapper.UserMapper;
 import com.example.design.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,7 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService {
   @Autowired
-  UserMapper mapper;
+  UserMapper userMapper;
 
   /**
    * select all users.
@@ -27,7 +28,7 @@ public class UserService implements UserDetailsService {
    * @return List
    */
   public List<User> all() {
-    return mapper.all();
+    return userMapper.all();
   }
 
   /**
@@ -37,7 +38,7 @@ public class UserService implements UserDetailsService {
    * @return User
    */
   public User id(long userId) {
-    return mapper.id(userId);
+    return userMapper.id(userId);
   }
 
   /**
@@ -47,7 +48,7 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int addUser(User user) {
-    return mapper.add(user);
+    return userMapper.add(user);
   }
 
   /**
@@ -57,7 +58,7 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int updateInfo(User user) {
-    return mapper.update(user);
+    return userMapper.update(user);
   }
 
   /**
@@ -67,7 +68,7 @@ public class UserService implements UserDetailsService {
    * @return User.
    */
   public User getByAccountName(String name) {
-    return mapper.selectByAccountName(name);
+    return userMapper.selectByAccountName(name);
   }
 
   /**
@@ -77,47 +78,68 @@ public class UserService implements UserDetailsService {
    * @return number of rows affected.
    */
   public int removeById(int userId) {
-    return mapper.delete(userId);
+    return userMapper.delete(userId);
   }
 
   /**
    * remove a user by account.
    */
   public int removeByAccountName(String account) {
-    return mapper.deleteByAccountName(account);
+    return userMapper.deleteByAccountName(account);
   }
 
   /**
    * get Role of a user.
    */
   public Role getRole(String name) {
-    return mapper.getRole(name);
+    return userMapper.getRole(name);
   }
 
+  /**
+   * mark a user to limited.
+   *
+   * @param userId user's id.
+   */
   public int markLimit(Long userId) {
-    return mapper.markLimit(userId);        //标记用户受限
+    return userMapper.markLimit(userId);
   }
 
+  /**
+   * mark a user unlimited.
+   *
+   * @param userId user's id.
+   */
   public int markNormal(Long userId) {
-    return mapper.markNormal(userId);       //标记受限用户正常
+    return userMapper.markNormal(userId);
   }
 
+  /**
+   * change password.
+   */
   public int updatePassword(String account, String password) {
-    return mapper.updatePassword(account, password);        //修改密码
+    return userMapper.updatePassword(account, password);
   }
 
+  /**
+   * get users by nickName.
+   */
   public List<User> getByNickName(String nickName) {
-    return mapper.selectByNickName(nickName);              //通过昵称查找用户
+    return userMapper.selectByNickName(nickName);
   }
 
+  /**
+   * get users by city name.
+   */
   public List<User> getByCity(String city) {
-    return mapper.selectByCity(city);              //通过城市查找用户
+    return userMapper.selectByCity(city);
   }
 
+  /**
+   * get all limited users.
+   */
   public List<User> getAllLimitUser() {
-    return mapper.findLimitUser();                           //查找受限用户
+    return userMapper.findLimitUser();
   }
-
 
 
   @Override

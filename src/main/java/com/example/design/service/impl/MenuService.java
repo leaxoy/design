@@ -3,6 +3,7 @@ package com.example.design.service.impl;
 import com.example.design.mapper.CookingMenuMapper;
 import com.example.design.mapper.MenuLikeMapper;
 import com.example.design.mapper.MenuMapper;
+import com.example.design.model.Cooking;
 import com.example.design.model.Menu;
 import com.example.design.model.MenuCooking;
 import com.example.design.model.MenuLike;
@@ -39,7 +40,7 @@ public class MenuService {
    *
    * @return Menu
    */
-  public Menu findByID(long menuId) {
+  public Menu findById(long menuId) {
     return menuMapper.findById(menuId);
   }
 
@@ -79,26 +80,10 @@ public class MenuService {
   }
 
   /**
-   * select user's one menu-like record
-   *
-   * @return MenuLike
+   * delete menuLike's record
    */
-  public MenuLike isLike(long userId, long menuId) {
-    return menuLikeMapper.isLike(userId, menuId);
-  }
-
-  /**
-   * update menuLike's state
-   */
-  public int markMenuLikeState(int like, long userId, long menuId) {
-    return menuLikeMapper.markMenuLikeState(like, userId, menuId);
-  }
-
-  /**
-   * update menu's menuLike
-   */
-  public int updateLikeOfMenu(long menuId, int like) {
-    return menuLikeMapper.updateLikeOfMenu(menuId, like);
+  public int deleteMenuLike(long userId, long menuId) {
+    return menuLikeMapper.deleteMenuLike(userId, menuId);
   }
 
   /**
@@ -111,7 +96,22 @@ public class MenuService {
   /**
    * delete one recipe from a menu
    */
-  public int deleteCookingFromMenu(long menuId, long cookingId) {
-    return cookingMenuMapper.deleteCookingFromMenu(menuId, cookingId);
+  public int deleteCookingFromMenu(MenuCooking menuCooking) {
+    return cookingMenuMapper.deleteCookingFromMenu(menuCooking);
+  }
+
+  /**
+   * select one menu's all recipe
+   */
+  public List<Cooking> findAllCookingOfMenu(long menuId) {
+    return cookingMenuMapper.findAllCookingOfMenu(menuId);
+  }
+
+  public int likeNumIncr(long menuId) {
+    return menuMapper.likeNumIncr(menuId);
+  }
+
+  public int likeNumDecr(long menuId) {
+    return menuMapper.likeNumDecr(menuId);
   }
 }
