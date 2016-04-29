@@ -28,10 +28,7 @@ public class ShowService {
   }
 
   /**
-<<<<<<< HEAD
-   * Update show information.
-=======
-   * add show to one recipe
+   * Update show information. add show to one recipe
    */
   public int addShowToCooking(Show show) {
     return showMapper.addShowToCooking(show);
@@ -39,7 +36,6 @@ public class ShowService {
 
   /**
    * Update show information
->>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849
    */
   public int updateShow(Show show) {
     return showMapper.updateShow(show);
@@ -91,7 +87,6 @@ public class ShowService {
   }
 
   /**
-<<<<<<< HEAD
    * select user's one show-like record.
    *
    * @return ShowLike
@@ -101,10 +96,7 @@ public class ShowService {
   }
 
   /**
-   * update showLike's state.
-=======
-   * delete showLike's record
->>>>>>> 194bb7fc8ace4fcd80b00fb5e0033072cb69b849
+   * update showLike's state. delete showLike's record
    */
   public int deleteShowLike(long userId, long showId) {
     return showLikeMapper.deleteShowLike(userId, showId);

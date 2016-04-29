@@ -25,6 +25,9 @@ public class CookingService {
 
   /**
    * insert one recipe into table cooking.
+   *
+   * @param cooking cooking to be added.
+   * @return number of rows affected.
    */
   public int addCooking(Cooking cooking) {
     return cookingMapper.addCooking(cooking);
@@ -33,6 +36,7 @@ public class CookingService {
   /**
    * select one recipe by cookingId.
    *
+   * @param cookingId cooking's id.
    * @return Cooking
    */
   public Cooking findById(long cookingId) {
@@ -40,7 +44,10 @@ public class CookingService {
   }
 
   /**
-   * UPDATE  one recipe's information except auhtorId,cookingId,state,cookingDate,cookingLike.
+   * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLike.
+   *
+   * @param cooking cooking to be updated.
+   * @return number of rows affected.
    */
   public int updateCooking(Cooking cooking) {
     return cookingMapper.updateCooking(cooking);
@@ -48,14 +55,18 @@ public class CookingService {
 
   /**
    * set one recipe's state as "1" which means it has been deleted.
+   *
+   * @param cookingId cooking's id.
+   * @return number of rows affected.
    */
-  public int markCookingDetele(long cookingId) {
+  public int markCookingDelete(long cookingId) {
     return cookingMapper.markCookingDelete(cookingId);
   }
 
   /**
    * select one user's all recipes.
    *
+   * @param userId user'id.
    * @return List
    */
   public List<Cooking> findAllCookingByUserId(long userId) {
@@ -65,6 +76,7 @@ public class CookingService {
   /**
    * select all cooking by keywords such as ingredient,cookingName, cookingStyleName.
    *
+   * @param keywords keyword...
    * @return List
    */
   public List<Cooking> findAllCookingByKeywords(String keywords) {
@@ -73,6 +85,8 @@ public class CookingService {
 
   /**
    * select all cooking.
+   *
+   * @return all cookings.
    */
   public List<Cooking> all() {
     return cookingMapper.all();
@@ -80,6 +94,9 @@ public class CookingService {
 
   /**
    * if one user click Like,his(her) behavior will be recorded,and set state as 1.
+   *
+   * @param cookingLike cooking-like form.
+   * @return number of rows affected.
    */
   public int addCookingLikeUser(CookingLike cookingLike) {
     return cookingLikeMapper.addCookingLikeUser(cookingLike);
@@ -87,6 +104,10 @@ public class CookingService {
 
   /**
    * delete cookingLike's record.
+   *
+   * @param userId    user'is.
+   * @param cookingId cooking.id
+   * @return number of rows affected.
    */
   public int deleteCookingLike(long userId, long cookingId) {
     return cookingLikeMapper.deleteCookingLike(userId, cookingId);

@@ -4,8 +4,11 @@ import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
 import com.example.design.constant.Role;
 import com.example.design.model.Comment;
+import com.example.design.model.Cooking;
 import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
+import com.example.design.service.impl.CookingService;
+import com.example.design.service.impl.FriendService;
 import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,10 @@ public class UserApi {
   private UserService userService;
   @Autowired
   private CommentService commentService;
+  @Autowired
+  private CookingService cookingService;
+  @Autowired
+  private FriendService friendService;
 
 
   /**
@@ -87,7 +94,11 @@ public class UserApi {
    */
   @RequestMapping("{id}/cooking")
   public ResponseEntity getCookingsByUserId(@PathVariable long id) {
-    return null;
+    List<Cooking> cookings = cookingService.findAllCookingByUserId(id);
+    if (cookings == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(cookings, HttpStatus.OK);
   }
 
   /**
@@ -108,8 +119,12 @@ public class UserApi {
    * @return 朋友列表.
    */
   @RequestMapping("{id}/friend")
-  public RequestMapping getFriendsByUserId(@PathVariable long id) {
-    return null;
+  public ResponseEntity getFriendsByUserId(@PathVariable long id) {
+    List<User> friends = friendService.getFriendsByUserId(id) ;
+    if (friends == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(friends, HttpStatus.OK);
   }
 
   /**

@@ -1,11 +1,12 @@
 package com.example.design.service.impl;
 
 import com.example.design.mapper.FriendMapper;
-import com.example.design.model.Friend;
+import com.example.design.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ import java.util.List;
 public class FriendService {
   @Autowired
   private FriendMapper friendMapper;
+  @Autowired
+  private UserService userService;
 
 
   /**
@@ -37,8 +40,17 @@ public class FriendService {
    * @param id 用户ID
    * @return 朋友列表
    */
-  public List<Friend> getByUserId(long id) {
-    return friendMapper.getByUserId(id);
+  public List<User> getFriendsByUserId(long id) {
+    List<Long> friends = friendMapper.getByUserId(id);
+    List<User> users = new ArrayList<>();
+    for (long friendId : friends) {
+      User user = userService.id(friendId);
+      if (user == null) {
+        continue;
+      }
+      users.add(user);
+    }
+    return users;
   }
 
   /**
