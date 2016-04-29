@@ -23,27 +23,31 @@ public class MessageService {
         return mapper.markDelete(messageId);       //删除留言
     }
 
-    public int deleteMessageByshareId(long shareId) {
-        return mapper.markDeleteByshareId(shareId);       //根据分享删除留言
+    public int deleteMessageByShareId(long shareId) {
+        return mapper.markDeleteByShareId(shareId);       //根据分享删除留言
     }
 
-    public int deleteMessageByshowId(long showId) {
-        return mapper.markDeleteByshowId(showId);       //根据作品删除留言；
+    public int deleteMessageByShowId(long showId) {
+        return mapper.markDeleteByShowId(showId);       //根据作品删除留言；
     }
 
-    public List<Message> getBymessageUserId(long messageUserId) {
-        return mapper.selectBymessageUserId(messageUserId);          //查询用户所发所有留言
+    public List<Message> getByMessageUserId(long messageUserId) {
+        return mapper.selectByMessageUserId(messageUserId);          //查询用户所发所有留言
     }
 
     public List<Message> getByUserId(long userId) {
-        return mapper.selectByuserId(userId);                        //查询用户所收所有留言
+        return mapper.selectByUserId(userId);                        //查询用户所收所有留言
     }
 
     public List<Message> getByShareId(long shareId) {
-        return mapper.selectByshareId(shareId);                       //查询分享下所有留言
+        return mapper.selectByShareId(shareId);                       //查询分享下所有留言
     }
 
-    public List<Message> getByShoweId(long showId) {
-        return mapper.selectByshowId(showId);                        //查询作品下所有留言
+    public List<Message> getByShowId(long showId) {
+        return mapper.selectByShowId(showId);                        //查询作品下所有留言
+    }
+
+    public Message getByMessageId(long messageId) {
+        return mapper.selectByMessageId(messageId);
     }
 }
