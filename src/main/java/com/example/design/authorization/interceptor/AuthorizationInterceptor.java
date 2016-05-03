@@ -3,8 +3,8 @@ package com.example.design.authorization.interceptor;
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.manager.impl.RedisTokenManager;
 import com.example.design.authorization.model.AuthToken;
-import com.example.design.constant.TokenConstant;
 import com.example.design.constant.Role;
+import com.example.design.constant.TokenConstant;
 import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +89,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
    * @return 是否通过.
    * @throws Exception 可能抛出的异常.
    */
+  @Override
   public final boolean preHandle(
           final HttpServletRequest request,
           final HttpServletResponse response,
@@ -112,7 +113,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
         if (authorization != null) {
           List<Role> roles = new ArrayList<>(Arrays.asList(authorization.value()));
-          if (roles.size() != 0) {
+          if (!roles.isEmpty()) {
             Role role = userService.getRole(token.getAccountName());
             return roles.contains(role);
           }
