@@ -15,8 +15,9 @@ public class Report {
   private long reportedItemId;
   private Date reportDate;        //举报状态
   private String reportReason;    //举报原因
-  private int state;            //举报状态，“0”为未处理，“1”为已关闭
+  private int state;              //举报状态，“0”为未处理，“1”为已关闭
   private Date closeDate;         //举报关闭时间
+  private String result;
 
 
   public long getReportId() {
@@ -82,5 +83,13 @@ public class Report {
 
   public void setReportedItemId(long reportedItemId) {
     this.reportedItemId = reportedItemId;
+  }
+
+  public String getResult() {
+    return result;
+  }
+
+  public void setResult(String result) {
+    this.result = result;
   }
 }

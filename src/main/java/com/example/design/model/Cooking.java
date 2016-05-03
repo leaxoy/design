@@ -2,27 +2,39 @@ package com.example.design.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
 
 /**
  * 菜谱模型 Created by lxh on 4/14/16.
  */
-@Document(indexName = "cooking", type = "cooking")
+@Document(indexName = "design", type = "cooking")
 public class Cooking {
   @Id
   private long cookingId;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String cookingName;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String cookingStyle;
   private Date cookingDate;
   private long authorId;
   private String cookingPicture;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String cookingIntro;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String tips;
   private int cookingLikeNum;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String step;
+  @Field(type = FieldType.String, index = FieldIndex.analyzed)
   private String ingredient;
   private int state;
+
+  public Cooking() {
+  }
 
   public long getCookingId() {
     return cookingId;
