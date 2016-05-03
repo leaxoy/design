@@ -9,7 +9,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by lxh on 16/4/25.
+ * show-like mapper
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
 @Mapper

@@ -24,7 +24,7 @@ public interface CookingLikeMapper {
   int addCookingLikeUser(CookingLike cookingLike);
 
   /**
-   * update cookingLike's record
+   * update cookingLike's record.
    */
   @Delete("DELETE FROM `cooking_like` WHERE `cookingId` = #{cookingId} AND `userId` = #{userId}")
   int deleteCookingLike(@Param("userId") long userId, @Param("cookingId") long cookingId);

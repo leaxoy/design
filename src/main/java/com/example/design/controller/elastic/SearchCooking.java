@@ -28,8 +28,7 @@ public class SearchCooking {
   private CookingRepository cookingRepository;
 
   /**
-   *
-   * @return
+   * @return cooking list ResponseEntity.
    */
   @RequestMapping("")
   public ResponseEntity findAll() {
@@ -41,21 +40,18 @@ public class SearchCooking {
   }
 
   /**
-   *
-   * @param id
-   * @return
+   * @param id cooking's id
+   * @return cooking ResponseEntity.
    */
   @RequestMapping("{id}")
   public ResponseEntity findOne(@PathVariable long id) {
     Cooking cooking = cookingRepository.findOne(id);
-    System.out.println(cooking);
     return ResponseEntity.ok(cooking);
   }
 
   /**
-   *
-   * @param cooking
-   * @return
+   * @param cooking cooking to add.
+   * @return cooking.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity addOne(@RequestBody Cooking cooking) {

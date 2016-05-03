@@ -6,7 +6,10 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by lxh on 16/4/29.
+ * cooking elastic repository.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
 public interface CookingRepository extends ElasticsearchRepository<Cooking, Long> {

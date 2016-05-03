@@ -3,7 +3,10 @@ package com.example.design.model;
 import org.springframework.data.annotation.Id;
 
 /**
- * Created by lxh on 16/4/25.
+ * Menu cooking model.
+ *
+ * @author lxh
+ * @version 0.1
  */
 public class MenuCooking {
   @Id

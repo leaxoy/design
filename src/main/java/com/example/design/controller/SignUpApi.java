@@ -83,6 +83,9 @@ public class SignUpApi {
     }
 
     public SignUpForm() {
+      /**
+       * this is a empty constructor method to implement Serializable interface.
+       */
     }
 
     public String getAccount() {

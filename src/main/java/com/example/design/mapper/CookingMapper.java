@@ -38,7 +38,7 @@ public interface CookingMapper {
   Cooking findById(long cookingId);
 
   /**
-   * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLikeNum
+   * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLikeNum.
    */
   @Update("UPDATE `cooking` SET `cookingName` = #{cookingName}, `cookingStyle` = #{cookingStyle},"
           + " `cookingPicture` = #{cookingPicture}, `cookingIntro` = #{cookingIntro}, "
@@ -47,7 +47,7 @@ public interface CookingMapper {
   int updateCooking(Cooking cooking);
 
   /**
-   * set one recipe's state as "1" which means it has been deleted
+   * set one recipe's state as "1" which means it has been deleted.
    */
   @Update("UPDATE `cooking` SET `state` = 1 WHERE `state` = 0 AND `cookingId` = #{cookingId}")
   int markCookingDelete(long cookingId);
@@ -61,7 +61,7 @@ public interface CookingMapper {
   List<Cooking> findAllCookingByUserId(@Param("authorId") long userId);
 
   /**
-   * select all cooking by keywords such as ingredient,cookingName, cookingStyleName
+   * select all cooking by keywords such as ingredient,cookingName, cookingStyleName.
    *
    * @return List
    */

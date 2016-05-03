@@ -25,14 +25,14 @@ public interface ReportMapper {
           + " #{reportReason})")
   int addReport(Report report);            //添加举报
 
-  @Update("UPDATE `report` SET `state` = 1, `result`=#{result}, `closeDate`=#{closeDate}"
-          + "WHERE `messageId`=#{messageId}")
+  @Update("UPDATE `report` SET `state` = 1, `result` = #{result}, `closeDate` = #{closeDate}"
+          + "WHERE `messageId` = #{messageId}")
   int dealReport(Report report);          //处理并关闭举报
 
-  @Select("SELECT * FROM `report` WHERE state=#{state}")
+  @Select("SELECT * FROM `report` WHERE `state` = #{state}")
   List<Report> selectByState(int state);           //按处理状态来处理举报
 
-  @Select("SELECT * FROM `report` WHERE reportType=#{reportType}&&state=0")
+  @Select("SELECT * FROM `report` WHERE `reportType` = #{reportType} AND `state` = 0")
   List<Report> selectByReportType(String reportType);           //按被举报类型查询未处理举报
 
 }

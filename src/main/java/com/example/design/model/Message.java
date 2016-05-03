@@ -5,14 +5,17 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
- * 留言模型 Created by lxh on 4/14/16.
+ * 留言模型.
+ *
+ * @author lxh
+ * @version 0.1
  */
 public class Message {
   @Id
   private long messageId;     // 留言 ID
   private long messageUserId; // 留言的用户ID
   private Date messageDate;   // 留言日期
-  private String message;     // 留言内容
+  private String messageContent;     // 留言内容
   private long userId;        // 被留言用户 ID
   private long shareId;       // 被留言的分享ID
   private long showId;        // 被留言的作品ID
@@ -42,12 +45,12 @@ public class Message {
     this.messageDate = messageDate;
   }
 
-  public String getMessage() {
-    return message;
+  public String getMessageContent() {
+    return messageContent;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setMessageContent(String messageContent) {
+    this.messageContent = messageContent;
   }
 
   public long getUserId() {

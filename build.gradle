@@ -17,13 +17,6 @@ apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 
-jar {
-    baseName = 'design'
-    version = '0.0.1-SNAPSHOT'
-}
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/snapshot" }
@@ -64,5 +57,5 @@ eclipse {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '2.13'
 }

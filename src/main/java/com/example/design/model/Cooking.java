@@ -9,7 +9,10 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 
 /**
- * 菜谱模型 Created by lxh on 4/14/16.
+ * 菜谱模型.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Document(indexName = "design", type = "cooking")
 public class Cooking {
@@ -34,6 +37,9 @@ public class Cooking {
   private int state;
 
   public Cooking() {
+    /**
+     * this is a empty constructor method to implement Serializable interface.
+     */
   }
 
   public long getCookingId() {

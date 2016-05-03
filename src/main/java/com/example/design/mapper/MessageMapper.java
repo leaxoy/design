@@ -42,8 +42,8 @@ public interface MessageMapper {
   @Select("SELECT * FROM `message` WHERE `shareId`=#{shareId} && `state`=0")
   List<Message> selectByShareId(long shareId);    //查询用户分享下的所有留言
 
-  @Select("SELECT * FROM `message` WHERE `shaowId`=#{shaowId} && `state`=0")
-  List<Message> selectByShowId(long shaowId);    //查询用户作品下的所有留言
+  @Select("SELECT * FROM `message` WHERE `showId`=#{showId} && `state`=0")
+  List<Message> selectByShowId(long showId);    //查询用户作品下的所有留言
 
   @Select(value = "SELECT * FROM `message` WHERE `messageId`=#{messageId})")
   Message selectByMessageId(Long messageId);     //查询用户留言所有详细信息

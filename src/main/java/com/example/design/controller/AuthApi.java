@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 用户认证的controller Created by lxh on 4/20/16.
  */
@@ -74,14 +72,13 @@ public class AuthApi {
   /**
    * 更新用户信息.
    *
-   * @param user    当前用户.
-   * @param request 请求参数.
+   * @param user 当前用户.
    * @return 修改后的用户信息.
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(method = RequestMethod.PUT)
   @Authorization({Role.USER, Role.ADMIN})
-  public ResponseEntity update(@CurrentUser User user, HttpServletRequest request) {
+  public ResponseEntity update(@CurrentUser User user) {
     return new ResponseEntity<>(AuthResult.ok(user), HttpStatus.OK);
   }
 
@@ -104,6 +101,9 @@ public class AuthApi {
     private String password;
 
     public SignInForm() {
+      /**
+       * this is a empty constructor method to implement Serializable interface.
+       */
     }
 
 

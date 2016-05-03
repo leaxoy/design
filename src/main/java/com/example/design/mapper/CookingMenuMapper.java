@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by viver on 16/4/27.
+ * cooking-menu mapper.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Repository
 @Mapper
