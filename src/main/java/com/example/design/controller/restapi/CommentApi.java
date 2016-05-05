@@ -2,7 +2,6 @@ package com.example.design.controller.restapi;
 
 import com.example.design.model.Comment;
 import com.example.design.service.impl.CommentService;
-import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +25,6 @@ import java.util.List;
 public class CommentApi {
   @Autowired
   private CommentService commentService;
-
-  @Autowired
-  private UserService userService;
 
   /**
    * @return all Comments.
@@ -82,7 +78,7 @@ public class CommentApi {
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity add(@RequestBody Comment comment) {
+  public ResponseEntity<Comment> add(@RequestBody Comment comment) {
     return ResponseEntity.ok(comment);
   }
 }

@@ -2,6 +2,7 @@ package com.example.design.mapper;
 
 import com.example.design.model.Report;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,6 +20,12 @@ public interface ReportMapper {
 
   @Select("SELECT * FROM `report`")
   List<Report> listAll();
+
+  @Select("SELECT * FROM `report` WHERE `reportId` = #{id}")
+  Report id(long id);
+
+  @Delete("DELETE FROM `report` WHERE `reportId` = #{id}")
+  int deleteReport(long id);
 
   @Insert("INSERT INTO `message`(`userID`, `reportType`, `reportedItemId`, `reportDate`, "
           + "`reportReason`) VALUES (#{userID}, #{reportType}, #{reportedItemId}, #{reportDate},"

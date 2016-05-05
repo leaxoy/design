@@ -14,25 +14,33 @@ import java.util.List;
 @Service
 public class ReportService {
   @Autowired
-  ReportMapper mapper;
+  private ReportMapper reportMapper;
 
   public List<Report> all() {
-    return mapper.listAll();
+    return reportMapper.listAll();
+  }
+
+  public Report id(long id) {
+    return reportMapper.id(id);
+  }
+
+  public int deleteReport(long id) {
+    return reportMapper.deleteReport(id);
   }
 
   public int addReport(Report report) {
-    return mapper.addReport(report);
+    return reportMapper.addReport(report);
   }
 
   public int dealReport(Report report) {
-    return mapper.dealReport(report);               //处理举报
+    return reportMapper.dealReport(report);               //处理举报
   }
 
   public List<Report> getByState(int state) {
-    return mapper.selectByState(state);               //按举报状态查询举报
+    return reportMapper.selectByState(state);               //按举报状态查询举报
   }
 
   public List<Report> getByReportType(String reportType) {
-    return mapper.selectByReportType(reportType);     //按类型查询举报
+    return reportMapper.selectByReportType(reportType);     //按类型查询举报
   }
 }

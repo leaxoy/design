@@ -35,7 +35,10 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     super.addCorsMappings(registry);
-    registry.addMapping("/api/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
+    registry.addMapping("/api/**").allowedOrigins("http://localhost:8080")
+            .allowedMethods("GET", "POST", "PUT", "DELETE");
+    registry.addMapping("/elastic/**").allowedOrigins("http://localhost:8080")
+            .allowedMethods("GET", "POST", "PUT", "DELETE");
   }
 
   /**

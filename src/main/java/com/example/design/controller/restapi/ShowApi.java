@@ -5,10 +5,15 @@ import com.example.design.model.Show;
 import com.example.design.model.ShowLike;
 import com.example.design.service.impl.MessageService;
 import com.example.design.service.impl.ShowService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -30,6 +35,7 @@ public class ShowApi {
 
   @Autowired
   private MessageService messageService;
+
   /**
    * 返回所有作品.
    *
@@ -117,7 +123,7 @@ public class ShowApi {
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
 //  @Authorization({Role.USER})
-  public ResponseEntity LikeIt(@RequestBody ShowLikeForm showLikeForm) {
+  public ResponseEntity likeIt(@RequestBody ShowLikeForm showLikeForm) {
     ShowLike showLike = new ShowLike();
     showLike.setShowId(showLikeForm.getShowId());
     showLike.setUserId(showLikeForm.getUserId());

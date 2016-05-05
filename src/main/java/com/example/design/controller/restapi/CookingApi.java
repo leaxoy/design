@@ -48,12 +48,11 @@ public class CookingApi {
   }
 
   /**
-   * 返回某一菜谱的所有作品
+   * 返回某一菜谱的所有作品.
    */
   @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity allShow(@PathVariable long cookingId) {
-    System.out.println(cookingId);
     List<Show> list = showService.findAllShowByCookingId(cookingId);
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
@@ -62,7 +61,7 @@ public class CookingApi {
   }
 
   /**
-   * 返回某一菜谱的某一作品
+   * 返回某一菜谱的某一作品.
    */
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
@@ -75,7 +74,7 @@ public class CookingApi {
   }
 
   /**
-   * 为某一菜谱添加作品
+   * 为某一菜谱添加作品.
    */
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.PUT)
 //  @Authorization({Role.USER})

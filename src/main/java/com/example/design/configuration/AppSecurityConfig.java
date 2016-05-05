@@ -27,17 +27,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected final void configure(final HttpSecurity http) throws Exception {
     http.csrf().disable();
-    //        http
-    //                .authorizeRequests()
-    //                .antMatchers("/resources/**").permitAll()
-    //                .anyRequest().authenticated()
-    //                .and()
-    //                .formLogin()
-    //                .loginPage("/signin").defaultSuccessUrl("/profile")
-    //                .permitAll()
-    //                .and()
-    //                .logout().deleteCookies("JSESSIONID")
-    //                .permitAll();
   }
 
   @Override

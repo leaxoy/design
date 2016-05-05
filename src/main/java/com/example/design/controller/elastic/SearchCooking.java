@@ -59,4 +59,8 @@ public class SearchCooking {
     return ResponseEntity.ok(cooking);
   }
 
+  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+  public ResponseEntity update(@PathVariable long id, @RequestBody Cooking cooking) {
+    return ResponseEntity.ok(cooking);
+  }
 }

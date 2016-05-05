@@ -40,7 +40,8 @@ public class FileUploadApi {
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public void download(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+  public void download(@PathVariable String fileName, HttpServletResponse response)
+          throws IOException {
     InputStream inputStream = new FileInputStream(fileName);
     ByteStreams.copy(inputStream, response.getOutputStream());
     response.setContentType("");
