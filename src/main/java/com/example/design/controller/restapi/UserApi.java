@@ -14,6 +14,7 @@ import com.example.design.service.impl.CookingService;
 import com.example.design.service.impl.FriendService;
 import com.example.design.service.impl.MenuService;
 import com.example.design.service.impl.MessageService;
+import com.example.design.service.impl.ReportService;
 import com.example.design.service.impl.ShowService;
 import com.example.design.service.impl.UserService;
 
@@ -47,11 +48,14 @@ public class UserApi {
   private CookingService cookingService;
   @Autowired
   private FriendService friendService;
+  @Autowired
   private ShowService showService;
   @Autowired
   private MenuService menuService;
   @Autowired
   private MessageService messageService;
+  @Autowired
+  private ReportService reportService;
 
   /**
    * 获取用户信息
@@ -99,18 +103,6 @@ public class UserApi {
       userService.updatePassword(account, newPasswd);
     }
     return ResponseEntity.ok("密码有误");
-  }
-
-  /**
-   * 获取用户作品.
-   *
-   * @param id 用户id.
-   * @return 作品列表.
-   */
-  @RequestMapping("{id}/article")
-  @Authorization({Role.ADMIN, Role.USER})
-  public ResponseEntity getArticlesByUserId(@PathVariable long id) {
-    return null;
   }
 
   /**
@@ -178,7 +170,11 @@ public class UserApi {
    */
   @RequestMapping("{id}/menu")
   public ResponseEntity getMenusByUserId(@PathVariable long id) {
-    return null;
+    List<Menu> menus = menuService.findAllMenuByUserId(id);
+    if (menus == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(menus, HttpStatus.OK);
   }
 
   /**
@@ -194,11 +190,6 @@ public class UserApi {
 
   @RequestMapping("{id}/follow")
   public ResponseEntity getFollowsByUserId(@PathVariable long id) {
-    return null;
-  }
-
-  @RequestMapping("{id}/report")
-  public ResponseEntity getReportsByUserId(@PathVariable long id) {
     return null;
   }
 

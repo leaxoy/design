@@ -31,7 +31,7 @@ public class MenuApi {
   private MenuService menuService;
 
   /**
-   * 返回所有菜单
+   * 返回所有菜单.
    *
    * @return all menu list.
    */
@@ -130,7 +130,7 @@ public class MenuApi {
 
 
   /**
-   * 为某一菜单添加菜谱
+   * 为某一菜单添加菜谱.
    */
   @RequestMapping(value = "{menuId}/cooking/{cookingId}", method = RequestMethod.POST)
 //  @Authorization({Role.USER})
@@ -147,7 +147,7 @@ public class MenuApi {
   }
 
   /**
-   * 将菜谱从菜单中删除
+   * 将菜谱从菜单中删除.
    */
   @RequestMapping(value = "{menuId}/cooking/{cookingId}", method = RequestMethod.DELETE)
 //  @Authorization({Role.ADMIN, Role.USER})
@@ -163,7 +163,7 @@ public class MenuApi {
   }
 
   /**
-   * 对某一作品点赞或取消赞
+   * 对某一作品点赞或取消赞.
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
 //  @Authorization({Role.USER})

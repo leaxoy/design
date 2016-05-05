@@ -2,19 +2,17 @@ package com.example.design.controller.restapi;
 
 import com.example.design.authorization.annotation.Authorization;
 import com.example.design.authorization.annotation.CurrentUser;
-import com.example.design.constant.ResponseData;
 import com.example.design.constant.Role;
 import com.example.design.model.User;
 import com.example.design.service.impl.FriendService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * follow rest api.
@@ -31,20 +29,43 @@ public class FriendApi {
 
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
   @Authorization({Role.USER})
-  public Iterator<User> findFriends(@PathVariable("id") long userId, @CurrentUser User user) {
-    List<Integer> list;
-    return null;
+  public ResponseEntity findFriends(@PathVariable("id") long userId, @CurrentUser User user) {
+    return new ResponseEntity<>(friendService.getFriendsByUserId(userId), HttpStatus.OK);
   }
 
+  /**
+   * 建立用户关系.
+   *
+   * @param id       用户id
+   * @param friendId 朋友id
+   * @param user     当前用户
+   * @return 是否成功
+   */
   @RequestMapping(value = "{id}/{friendId}", method = RequestMethod.POST)
-  public ResponseData beFriend(@PathVariable long id, @PathVariable long friendId,
-                               @CurrentUser User user) {
+  public ResponseEntity beFriend(@PathVariable long id, @PathVariable long friendId,
+                                 @CurrentUser User user) {
+    int ok = friendService.buildFriendShip(id, friendId);
+    if (ok == 1) {
+      return ResponseEntity.ok(ok);
+    }
     return null;
   }
 
+  /**
+   * 移除用户关系.
+   *
+   * @param id       用户id
+   * @param friendId 朋友id
+   * @param user     当前用户
+   * @return 是否成功
+   */
   @RequestMapping(value = "{id}/{friendId}", method = RequestMethod.DELETE)
-  public ResponseData beNotFriend(@PathVariable long id, @PathVariable long friendId,
-                                  @CurrentUser User user) {
+  public ResponseEntity beNotFriend(@PathVariable long id, @PathVariable long friendId,
+                                    @CurrentUser User user) {
+    int ok = friendService.removeFriend(id, friendId);
+    if (ok == 1) {
+      return ResponseEntity.ok(ok);
+    }
     return null;
   }
 }
