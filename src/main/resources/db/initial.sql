@@ -14,14 +14,14 @@ File Encoding         : 65001
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for comment
+-- Table structure for commentContent
 -- ----------------------------
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
+DROP TABLE IF EXISTS `commentContent`;
+CREATE TABLE `commentContent` (
   `commentId`    INT(11) AUTO_INCREMENT NOT NULL,
   `userId`       INT(11)                NOT NULL,
   `commentDate`  DATETIME               NOT NULL,
-  `comment`      TEXT                   NOT NULL
+  `commentContent`      TEXT                   NOT NULL
   COMMENT '评论内容',
   `commentType`  VARCHAR(10)            NOT NULL
   COMMENT 'menu表示菜单，cooking表示菜谱，show表示作品',
@@ -33,9 +33,9 @@ CREATE TABLE `comment` (
   DEFAULT CHARSET = utf8;
 
 -- ----------------------------
--- Records of comment
+-- Records of commentContent
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', '4', '2016-04-21 15:42:55', '要吃死人了', 'cooking', '2', '0');
+INSERT INTO `commentContent` VALUES ('1', '4', '2016-04-21 15:42:55', '要吃死人了', 'cooking', '2', '0');
 
 -- ----------------------------
 -- Table structure for cooking
@@ -184,15 +184,15 @@ INSERT INTO `menu_like` VALUES ('1', '2', '0');
 INSERT INTO `menu_like` VALUES ('1', '3', '0');
 
 -- ----------------------------
--- Table structure for message
+-- Table structure for messageContent
 -- ----------------------------
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE `message` (
+DROP TABLE IF EXISTS `messageContent`;
+CREATE TABLE `messageContent` (
   `messageId`     INT(11)  NOT NULL  AUTO_INCREMENT,
   `messageUserId` INT(11)  NOT NULL
   COMMENT '留言用户',
   `messageDate`   DATETIME NOT NULL,
-  `message`       LONGTEXT NOT NULL,
+  `messageContent`       LONGTEXT NOT NULL,
   `userId`        INT(11)  NOT NULL
   COMMENT '被留言用户',
   `shareId`       INT(11)            DEFAULT NULL
@@ -208,10 +208,10 @@ CREATE TABLE `message` (
   DEFAULT CHARSET = utf8;
 
 -- ----------------------------
--- Records of message
+-- Records of messageContent
 -- ----------------------------
-INSERT INTO `message` VALUES ('1', '2', '2016-04-25 09:20:54', '吃了么', '3', NULL, NULL, '0');
-INSERT INTO `message` VALUES ('2', '3', '2016-04-25 09:21:24', '没有', '2', NULL, NULL, '0');
+INSERT INTO `messageContent` VALUES ('1', '2', '2016-04-25 09:20:54', '吃了么', '3', NULL, NULL, '0');
+INSERT INTO `messageContent` VALUES ('2', '3', '2016-04-25 09:21:24', '没有', '2', NULL, NULL, '0');
 
 -- ----------------------------
 -- Table structure for report
@@ -284,10 +284,17 @@ CREATE TABLE `show` (
   `showIntro`   VARCHAR(255)           NOT NULL
   COMMENT '介绍',
   `showPicture` VARCHAR(50)            NOT NULL,
+<<<<<<< HEAD
   `cookingId`   INT(11)                NOT NULL
   COMMENT '关联菜谱Id',
   `showDate`    DATETIME               NOT NULL,
   `userId`      INT(11)                NOT NULL,
+=======
+  `cookingId`   INT(11) DEFAULT '0'    NOT NULL
+  COMMENT '关联菜谱Id',
+  `showDate`    DATETIME               NOT NULL,
+  `authorId`    INT(11)                NOT NULL,
+>>>>>>> 13d8d3671c1558c4b0167cd9f5af70b298ce74e8
   `showLikeNum` INT(10)                NOT NULL DEFAULT '0',
   `state`       INT(1)                 NOT NULL DEFAULT '0'
   COMMENT '作品状态，0为正常',

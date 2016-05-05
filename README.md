@@ -25,7 +25,7 @@
 # REST API
 
 
-`hostname: localhost:300`
+`hostname: localhost:3000`
 
 
 User Api

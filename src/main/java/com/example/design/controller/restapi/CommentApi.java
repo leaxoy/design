@@ -65,7 +65,7 @@ public class CommentApi {
     if (comment == null) {
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.ok(comment.getComment());
+    return ResponseEntity.ok(comment.getCommentContent());
   }
 
   /**

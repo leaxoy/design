@@ -40,15 +40,11 @@ public class FileUploadApi {
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public void download(@PathVariable String fileName, HttpServletResponse response) {
-    try {
-      InputStream inputStream = new FileInputStream(fileName);
-      ByteStreams.copy(inputStream, response.getOutputStream());
-      response.setContentType("");
-      response.flushBuffer();
-    } catch (IOException exception) {
-      exception.printStackTrace();
-    }
+  public void download(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+    InputStream inputStream = new FileInputStream(fileName);
+    ByteStreams.copy(inputStream, response.getOutputStream());
+    response.setContentType("");
+    response.flushBuffer();
   }
 
   /**
@@ -59,23 +55,18 @@ public class FileUploadApi {
    */
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity upload(@RequestParam("file") MultipartFile file) {
-    try {
-      // Get the filename and build the local file path (be sure that the
-      // application have write permissions on such directory)
-      String filename = file.getOriginalFilename();
-      String directory = "uploads";
-      String filepath = Paths.get(directory, filename).toString();
+  public ResponseEntity upload(@RequestParam("file") MultipartFile file) throws Exception {
+    // Get the filename and build the local file path (be sure that the
+    // application have write permissions on such directory)
+    String filename = file.getOriginalFilename();
+    String directory = "uploads";
+    String filepath = Paths.get(directory, filename).toString();
 
-      // Save the file locally
-      BufferedOutputStream stream =
-              new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-      stream.write(file.getBytes());
-      stream.close();
-    } catch (Exception exception) {
-      System.out.println(exception.getMessage());
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    // Save the file locally
+    BufferedOutputStream stream =
+            new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    stream.write(file.getBytes());
+    stream.close();
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

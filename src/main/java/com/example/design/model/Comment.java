@@ -5,13 +5,16 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
- * 评论模型 Created by lxh on 4/14/16.
+ * 评论模型.
+ *
+ * @author lxh
+ * @version 0.1
  */
 public class Comment {
   @Id
   private long commentId;
   private long userId;
-  private String comment;
+  private String commentContent;
   private Date commentDate;
   private String commentType;
   private long commentForId;
@@ -33,12 +36,12 @@ public class Comment {
     this.userId = userId;
   }
 
-  public String getComment() {
-    return comment;
+  public String getCommentContent() {
+    return commentContent;
   }
 
-  public void setComment(String comment) {
-    this.comment = comment;
+  public void setCommentContent(String commentContent) {
+    this.commentContent = commentContent;
   }
 
   public Date getCommentDate() {

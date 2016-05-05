@@ -6,13 +6,10 @@ import com.example.design.service.impl.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 首页的controller Created by lxh on 4/13/16.
@@ -30,7 +27,7 @@ public class HomeController {
 
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity home(HttpServletRequest request, Model model) throws Exception {
+  public ResponseEntity home() {
     return ResponseEntity.ok("Hello, world");
   }
 

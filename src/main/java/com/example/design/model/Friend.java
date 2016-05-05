@@ -3,7 +3,10 @@ package com.example.design.model;
 import org.springframework.data.annotation.Id;
 
 /**
- * 用户关系模型 Created by lxh on 4/14/16.
+ * 用户关系模型.
+ *
+ * @author lxh
+ * @version 0.1
  */
 public class Friend {
   @Id

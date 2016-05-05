@@ -1,19 +1,14 @@
 package com.example.design.controller.restapi;
 
-import com.example.design.authorization.annotation.Authorization;
-import com.example.design.constant.Role;
+import com.example.design.model.Message;
 import com.example.design.model.Show;
 import com.example.design.model.ShowLike;
+import com.example.design.service.impl.MessageService;
 import com.example.design.service.impl.ShowService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,13 +28,15 @@ public class ShowApi {
   @Autowired
   private ShowService showService;
 
+  @Autowired
+  private MessageService messageService;
   /**
    * 返回所有作品.
    *
    * @return all articles list.
    */
-  @RequestMapping("")
-  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.ROOT})
+  @RequestMapping(value = "", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity all() {
     List<Show> list = showService.all();
     if (list != null) {
@@ -54,7 +51,8 @@ public class ShowApi {
    * @param showId 作品id.
    * @return 指定id 的作品.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.GET)
+  @RequestMapping(value = "{showId}", method = RequestMethod.GET)
+//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity showId(@PathVariable long showId) {
     Show show = showService.findShowById(showId);
 
@@ -66,29 +64,13 @@ public class ShowApi {
 
 
   /**
-   * 返回指定用户id 的作品列表.
-   *
-   * @param userId 用户 id.
-   * @return 作品列表.
-   */
-  @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
-  @Authorization({Role.USER, Role.ROOT, Role.ADMIN})
-  public ResponseEntity userId(@PathVariable long userId) {
-    List<Show> list = showService.findAllShowByUserId(userId);
-    if (list == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(list);
-  }
-
-  /**
    * 新添加作品.
    *
    * @param show 作品body.
    * @return 新添加的作品信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Show show) {
     int count = showService.addShow(show);
     if (count > 0) {
@@ -103,9 +85,10 @@ public class ShowApi {
    * @param show 作品body.
    * @return 更改的作品信息.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  @Authorization({Role.ADMIN, Role.ROOT, Role.USER})
-  public ResponseEntity update(@RequestBody Show show) {
+  @RequestMapping(value = "{showId}", method = RequestMethod.PUT)
+//  @Authorization({Role.USER})
+  public ResponseEntity update(@PathVariable long showId, @RequestBody Show show) {
+    show.setShowId(showId);
     int count = showService.updateShow(show);
     if (count > 0) {
       return ResponseEntity.ok(show);
@@ -119,7 +102,8 @@ public class ShowApi {
    * @param showId 作品id
    * @return 删除的作品信息.
    */
-  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  @RequestMapping(value = "{showId}", method = RequestMethod.DELETE)
+//  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long showId) {
     int count = showService.markShowDelete(showId);
     if (count > 0) {
@@ -132,7 +116,7 @@ public class ShowApi {
    * 对某一作品点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+//  @Authorization({Role.USER})
   public ResponseEntity LikeIt(@RequestBody ShowLikeForm showLikeForm) {
     ShowLike showLike = new ShowLike();
     showLike.setShowId(showLikeForm.getShowId());
@@ -142,12 +126,27 @@ public class ShowApi {
      */
     if (showLikeForm.getLike() > 0) {
       showService.addShowLikeUser(showLike);
-      showService.updateLikeOfShow(showLike.getShowId(), 1);
+      showService.likeNumIncr(showLike.getShowId());
       return ResponseEntity.ok("点赞成功");
     }
     showService.deleteShowLike(showLike.getUserId(), showLike.getShowId());
-    showService.updateLikeOfShow(showLike.getShowId(), -1);
+    showService.likeNumDecr(showLike.getShowId());
     return ResponseEntity.ok("取消点赞");
+  }
+
+  /**
+   * 查找作品下的留言message
+   *
+   * @param id show id
+   * @return message
+   */
+  @RequestMapping("{id}/message")
+  public ResponseEntity getMessagesByShowId(@PathVariable long id) {
+    List<Message> messages = messageService.getByShowId(id);
+    if (messages == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(messages, HttpStatus.OK);
   }
 
 
@@ -160,6 +159,10 @@ public class ShowApi {
       this.showId = showId;
       this.userId = userId;
       this.like = like;
+    }
+
+    public ShowLikeForm() {
+
     }
 
     public long getShowId() {

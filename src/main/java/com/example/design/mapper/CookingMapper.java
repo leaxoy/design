@@ -23,33 +23,33 @@ public interface CookingMapper {
   /**
    * insert one recipe into  table cooking.
    */
-  @Insert("INSERT INTO cooking(cookingName, cookingStyle, cookingDate, authorId, cookingPicture, " +
-          "cookingIntro, tips, step, ingredient) VALUES(#{cookingName}, #{cookingStyle}," +
-          " #{cookingDate}, #{authorId}, #{cookingPciture}, #{cookingIntro}, #{tips}, #{step}, " +
-          "#{ingredient}) ")
+  @Insert("INSERT INTO `cooking`(`cookingName`, `cookingStyle`, `cookingDate`, `authorId`, "
+          + "`cookingPicture`, `cookingIntro`, `tips`, `step`, `ingredient`) VALUES "
+          + "(#{cookingName}, #{cookingStyle}, #{cookingDate}, #{authorId}, #{cookingPicture}, "
+          + "#{cookingIntro}, #{tips}, #{step}, #{ingredient})")
   int addCooking(Cooking cooking);
 
   /**
-   * select one recipe by cookingId
+   * select one recipe by cookingId.
    *
    * @return Cooking
    */
-  @Select("SELECT * FROM cooking WHERE cookingId = #{cookingId}")
+  @Select("SELECT * FROM `cooking` WHERE `cookingId` = #{cookingId}")
   Cooking findById(long cookingId);
 
   /**
-   * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLikeNum
+   * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLikeNum.
    */
-  @Update("UPDATE cooking SET cookingName = #{cookingName}, cookingStyle = #{cookingStyle}，" +
-          " cookingPicture = #{cookingPicture}, cookingStyle = #{cookingStyle}," +
-          " cookingIntro = #{cookingIntro}, step = #{step}, tips = #{tips}," +
-          "ingredient = #{ingredient} WHERE cookingId = #{cookingId} AND state = 0")
+  @Update("UPDATE `cooking` SET `cookingName` = #{cookingName}, `cookingStyle` = #{cookingStyle},"
+          + " `cookingPicture` = #{cookingPicture}, `cookingIntro` = #{cookingIntro}, "
+          + "`step` = #{step}, `tips` = #{tips}, `ingredient` = #{ingredient} WHERE "
+          + "`cookingId` = #{cookingId} AND `state` = 0")
   int updateCooking(Cooking cooking);
 
   /**
-   * set one recipe's state as "1" which means it has been deleted
+   * set one recipe's state as "1" which means it has been deleted.
    */
-  @Update("UPDATE cooking SET state = 1 WHERE state = 0 AND cookingId = #{cookingId}")
+  @Update("UPDATE `cooking` SET `state` = 1 WHERE `state` = 0 AND `cookingId` = #{cookingId}")
   int markCookingDelete(long cookingId);
 
   /**
@@ -57,21 +57,29 @@ public interface CookingMapper {
    *
    * @return List<Cooking>
    */
-  @Select("SELECT * FROM cooking WHERE authorId = #{authorId} AND state = 0 ")
+  @Select("SELECT * FROM `cooking` WHERE `authorId` = #{authorId} AND `state` = 0 ")
   List<Cooking> findAllCookingByUserId(@Param("authorId") long userId);
 
   /**
-   * select all cooking by keywords such as ingredient,cookingName, cookingStyleName
+   * select all cooking by keywords such as ingredient,cookingName, cookingStyleName.
    *
-   * @return List<Cooking>
+   * @return List
    */
-  @Select("SELECT * FROM cooking WHERE cookingName Like %#{keywords}% OR ingredient Like " +
-          "%#{keywords}% OR cookingStyle Like %#{keywords}%  AND state = 0")
-  List<Cooking> findCookingByKerwords(String keywords);
+  @Select("SELECT * FROM `cooking` WHERE `cookingName` Like %#{keywords}% OR `ingredient` Like "
+          + "%#{keywords}% OR `cookingStyle` Like %#{keywords}%  AND `state` = 0")
+  List<Cooking> findCookingByKeywords(String keywords);
 
   /**
-   * select all cooking
+   * select all cooking.
    */
-  @Select("SELECT * FROM cooking")
+  @Select("SELECT * FROM `cooking`")
   List<Cooking> all();
+
+  @Update("UPDATE `cooking` SET `cookingLikeNum` = `cookingLikeNum` + 1 WHERE `cookingId`"
+          + " = #{cookingId} AND `state`=0")
+  int likeNumIncr(long cookingId);
+
+  @Update("UPDATE `cooking` SET `cookingLikeNum` = `cookingLikeNum` - 1 WHERE `cookingId`"
+          + " = #{cookingId} AND `state`=0")
+  int likeNumDecr(long cookingId);
 }
