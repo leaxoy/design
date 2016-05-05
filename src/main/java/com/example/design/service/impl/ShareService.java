@@ -21,7 +21,7 @@ public class ShareService {
 
     public int deleteShareByShareId(long shareId) { return shareMapper.deleteByShareId(shareId); }
 
-    public List<Share> selectByItemAndType(long itemId, String shareType) {
+    public Share selectByItemAndType(long itemId, String shareType) {
         return shareMapper.selectByItemAndType(itemId, shareType);
     }
 
