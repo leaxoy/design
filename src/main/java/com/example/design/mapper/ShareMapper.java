@@ -31,7 +31,7 @@ public interface ShareMapper {
   int deleteByShareId(long shareId);       //通过shareId来删除share信息
 
   @Select("SELECT * FROM `share` WHERE `itemId` = #{itemId} AND `shareType` = #{shareType}")
-  List<Share> selectByItemAndType(long itemId, String shareType);     //通过来源Id和来源类型查找用户的分享信息
+  Share selectByItemAndType(long itemId, String shareType);     //通过来源Id和来源类型查找用户的分享信息
 
   @Select("SELECT * FROM `share` WHERE `shareUserId` = #{shareUserId}")
   List<Share> selectByUserId(long shareUserId);     //通过用户Id来查找用户的分享信息
