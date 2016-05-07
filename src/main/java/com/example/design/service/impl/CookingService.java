@@ -44,6 +44,15 @@ public class CookingService {
   }
 
   /**
+   * get top 6 by like number.
+   *
+   * @return cooking list.
+   */
+  public List<Cooking> top6() {
+    return cookingMapper.top6();
+  }
+
+  /**
    * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLike.
    *
    * @param cooking cooking to be updated.

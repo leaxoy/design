@@ -109,7 +109,7 @@ public class ShowApi {
    * @return 删除的作品信息.
    */
   @RequestMapping(value = "{showId}", method = RequestMethod.DELETE)
-//  @Authorization({Role.ADMIN, Role.USER})
+  //  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long showId) {
     int count = showService.markShowDelete(showId);
     if (count > 0) {

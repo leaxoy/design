@@ -44,6 +44,13 @@ public class ReportApi {
     return ResponseEntity.ok(report);
   }
 
+  /**
+   * 新建report.
+   *
+   * @param report 新建的report
+   * @param user   当前用户
+   * @return 是否成功
+   */
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity addReport(@RequestBody Report report, @CurrentUser User user) {
     long userId = user.getUserId();
@@ -55,6 +62,12 @@ public class ReportApi {
     return ResponseEntity.ok(report);
   }
 
+  /**
+   * 删除report.
+   *
+   * @param reportId report's id.
+   * @return 是否成功删除.
+   */
   @RequestMapping(value = "{reportId}", method = RequestMethod.DELETE)
   public ResponseEntity removeReport(@PathVariable long reportId) {
     int ok = reportService.deleteReport(reportId);

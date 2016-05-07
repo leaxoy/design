@@ -3,6 +3,7 @@ package com.example.design.controller;
 import com.example.design.service.impl.CookingService;
 import com.example.design.service.impl.MenuService;
 import com.example.design.service.impl.UserService;
+import com.example.design.service.support.ClickCountService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,13 @@ public class HomeController {
   private MenuService menuService;
   @Autowired
   private CookingService cookingService;
+  @Autowired
+  private ClickCountService clickCountService;
 
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity home() {
+    clickCountService.set("homepage", "1");
     return ResponseEntity.ok("Hello, world");
   }
 

@@ -111,6 +111,10 @@ public class AuthApi {
       return account;
     }
 
+    public void setAccount(String account) {
+      this.account = account;
+    }
+
     String getPassword() {
       return password;
     }

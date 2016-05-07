@@ -32,7 +32,6 @@ public class MessageApi {
    * @param id user id.
    * @return user.
    */
-
   @RequestMapping(value = "{id}")
   public ResponseEntity allMessage(@PathVariable long id) {
     List<Message> messages = messageService.getByUserId(id);

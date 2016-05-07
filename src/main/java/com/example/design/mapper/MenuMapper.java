@@ -36,6 +36,12 @@ public interface MenuMapper {
   Menu findById(long menuId);
 
   /**
+   * get top6.
+   */
+  @Select("SELECT * FROM `menu` ORDER BY `menuLikeNum` DESC LIMIT 6")
+  List<Menu> top6();
+
+  /**
    * update menu's information except authorId,menuId,menuLike menuDate,state.
    */
   @Update("UPDATE `menu` SET `menuName` = #{menuName}, `menuPicture` = #{menuPicture} WHERE "

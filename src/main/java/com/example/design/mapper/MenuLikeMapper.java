@@ -5,9 +5,9 @@ import com.example.design.model.MenuLike;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,7 +30,7 @@ public interface MenuLikeMapper {
    *
    * @return MenuLike
    */
-  @Select("SELECT * FROM menulike WHERE userId = *{userId} AND menuId = #{menuId}")
+  @Select("SELECT * FROM menu_like WHERE userId = *{userId} AND menuId = #{menuId}")
   MenuLike isLike(long userId, long menuId);
 
   /**

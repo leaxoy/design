@@ -2,6 +2,7 @@ package com.example.design.service.impl;
 
 import com.example.design.mapper.ShareMapper;
 import com.example.design.model.Share;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +13,27 @@ import java.util.List;
  */
 @Service
 public class ShareService {
-    @Autowired
-    private ShareMapper shareMapper;
+  @Autowired
+  private ShareMapper shareMapper;
 
-    public int addShare(Share share) { return shareMapper.addShare(share); }
+  public int addShare(Share share) {
+    return shareMapper.addShare(share);
+  }
 
-    public int updateShare(Share share) { return shareMapper.updateShare(share); }
+  public int updateShare(Share share) {
+    return shareMapper.updateShare(share);
+  }
 
-    public int deleteShareByShareId(long shareId) { return shareMapper.deleteByShareId(shareId); }
+  public int deleteShareByShareId(long shareId) {
+    return shareMapper.deleteByShareId(shareId);
+  }
 
-    public List<Share> selectByItemAndType(long itemId, String shareType) {
-        return shareMapper.selectByItemAndType(itemId, shareType);
-    }
+  public List<Share> selectByItemAndType(long itemId, String shareType) {
+    return shareMapper.selectByItemAndType(itemId, shareType);
+  }
 
-    public List<Share> selectByUserId(long shareUserId){ return shareMapper.selectByUserId(shareUserId); }
+  public List<Share> selectByUserId(long shareUserId) {
+    return shareMapper.selectByUserId(shareUserId);
+  }
 
 }

@@ -45,6 +45,16 @@ public class MenuApi {
     return ResponseEntity.notFound().build();
   }
 
+
+  @RequestMapping(value = "top6", method = RequestMethod.GET)
+  public ResponseEntity top6() {
+    List<Menu> menus = menuService.top6();
+    if (menus == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(menus, HttpStatus.OK);
+  }
+
   /**
    * 返回指定id的菜单.
    *
@@ -190,11 +200,6 @@ public class MenuApi {
     private long userId;
     private int like;
 
-    public MenuLikeForm(long menuId, long userId, int like) {
-      this.menuId = menuId;
-      this.userId = userId;
-      this.like = like;
-    }
 
     public MenuLikeForm() {
     }
@@ -203,13 +208,24 @@ public class MenuApi {
       return menuId;
     }
 
+    public void setMenuId(long menuId) {
+      this.menuId = menuId;
+    }
+
     public long getUserId() {
       return userId;
+    }
+
+    public void setUserId(long userId) {
+      this.userId = userId;
     }
 
     public int getLike() {
       return like;
     }
 
+    public void setLike(int like) {
+      this.like = like;
+    }
   }
 }

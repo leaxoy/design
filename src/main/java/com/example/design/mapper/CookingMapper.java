@@ -38,6 +38,14 @@ public interface CookingMapper {
   Cooking findById(long cookingId);
 
   /**
+   * get top 6.
+   *
+   * @return cooking list.
+   */
+  @Select("SELECT * FROM `cooking` ORDER BY `cookingLikeNum` DESC LIMIT 6")
+  List<Cooking> top6();
+
+  /**
    * UPDATE  one recipe's information except authorId,cookingId,state,cookingDate,cookingLikeNum.
    */
   @Update("UPDATE `cooking` SET `cookingName` = #{cookingName}, `cookingStyle` = #{cookingStyle},"

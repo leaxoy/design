@@ -25,7 +25,7 @@ public class ShareApi {
   private MessageService messageService;
 
   /**
-   * 查找分享下的留言message
+   * 查找分享下的留言message.
    *
    * @param id share id
    * @return message

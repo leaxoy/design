@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -45,6 +46,18 @@ public class CookingApi {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
     return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * get top 6.
+   */
+  @RequestMapping(value = "top6", method = RequestMethod.GET)
+  public ResponseEntity top6() {
+    List<Cooking> cookings = cookingService.top6();
+    if (cookings == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return new ResponseEntity<>(cookings, HttpStatus.OK);
   }
 
   /**
@@ -179,16 +192,10 @@ public class CookingApi {
   }
 
 
-  private static class CookingLikeForm {
+  private static class CookingLikeForm implements Serializable {
     private long cookingId;
     private long userId;
     private int like;
-
-    public CookingLikeForm(long cookingId, long userId, int like) {
-      this.cookingId = cookingId;
-      this.userId = userId;
-      this.like = like;
-    }
 
     public CookingLikeForm() {
     }
@@ -197,12 +204,24 @@ public class CookingApi {
       return cookingId;
     }
 
+    public void setCookingId(long cookingId) {
+      this.cookingId = cookingId;
+    }
+
     public long getUserId() {
       return userId;
     }
 
+    public void setUserId(long userId) {
+      this.userId = userId;
+    }
+
     public int getLike() {
       return like;
+    }
+
+    public void setLike(int like) {
+      this.like = like;
     }
   }
 }

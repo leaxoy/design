@@ -29,7 +29,7 @@ public class MenuService {
   CookingMenuMapper cookingMenuMapper;
 
   /**
-   * add a menu
+   * add a menu.
    */
   public int addMenu(Menu menu) {
     return menuMapper.addMenu(menu);
@@ -42,6 +42,10 @@ public class MenuService {
    */
   public Menu findById(long menuId) {
     return menuMapper.findById(menuId);
+  }
+
+  public List<Menu> top6() {
+    return menuMapper.top6();
   }
 
   /**

@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 0.1
  */
 @RestController
-@RequestMapping("signup")
+@RequestMapping("register")
 @CrossOrigin(origins = {"http://localhost:8080"}, methods = {RequestMethod.POST})
-public class SignUpApi {
+public class RegisterApi {
 
   /**
    * 用户注册时,用来查重.
@@ -35,11 +35,11 @@ public class SignUpApi {
    * 新用户注册.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity signUp(@RequestBody SignUpForm signUpForm) {
+  public ResponseEntity register(@RequestBody RegisterForm registerForm) {
     /**
      * 如果账户已存在, 则返回错误.
      */
-    if (userService.getByAccountName(signUpForm.getAccount()) != null) {
+    if (userService.getByAccountName(registerForm.getAccount()) != null) {
       return ResponseEntity.ok(SignUpResponse.error(SignUpStatus.USER_HAS_EXISTS));
     }
 
@@ -47,8 +47,8 @@ public class SignUpApi {
      * 保存用户,并返回.
      */
     User user = new User();
-    user.setAccount(signUpForm.getAccount());
-    user.setPassword(signUpForm.getPassword());
+    user.setAccount(registerForm.getAccount());
+    user.setPassword(registerForm.getPassword());
     user.setRole(Role.USER);
     user.setState(0);
     int count = userService.addUser(user);
@@ -66,7 +66,7 @@ public class SignUpApi {
   /**
    * 用户的注册表单.
    */
-  private static class SignUpForm {
+  private static class RegisterForm {
     /**
      * 账户名称.
      */
@@ -77,12 +77,12 @@ public class SignUpApi {
      */
     private String password;
 
-    public SignUpForm(String account, String password) {
-      this.account = account;
-      this.password = password;
-    }
+    /**
+     *
+     */
+    private String nickName;
 
-    public SignUpForm() {
+    public RegisterForm() {
       /**
        * this is a empty constructor method to implement Serializable interface.
        */
@@ -92,8 +92,24 @@ public class SignUpApi {
       return account;
     }
 
+    public void setAccount(String account) {
+      this.account = account;
+    }
+
     public String getPassword() {
       return password;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+
+    public String getNickName() {
+      return nickName;
+    }
+
+    public void setNickName(String nickName) {
+      this.nickName = nickName;
     }
   }
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * follow rest api.
+ * friend rest api.
  *
  * @author lxh
  * @version 0.1

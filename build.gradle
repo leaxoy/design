@@ -36,6 +36,7 @@ dependencies {
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')
 
     compile('com.google.code.gson:gson:2.6.2')
+    compile('com.google.protobuf:protobuf-java:3.0.0-beta-2')
 
     runtime('mysql:mysql-connector-java')
 

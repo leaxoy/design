@@ -60,7 +60,7 @@ public class FileUploadApi {
     // Get the filename and build the local file path (be sure that the
     // application have write permissions on such directory)
     String filename = file.getOriginalFilename();
-    String directory = "uploads";
+    String directory = "/Users/lxh/Applications/design/uploads";
     String filepath = Paths.get(directory, filename).toString();
 
     // Save the file locally

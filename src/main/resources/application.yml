@@ -26,9 +26,6 @@ spring:
       cluster-name: elasticsearch_lxh
       repositories:
         enabled: true
-  devtools:
-    restart:
-      enabled: true
 
 # 服务器配置
 server:
