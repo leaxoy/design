@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,10 @@ import java.util.List;
  * 提供用户信息的服务 Created by lxh on 4/14/16.
  */
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
   @Autowired
-  UserMapper userMapper;
+  private UserMapper userMapper;
 
   /**
    * select all users.

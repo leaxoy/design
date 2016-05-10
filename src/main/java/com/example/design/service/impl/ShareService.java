@@ -5,6 +5,7 @@ import com.example.design.model.Share;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * 分享作品的服务接口 Created by lxh on 4/20/16.
  */
 @Service
+@Transactional
 public class ShareService {
   @Autowired
   private ShareMapper shareMapper;

@@ -38,7 +38,7 @@ public interface CommentMapper {
   @Update("UPDATE `comment` set `comment`=#{comment} WHERE `commentId`=#{commentId}")
   int update(Comment comment);
 
-  @Delete("")
+  @Delete("DELETE FROM `comment` WHERE `commentId` = #{commentId}")
   int delete(Comment comment);
 
 }

@@ -5,6 +5,7 @@ import com.example.design.model.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,9 +13,10 @@ import java.util.List;
  * 留言的服务接口 Created by lxh on 4/14/16.
  */
 @Service
+@Transactional
 public class MessageService {
   @Autowired
-  MessageMapper mapper;
+  private MessageMapper mapper;
 
   public int addMessage(Message message) {
     return mapper.addMessage(message);         //新建留言

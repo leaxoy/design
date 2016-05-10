@@ -16,7 +16,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
- * Created by lxh on 16/5/10.
+ * Redis token manager.
+ *
+ * @author lxh
+ * @version 0.1
  */
 @Component
 public class RedisTokenManager implements TokenManager {

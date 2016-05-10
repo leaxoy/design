@@ -3,7 +3,10 @@ package com.example.design.component;
 import com.example.design.component.model.TokenModel;
 
 /**
- * Created by lxh on 16/5/10.
+ * Token manager interface.
+ *
+ * @author lxh
+ * @version 0.1
  */
 public interface TokenManager {
   TokenModel get(String key);

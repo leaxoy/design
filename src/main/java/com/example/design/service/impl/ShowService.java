@@ -7,6 +7,7 @@ import com.example.design.model.ShowLike;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,11 +15,12 @@ import java.util.List;
  * 用户作品服务 Created by lxh on 4/14/16.
  */
 @Service
+@Transactional
 public class ShowService {
   @Autowired
-  ShowMapper showMapper;
+  private ShowMapper showMapper;
   @Autowired
-  ShowLikeMapper showLikeMapper;
+  private ShowLikeMapper showLikeMapper;
 
   /**
    * add one cookingShow to a table.

@@ -7,6 +7,7 @@ import com.example.design.model.CookingLike;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,11 +18,12 @@ import java.util.List;
  * @version 0.1
  */
 @Service
+@Transactional
 public class CookingService {
   @Autowired
-  CookingMapper cookingMapper;
+  private CookingMapper cookingMapper;
   @Autowired
-  CookingLikeMapper cookingLikeMapper;
+  private CookingLikeMapper cookingLikeMapper;
 
   /**
    * insert one recipe into table cooking.
