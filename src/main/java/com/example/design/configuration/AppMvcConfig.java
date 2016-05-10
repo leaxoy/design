@@ -1,7 +1,8 @@
 package com.example.design.configuration;
 
-import com.example.design.authorization.interceptor.AuthorizationInterceptor;
-import com.example.design.authorization.resolver.CurrentUserMethodArgumentResolver;
+
+import com.example.design.interceptor.AuthorizationInterceptor;
+import com.example.design.resolver.CurrentUserMethodArgumentResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

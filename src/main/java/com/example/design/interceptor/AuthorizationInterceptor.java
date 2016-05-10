@@ -1,8 +1,8 @@
-package com.example.design.authorization.interceptor;
+package com.example.design.interceptor;
 
-import com.example.design.authorization.annotation.Authorization;
-import com.example.design.authorization.manager.impl.RedisTokenManager;
-import com.example.design.authorization.model.AuthToken;
+import com.example.design.annotation.Authorization;
+import com.example.design.component.impl.RedisTokenManager;
+import com.example.design.component.model.TokenModel;
 import com.example.design.constant.Role;
 import com.example.design.constant.TokenConstant;
 import com.example.design.service.impl.UserService;
@@ -14,9 +14,8 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
    * redisTokenManager token管理接口.
    */
   @Autowired
-  private RedisTokenManager manager;
+  private RedisTokenManager redisTokenManager;
 
 
   /**
@@ -98,45 +97,47 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     if (!(handler instanceof HandlerMethod)) {
       return true;
     }
-    HandlerMethod handlerMethod = (HandlerMethod) handler;
-    Method method = handlerMethod.getMethod();
-    //从header中得到token
-    String tokenValue = request.getHeader(TokenConstant.AUTHORIZATION);
-    if (tokenValue != null && tokenValue.startsWith(httpHeaderPrefix) && tokenValue.length() > 0) {
-      tokenValue = tokenValue.substring(httpHeaderPrefix.length());
-      //验证token
-      AuthToken token = manager.getToken(tokenValue);
-      if (token != null && manager.checkToken(token)) {
-        //如果token验证成功，将token对应的用户id存在request中，便于之后注入
-        request.setAttribute(TokenConstant.CURRENT_USER_ID, token.getAccountName());
 
-        Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
-        if (authorization != null) {
-          List<Role> roles = new ArrayList<>(Arrays.asList(authorization.value()));
-          if (!roles.isEmpty()) {
-            Role role = userService.getRole(token.getAccountName());
-            return roles.contains(role);
-          }
-        }
-        return true;
-      }
+    HandlerMethod handlerMethod = (HandlerMethod) handler;
+
+    Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
+
+    if (authorization == null) {
+      return true;
     }
 
-    //如果验证token失败，并且方法注明了Authorization，返回401错误
-    if (method.getAnnotation(Authorization.class) != null //查看方法上是否有注解
-            || handlerMethod.getBeanType().getAnnotation(Authorization.class) != null) {
-      //查看方法所在的Controller是否有注解
-      response.setStatus(unauthorizedErrorCode);
-      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-      BufferedWriter writer = new BufferedWriter(
-              new OutputStreamWriter(response.getOutputStream()));
-      writer.write(unauthorizedErrorMessage);
-      writer.close();
+    String tokenValue = request.getHeader(TokenConstant.AUTHORIZATION);
+    if (tokenValue == null || !tokenValue.startsWith(TokenConstant.AUTHORIZATION)) {
       return false;
     }
 
-    //为了防止以恶意操作直接在REQUEST_CURRENT_KEY写入key，将其设为null
-    request.setAttribute(TokenConstant.CURRENT_USER_ID, null);
-    return true;
+    tokenValue = tokenValue.substring(httpHeaderPrefix.length());
+
+
+    TokenModel tokenModel = redisTokenManager.verify(tokenValue);
+
+    if (tokenModel == null) {
+      unAuthorization(response);
+      return false;
+    }
+
+    List<Role> roles = Arrays.asList(authorization.value());
+
+    if (roles.isEmpty()) {
+      return false;
+    }
+
+    Role role = userService.getRole(tokenModel.getAccount());
+    request.setAttribute(TokenConstant.CURRENT_USER_ID, tokenModel.getAccount());
+    return roles.contains(role);
+  }
+
+  private void unAuthorization(final HttpServletResponse response) throws IOException {
+    response.setStatus(unauthorizedErrorCode);
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    BufferedWriter writer = new BufferedWriter(
+            new OutputStreamWriter(response.getOutputStream()));
+    writer.write(unauthorizedErrorMessage);
+    writer.close();
   }
 }
