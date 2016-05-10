@@ -41,8 +41,8 @@ public class ClickAspect {
   }
 
   @Around("execution(* com.example.design.controller.restapi..*.*(..))")
-  public Object doCountServiceInsideRequest(ProceedingJoinPoint proceedingJoinPoint) {
-    return null;
+  public Object doCountServiceInsideRequest(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    return proceedingJoinPoint.proceed();
   }
 
   @AfterReturning("execution(* com.example.design.controller.restapi..*.*(..))")

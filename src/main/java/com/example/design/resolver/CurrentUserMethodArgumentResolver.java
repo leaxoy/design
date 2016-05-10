@@ -1,6 +1,6 @@
-package com.example.design.authorization.resolver;
+package com.example.design.resolver;
 
-import com.example.design.authorization.annotation.CurrentUser;
+import com.example.design.annotation.CurrentUser;
 import com.example.design.constant.TokenConstant;
 import com.example.design.model.User;
 import com.example.design.service.impl.UserService;
@@ -16,7 +16,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 /**
- * 增加方法注入，将含有CurrentUser注解的方法参数注入当前登录用户 Created by lxh on 4/20/16.
+ * 增加方法注入，将含有CurrentUser注解的方法参数注入当前登录用户.
  */
 @Component
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {

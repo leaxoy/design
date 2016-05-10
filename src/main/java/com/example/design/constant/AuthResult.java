@@ -1,9 +1,7 @@
-package com.example.design.authorization.model;
-
-import com.example.design.constant.AuthResultStatus;
+package com.example.design.constant;
 
 /**
- * 认证结果 AuthResult 返回值   code 返回信息 message 返回内容 content <p> Created by lxh on 4/20/16. </p>
+ * 认证结果 AuthResult 返回值   code 返回信息 message 返回内容 content.
  */
 public class AuthResult {
   /**
