@@ -51,6 +51,10 @@ public class HomeController {
       this.content = content;
     }
 
+    public Greeting() {
+
+    }
+
     public int getId() {
       return id;
     }

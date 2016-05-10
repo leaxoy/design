@@ -98,8 +98,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
       return true;
     }
 
-
     HandlerMethod handlerMethod = (HandlerMethod) handler;
+
+    Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
+
+    if (authorization == null) {
+      return true;
+    }
 
     String tokenValue = request.getHeader(TokenConstant.AUTHORIZATION);
     if (tokenValue == null || !tokenValue.startsWith(TokenConstant.AUTHORIZATION)) {
@@ -116,13 +121,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
       return false;
     }
 
-
-    Authorization authorization = handlerMethod.getMethod().getAnnotation(Authorization.class);
-
-    if (authorization == null) {
-      return true;
-    }
-
     List<Role> roles = Arrays.asList(authorization.value());
 
     if (roles.isEmpty()) {
@@ -130,8 +128,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     }
 
     Role role = userService.getRole(tokenModel.getAccount());
-    request.setAttribute(TokenConstant.CURRENT_USER_ID,
-            userService.getByAccountName(tokenModel.getAccount()));
+    request.setAttribute(TokenConstant.CURRENT_USER_ID, tokenModel.getAccount());
     return roles.contains(role);
   }
 

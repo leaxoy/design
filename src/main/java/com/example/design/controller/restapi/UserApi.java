@@ -76,7 +76,7 @@ public class UserApi {
    * 修改用户个人信息
    */
   @RequestMapping(value = "", method = RequestMethod.PUT)
-  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity changeInfo(@RequestBody User user) {
     /**
      * 修改个人信息.
@@ -93,7 +93,7 @@ public class UserApi {
    * 修改密码
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity changePassword(@CurrentUser User user, String password, String newPasswd) {
     String account = user.getAccount();
     User old = userService.getByAccountName(account);

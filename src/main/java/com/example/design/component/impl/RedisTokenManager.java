@@ -52,7 +52,6 @@ public class RedisTokenManager implements TokenManager {
   public TokenModel generateToken(TokenModel model) {
     String content = Jwts.builder().setIssuer(model.getAccount()).setExpiration(new
             Date(System.currentTimeMillis() + 3600 * 1000)).setIssuedAt(new Date())
-            .setPayload(model.payload())
             .signWith(SignatureAlgorithm.HS256, TokenConstant.JWT_SECRET_KEY).compact();
     model.setContent(content);
     redisTemplate.boundHashOps(model.getAccount()).putIfAbsent(model.getAccount(), model);
