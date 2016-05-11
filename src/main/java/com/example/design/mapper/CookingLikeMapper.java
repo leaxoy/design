@@ -21,13 +21,12 @@ public interface CookingLikeMapper {
    * if one user click Like,his(her) behavior will be recorded,and set state as 1.
    */
   @Insert("INSERT INTO `cooking_like`(`cookingId`, `userId`) VALUES (#{cookingId}, #{userId})")
-  int addCookingLikeUser(CookingLike cookingLike);
+  int add(CookingLike cookingLike);
 
   /**
    * update cookingLike's record.
    */
   @Delete("DELETE FROM `cooking_like` WHERE `cookingId` = #{cookingId} AND `userId` = #{userId}")
-  int deleteCookingLike(@Param("userId") long userId, @Param("cookingId") long cookingId);
-
+  int delete(@Param("userId") long userId, @Param("cookingId") long cookingId);
 
 }

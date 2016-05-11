@@ -17,6 +17,10 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 
 /**
  * 增加方法注入，将含有CurrentUser注解的方法参数注入当前登录用户.
+ *
+ * @author lxh
+ * @version 0.1
+ * @see org.springframework.web.method.support.HandlerMethodArgumentResolver
  */
 @Component
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {

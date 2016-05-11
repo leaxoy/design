@@ -27,7 +27,7 @@ public class CommentApi {
   private CommentService commentService;
 
   /**
-   * @return all Comments.
+   * @return queryAll Comments.
    */
   @RequestMapping()
   public ResponseEntity all() {
@@ -39,7 +39,7 @@ public class CommentApi {
   }
 
   /**
-   * @param id comment id.
+   * @param id comment findById.
    * @return Comment.
    */
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class CommentApi {
   }
 
   /**
-   * @param id comment id.
+   * @param id comment findById.
    * @return comment content.
    */
   @RequestMapping("{id}/comment")
@@ -65,7 +65,7 @@ public class CommentApi {
   }
 
   /**
-   * @param id comment id.
+   * @param id comment findById.
    * @return comment date.
    */
   @RequestMapping("{id}/commentdate")

@@ -65,12 +65,14 @@ public class ReportApi {
   /**
    * 删除report.
    *
-   * @param reportId report's id.
+   * @param reportId report's findById.
    * @return 是否成功删除.
    */
   @RequestMapping(value = "{reportId}", method = RequestMethod.DELETE)
   public ResponseEntity removeReport(@PathVariable long reportId) {
-    int ok = reportService.deleteReport(reportId);
+    Report report = new Report();
+    report.setReportId(reportId);
+    int ok = reportService.deleteReport(report);
     if (ok == 0) {
       return ResponseEntity.notFound().build();
     }

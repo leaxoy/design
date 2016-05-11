@@ -33,30 +33,30 @@ public interface UserMapper {
   int update(User user);        //更新用户
 
   @Update("UPDATE `user` SET `password` = #{password} WHERE `account` = #{account}")
-  int updatePassword(String account, String password);        //修改密码。
+  int updatePassword(User user);        //修改密码。
 
   @Update("UPDATE `user` SET `state`=1 WHERE `userId` = #{userId}")
-  int markLimit(long userId);            //修改用户状态，表示受限。
+  int markLimited(long userId);            //修改用户状态，表示受限。
 
   @Update("UPDATE `user` SET `state`=0 WHERE `userId` = #{userId}")
   int markNormal(long userId);            //修改用户状态，表示恢复正常。
 
   @Select("SELECT * FROM `user`")
-  List<User> all();
+  List<User> findAll();
 
-  @Select("SELECT * FROM `user` WHERE `userId` = #{id}")
-  User id(long id);                      //通过ID查找用户
+  @Select("SELECT * FROM `user` WHERE `userId` = #{userId}")
+  User findById(long id);                      //通过ID查找用户
 
   @Select("SELECT `userId`, `role`, `account`, `password`, `email`, `nickName`, `userPicture`, "
           + "`name`, `gender`, `birth`, `job`, `city`, `userIntro` FROM `user` WHERE "
           + "`account` = #{account}")
-  User selectByAccountName(@Param("account") String account);      //通过用户账号查找用户
+  User findByAccount(@Param("account") String account);      //通过用户账号查找用户
 
   @Select("SELECT * FROM `user` WHERE `nickName` = #{nickname}")
-  List<User> selectByNickName(@Param("nickname") String nickname);   //通过用户昵称查找所有用户信息
+  List<User> findByNickName(@Param("nickname") String nickname);   //通过用户昵称查找所有用户信息
 
   @Select("SELECT * FROM `user` WHERE `city` = #{city}")
-  List<User> selectByCity(@Param("city") String city);               //通过用户城市查找用户所有信息
+  List<User> findByCity(@Param("city") String city);               //通过用户城市查找用户所有信息
 
   @Select("SELECT `role` FROM `user` WHERE `account` = #{name}")
   @Results(value = {@Result(column = "role", property = "Role", javaType = Role.class,
@@ -64,11 +64,11 @@ public interface UserMapper {
   Role getRole(String name);                  //根据用户ID查用户状态
 
   @Select("SELECT * FROM `user` WHERE `state` = 1")
-  List<User> findLimitUser();         //查询所有受限用户
+  List<User> findLimitedUser();         //查询所有受限用户
 
-  @Delete("DELETE FROM `user` WHERE `id` = #{id}")
-  int delete(int id);                 //删除用户通过ID
+  @Delete("DELETE FROM `user` WHERE `userId` = #{userId}")
+  int delete(User user);                 //删除用户通过ID
 
   @Delete("DELETE FROM `user` WHERE `account` = #{account}")
-  int deleteByAccountName(@Param("account") String account);  //通过账号删除用户
+  int deleteByAccount(User user);  //通过账号删除用户
 }

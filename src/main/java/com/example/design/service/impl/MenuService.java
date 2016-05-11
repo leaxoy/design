@@ -34,11 +34,11 @@ public class MenuService {
    * add a menu.
    */
   public int addMenu(Menu menu) {
-    return menuMapper.addMenu(menu);
+    return menuMapper.add(menu);
   }
 
   /**
-   * select all information by menuId
+   * select queryAll information by menuId
    *
    * @return Menu
    */
@@ -61,18 +61,18 @@ public class MenuService {
    * mark user's one menu as deleted
    */
   public int markMenuDelete(long menuId) {
-    return menuMapper.markMenuDelete(menuId);
+    return menuMapper.markDeleted(menuId);
   }
 
   /**
-   * select one user's all menu by user's Id
+   * select one user's queryAll menu by user's Id
    */
   public List<Menu> findAllMenuByUserId(long userId) {
-    return menuMapper.findAllMenuByUserId(userId);
+    return menuMapper.findByUserId(userId);
   }
 
   /**
-   * select all menu
+   * select queryAll menu
    */
   public List<Menu> all() {
     return menuMapper.all();
@@ -107,17 +107,17 @@ public class MenuService {
   }
 
   /**
-   * select one menu's all recipe
+   * select one menu's queryAll recipe
    */
   public List<Cooking> findAllCookingOfMenu(long menuId) {
     return cookingMenuMapper.findAllCookingOfMenu(menuId);
   }
 
   public int likeNumIncr(long menuId) {
-    return menuMapper.likeNumIncr(menuId);
+    return menuMapper.incrLikeNum(menuId);
   }
 
   public int likeNumDecr(long menuId) {
-    return menuMapper.likeNumDecr(menuId);
+    return menuMapper.decrLikeNum(menuId);
   }
 }

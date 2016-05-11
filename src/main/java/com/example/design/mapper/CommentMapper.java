@@ -22,13 +22,13 @@ import java.util.List;
 public interface CommentMapper {
 
   @Select("SELECT * FROM `comment`")
-  List<Comment> all();
+  List<Comment> queryAll();
 
   @Select("SELECT * FROM `comment` WHERE `userId`=#{userId}")
-  List<Comment> byUserId(long userId);
+  List<Comment> queryByUserId(long userId);
 
-  @Select("SELECT * FROM `comment` WHERE `commentId`=#{id}")
-  Comment id(long id);
+  @Select("SELECT * FROM `comment` WHERE `commentId`=#{findById}")
+  Comment queryById(long id);
 
   @Insert("INSERT INTO `comment`(`userId`, `commentDate`, `comment`, `commentType`, "
           + "`commentForId`, `state`) VALUES(#{userId}, #{commentDate}, #{comment}, "

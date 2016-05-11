@@ -23,15 +23,15 @@ public class CommentService {
   private CommentMapper commentMapper;
 
   public List<Comment> all() {
-    return commentMapper.all();
+    return commentMapper.queryAll();
   }
 
   public Comment id(long id) {
-    return commentMapper.id(id);
+    return commentMapper.queryById(id);
   }
 
   public List<Comment> byUserId(long userId) {
-    return commentMapper.byUserId(userId);
+    return commentMapper.queryByUserId(userId);
   }
 
   public int save(Comment comment) {

@@ -19,23 +19,23 @@ public class ShareService {
   private ShareMapper shareMapper;
 
   public int addShare(Share share) {
-    return shareMapper.addShare(share);
+    return shareMapper.add(share);
   }
 
   public int updateShare(Share share) {
-    return shareMapper.updateShare(share);
+    return shareMapper.update(share);
   }
 
-  public int deleteShareByShareId(long shareId) {
-    return shareMapper.deleteByShareId(shareId);
+  public int deleteShareByShareId(Share share) {
+    return shareMapper.delete(share);
   }
 
   public List<Share> selectByItemAndType(long itemId, String shareType) {
-    return shareMapper.selectByItemAndType(itemId, shareType);
+    return shareMapper.findByItemAndType(itemId, shareType);
   }
 
   public List<Share> selectByUserId(long shareUserId) {
-    return shareMapper.selectByUserId(shareUserId);
+    return shareMapper.findByUserId(shareUserId);
   }
 
 }

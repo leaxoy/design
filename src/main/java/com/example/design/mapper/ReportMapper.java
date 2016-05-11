@@ -19,27 +19,27 @@ import java.util.List;
 public interface ReportMapper {
 
   @Select("SELECT * FROM `report`")
-  List<Report> listAll();
+  List<Report> findAll();
 
-  @Select("SELECT * FROM `report` WHERE `reportId` = #{id}")
-  Report id(long id);
+  @Select("SELECT * FROM `report` WHERE `reportId` = #{findById}")
+  Report findById(long id);
 
-  @Delete("DELETE FROM `report` WHERE `reportId` = #{id}")
-  int deleteReport(long id);
+  @Delete("DELETE FROM `report` WHERE `reportId` = #{reportId}")
+  int delete(Report report);
 
-  @Insert("INSERT INTO `message`(`userID`, `reportType`, `reportedItemId`, `reportDate`, "
-          + "`reportReason`) VALUES (#{userID}, #{reportType}, #{reportedItemId}, #{reportDate},"
+  @Insert("INSERT INTO `message`(`userId`, `reportType`, `reportedItemId`, `reportDate`, "
+          + "`reportReason`) VALUES (#{userId}, #{reportType}, #{reportedItemId}, #{reportDate},"
           + " #{reportReason})")
-  int addReport(Report report);            //添加举报
+  int add(Report report);            //添加举报
 
   @Update("UPDATE `report` SET `state` = 1, `result` = #{result}, `closeDate` = #{closeDate}"
           + "WHERE `messageId` = #{messageId}")
   int dealReport(Report report);          //处理并关闭举报
 
   @Select("SELECT * FROM `report` WHERE `state` = #{state}")
-  List<Report> selectByState(int state);           //按处理状态来处理举报
+  List<Report> findByState(int state);           //按处理状态来处理举报
 
   @Select("SELECT * FROM `report` WHERE `reportType` = #{reportType} AND `state` = 0")
-  List<Report> selectByReportType(String reportType);           //按被举报类型查询未处理举报
+  List<Report> findByReportType(String reportType);           //按被举报类型查询未处理举报
 
 }

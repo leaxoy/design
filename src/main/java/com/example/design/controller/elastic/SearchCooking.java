@@ -40,7 +40,7 @@ public class SearchCooking {
   }
 
   /**
-   * @param id cooking's id
+   * @param id cooking's findById
    * @return cooking ResponseEntity.
    */
   @RequestMapping("{id}")

@@ -36,7 +36,7 @@ public class CookingApi {
   /**
    * 返回所有菜谱.
    *
-   * @return all cooking list.
+   * @return queryAll cooking list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST})
@@ -66,7 +66,7 @@ public class CookingApi {
   @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity allShow(@PathVariable long cookingId) {
-    List<Show> list = showService.findAllShowByCookingId(cookingId);
+    List<Show> list = showService.findByCookingId(cookingId);
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -79,7 +79,7 @@ public class CookingApi {
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity oneShow(@PathVariable long cookingId, @PathVariable long showId) {
-    Show show = showService.findShowById(showId);
+    Show show = showService.findById(showId);
     if (show == null) {
       return ResponseEntity.notFound().build();
     }

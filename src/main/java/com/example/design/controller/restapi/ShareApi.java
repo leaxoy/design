@@ -27,7 +27,7 @@ public class ShareApi {
   /**
    * 查找分享下的留言message.
    *
-   * @param id share id
+   * @param id share findById
    * @return message
    */
   @RequestMapping("{id}/message")

@@ -25,15 +25,15 @@ public interface MenuMapper {
    */
   @Insert("INSERT INTO `menu`(`menuName`, `menuPicture`, `authorId`, `menuDate`) VALUES"
           + "(#{menuName}, #{menuPicture}, #{authorId}, #{menuDate})")
-  int addMenu(Menu menu);
+  int add(Menu menu);
 
   /**
-   * select all information by menuId.
+   * select findAll information by menuId.
    *
    * @return Menu
    */
   @Select("SELECT * FROM `menu` WHERE `menuId` = #{menuId}")
-  Menu findById(long menuId);
+  Menu findById(@Param("menuId") long menuId);
 
   /**
    * get top6.
@@ -49,28 +49,28 @@ public interface MenuMapper {
   int updateMenu(Menu menu);
 
   /**
-   * select one user's all menu by author's Id.
+   * select one user's queryAll menu by author's Id.
    */
   @Select("SELECT * FROM `menu` WHERE `authorId` = #{authorId} AND `state` = 0")
-  List<Menu> findAllMenuByUserId(@Param("authorId") long userId);
+  List<Menu> findByUserId(@Param("authorId") long userId);
 
   /**
    * mark user's one menu as deleted.
    */
   @Update("UPDATE `menu` SET `state` = 1 WHERE `menuID` = #{menuId} ")
-  int markMenuDelete(long menuId);
+  int markDeleted(@Param("menuId") long menuId);
 
   /**
-   * select all menus.
+   * select queryAll menus.
    */
   @Select("SELECT * FROM `menu`")
   List<Menu> all();
 
   @Update("UPDATE `menu` SET `menuLikeNum` = `menuLikeNum` + 1 WHERE `menuId`"
           + " = #{menuId} AND `state`=0")
-  int likeNumIncr(long menuId);
+  int incrLikeNum(@Param("menuId") long menuId);
 
   @Update("UPDATE `menu` SET `menuLikeNum` = `menuLikeNum` - 1 WHERE `menuId`"
           + " = #{menuId} AND `state`=0")
-  int likeNumDecr(long menuId);
+  int decrLikeNum(@Param("menuId") long menuId);
 }

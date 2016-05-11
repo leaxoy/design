@@ -43,7 +43,7 @@ public class FriendService {
    * @return 朋友列表
    */
   public List<User> getFriendsByUserId(long id) {
-    List<Long> friends = friendMapper.getByUserId(id);
+    List<Long> friends = friendMapper.findByUserId(id);
     List<User> users = new ArrayList<>();
     for (long friendId : friends) {
       User user = userService.id(friendId);

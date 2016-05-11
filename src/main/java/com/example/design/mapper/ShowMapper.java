@@ -22,7 +22,7 @@ public interface ShowMapper {
    */
   @Insert("INSERT INTO `show`(`showIntro`, `showPicture`, `showDate`, `userId`, `cookingId`) "
           + "VALUES(#{showIntro}, #{showPicture}, #{showDate}, #{authorId}, #{cookingId})")
-  int addShow(Show show);
+  int add(Show show);
 
   @Update("UPDATE `show` SET `cookingId` = #{cookingId} WHERE `showId` = #{showId} AND `state`=0")
   int addShowToCooking(@Param("cookingId") long cookingId, @Param("showId") long showId);
@@ -32,13 +32,13 @@ public interface ShowMapper {
    */
   @Update("UPDATE `show` SET `showIntro` = #{showIntro}, `showPicture` = #{showPicture} "
           + "WHERE `showId` = #{showId} AND `state` = 0")
-  int updateShow(Show show);
+  int update(Show show);
 
   /**
    * mark show'state as "deleted".
    */
   @Update("UPDATE `show` SET `state` = 1 WHERE `showId` = #{showId} AND `state` = 0")
-  int markShowDelete(long showId);
+  int markDeleted(long showId);
 
   /**
    * select one show by it's Id.
@@ -46,37 +46,37 @@ public interface ShowMapper {
    * @return Show
    */
   @Select("SELECT * FROM `show` WHERE `showId` = #{showId}")
-  Show findShowById(long showId);
+  Show findById(long showId);
 
   /**
-   * select one user's all show.
+   * select one user's findAll show.
    *
    * @return show list
    */
-  @Select("SELECT * FROM `show` WHERE `authorId` = #{userId} AND `state` = 0 ")
-  List<Show> findAllShowByUserId(@Param("authorId") long userId);
+  @Select("SELECT * FROM `show` WHERE `authorId` = #{authorId} AND `state` = 0 ")
+  List<Show> findByUserId(@Param("authorId") long userId);
 
   /**
-   * select one cooking's all show.
+   * select one cooking's findAll show.
    *
    * @return show list
    */
   @Select("SELECT * FROM `show` WHERE `cookingId` = #{cookingId} AND `state` = 0")
-  List<Show> findAllShowByCookingId(long cookingId);
+  List<Show> findByCookingId(long cookingId);
 
   /**
-   * select all show.
+   * select findAll show.
    *
    * @return show list.
    */
   @Select("SELECT * FROM `show`")
-  List<Show> all();
+  List<Show> findAll();
 
   @Update("UPDATE `show` SET `showLikeNum` = `showLikeNum` + 1 WHERE `showId`"
           + " = #{showId} AND `state` = 0")
-  int likeNumIncr(long showId);
+  int incrLikeNum(long showId);
 
   @Update("UPDATE `show` SET `showLikeNum` = `showLikeNum` - 1 WHERE `showId`"
           + " = #{showId} AND `state` = 0")
-  int likeNumDecr(long showId);
+  int decrLikeNum(long showId);
 }

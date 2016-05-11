@@ -39,12 +39,12 @@ public class ShowApi {
   /**
    * 返回所有作品.
    *
-   * @return all articles list.
+   * @return queryAll articles list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity all() {
-    List<Show> list = showService.all();
+    List<Show> list = showService.findAll();
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -60,7 +60,7 @@ public class ShowApi {
   @RequestMapping(value = "{showId}", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity showId(@PathVariable long showId) {
-    Show show = showService.findShowById(showId);
+    Show show = showService.findById(showId);
 
     if (show == null) {
       return ResponseEntity.notFound().build();
@@ -78,7 +78,7 @@ public class ShowApi {
   @RequestMapping(value = "", method = RequestMethod.POST)
 //  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Show show) {
-    int count = showService.addShow(show);
+    int count = showService.add(show);
     if (count > 0) {
       return ResponseEntity.ok(show);
     }
@@ -95,7 +95,7 @@ public class ShowApi {
 //  @Authorization({Role.USER})
   public ResponseEntity update(@PathVariable long showId, @RequestBody Show show) {
     show.setShowId(showId);
-    int count = showService.updateShow(show);
+    int count = showService.update(show);
     if (count > 0) {
       return ResponseEntity.ok(show);
     }
@@ -111,7 +111,7 @@ public class ShowApi {
   @RequestMapping(value = "{showId}", method = RequestMethod.DELETE)
   //  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long showId) {
-    int count = showService.markShowDelete(showId);
+    int count = showService.markDeleted(showId);
     if (count > 0) {
       return ResponseEntity.ok("删除成功");
     }
@@ -143,7 +143,7 @@ public class ShowApi {
   /**
    * 查找作品下的留言message
    *
-   * @param id show id
+   * @param id show findById
    * @return message
    */
   @RequestMapping("{id}/message")

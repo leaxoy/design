@@ -60,7 +60,7 @@ public class UserApi {
   /**
    * 获取用户信息
    *
-   * @param id user id.
+   * @param id user findById.
    * @return user.
    */
   @RequestMapping("{id}")
@@ -100,7 +100,8 @@ public class UserApi {
     Assert.notNull(password, "password cannot be empty");
     Assert.notNull(newPasswd, "new password cannot be empty");
     if (password.equals(old.getPassword())) {
-      userService.updatePassword(account, newPasswd);
+      user.setPassword(password);
+      userService.updatePassword(user);
     }
     return ResponseEntity.ok("密码有误");
   }
@@ -108,7 +109,7 @@ public class UserApi {
   /**
    * 获取用户评论
    *
-   * @param id user id.
+   * @param id user findById.
    * @return user's comments
    */
   @RequestMapping("{id}/comment")
@@ -226,7 +227,7 @@ public class UserApi {
   /**
    * 返回指定用户id 的菜谱列表.
    *
-   * @param id 用户 id.
+   * @param id 用户 findById.
    * @return 菜谱列表.
    */
   @RequestMapping(value = "{id}/cooking", method = RequestMethod.GET)
@@ -242,13 +243,13 @@ public class UserApi {
   /**
    * 返回指定用户id 的作品列表.
    *
-   * @param id 用户 id.
+   * @param id 用户 findById.
    * @return 作品列表.
    */
   @RequestMapping(value = "{id}/show", method = RequestMethod.GET)
 //  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
   public ResponseEntity showByUserId(@PathVariable long id) {
-    List<Show> list = showService.findAllShowByUserId(id);
+    List<Show> list = showService.findByUserId(id);
     if (list == null) {
       return ResponseEntity.notFound().build();
     }
@@ -258,7 +259,7 @@ public class UserApi {
   /**
    * 返回指定用户id 的菜单列表.
    *
-   * @param id 用户 id.
+   * @param id 用户 findById.
    * @return 菜单列表.
    */
   @RequestMapping(value = "{id}/menu", method = RequestMethod.GET)
