@@ -79,15 +79,15 @@ public class UserService implements UserDetailsService {
    * @param userId user's findById.
    * @return number of rows affected.
    */
-  public int removeById(int userId) {
-    return userMapper.delete(userId);
+  public int removeById(User user) {
+    return userMapper.delete(user);
   }
 
   /**
    * remove a user by account.
    */
-  public int removeByAccountName(String account) {
-    return userMapper.deleteByAccount(account);
+  public int removeByAccountName(User user) {
+    return userMapper.deleteByAccount(user);
   }
 
   /**
@@ -152,7 +152,6 @@ public class UserService implements UserDetailsService {
     }
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
-    System.out.println(1 + user.getRole().name());
     return new org.springframework.security.core.userdetails.User(username,
             user.getPassword(), authorities);
   }
