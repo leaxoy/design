@@ -34,6 +34,7 @@ public class RegisterApi {
   /**
    * 新用户注册.
    */
+  @CrossOrigin(origins = "*")
   @RequestMapping(value = "", method = RequestMethod.POST)
   public ResponseEntity register(@RequestBody RegisterForm registerForm) {
     /**
