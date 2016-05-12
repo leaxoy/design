@@ -36,7 +36,7 @@ public class CookingApi {
   /**
    * 返回所有菜谱.
    *
-   * @return queryAll cooking list.
+   * @return findAll cooking list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST})

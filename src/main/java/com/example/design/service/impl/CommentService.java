@@ -23,7 +23,7 @@ public class CommentService {
   private CommentMapper commentMapper;
 
   public List<Comment> all() {
-    return commentMapper.queryAll();
+    return commentMapper.findAll();
   }
 
   public Comment id(long id) {
@@ -31,7 +31,7 @@ public class CommentService {
   }
 
   public List<Comment> byUserId(long userId) {
-    return commentMapper.queryByUserId(userId);
+    return commentMapper.findByUserId(userId);
   }
 
   public int save(Comment comment) {

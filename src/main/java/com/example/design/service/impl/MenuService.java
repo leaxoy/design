@@ -38,7 +38,7 @@ public class MenuService {
   }
 
   /**
-   * select queryAll information by menuId
+   * select findAll information by menuId
    *
    * @return Menu
    */
@@ -65,14 +65,14 @@ public class MenuService {
   }
 
   /**
-   * select one user's queryAll menu by user's Id
+   * select one user's findAll menu by user's Id
    */
   public List<Menu> findAllMenuByUserId(long userId) {
     return menuMapper.findByUserId(userId);
   }
 
   /**
-   * select queryAll menu
+   * select findAll menu
    */
   public List<Menu> all() {
     return menuMapper.all();
@@ -107,7 +107,7 @@ public class MenuService {
   }
 
   /**
-   * select one menu's queryAll recipe
+   * select one menu's findAll recipe
    */
   public List<Cooking> findAllCookingOfMenu(long menuId) {
     return cookingMenuMapper.findAllCookingOfMenu(menuId);

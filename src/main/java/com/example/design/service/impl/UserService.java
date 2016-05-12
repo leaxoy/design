@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
   private UserMapper userMapper;
 
   /**
-   * select queryAll users.
+   * select findAll users.
    *
    * @return List
    */
@@ -137,7 +137,7 @@ public class UserService implements UserDetailsService {
   }
 
   /**
-   * get queryAll limited users.
+   * get findAll limited users.
    */
   public List<User> getAllLimitUser() {
     return userMapper.findLimitedUser();

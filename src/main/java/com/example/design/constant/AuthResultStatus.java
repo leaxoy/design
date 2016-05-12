@@ -5,9 +5,9 @@ package com.example.design.constant;
  */
 public enum AuthResultStatus {
   SUCCESS(100, "成功"),
-  USERNAME_OR_PASSWORD_ERROR(-1001, "用户名或密码错误"),
-  USER_NOT_FOUND(-1002, "用户不存在"),
-  USER_NOT_LOGIN(-1003, "用户未登录");
+  USERNAME_OR_PASSWORD_ERROR(101, "用户名或密码错误"),
+  USER_NOT_FOUND(102, "用户不存在"),
+  USER_NOT_LOGIN(103, "用户未登录");
 
   /**
    * 返回码.

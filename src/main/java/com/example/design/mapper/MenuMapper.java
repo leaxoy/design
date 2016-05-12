@@ -61,7 +61,7 @@ public interface MenuMapper {
   int markDeleted(@Param("menuId") long menuId);
 
   /**
-   * select queryAll menus.
+   * select findAll menus.
    */
   @Select("SELECT * FROM `menu`")
   List<Menu> all();

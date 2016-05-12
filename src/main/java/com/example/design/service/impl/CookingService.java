@@ -75,7 +75,7 @@ public class CookingService {
   }
 
   /**
-   * select one user's queryAll recipes.
+   * select one user's findAll recipes.
    *
    * @param userId user'findById.
    * @return List
@@ -85,7 +85,7 @@ public class CookingService {
   }
 
   /**
-   * select queryAll cooking by keywords such as ingredient,cookingName, cookingStyleName.
+   * select findAll cooking by keywords such as ingredient,cookingName, cookingStyleName.
    *
    * @param keywords keyword...
    * @return List
@@ -95,9 +95,9 @@ public class CookingService {
   }
 
   /**
-   * select queryAll cooking.
+   * select findAll cooking.
    *
-   * @return queryAll cookings.
+   * @return findAll cookings.
    */
   public List<Cooking> all() {
     return cookingMapper.findAll();

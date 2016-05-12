@@ -1,5 +1,6 @@
 package com.example.design.mapper;
 
+import com.example.design.component.model.Page;
 import com.example.design.model.Cooking;
 
 import org.apache.ibatis.annotations.Insert;
@@ -37,6 +38,9 @@ public interface CookingMapper {
   @Select("SELECT * FROM `cooking` WHERE `cookingId` = #{cookingId}")
   Cooking findById(@Param("cookingId") long cookingId);
 
+  @Select("SELECT * FROM `cooking` LIMIT #{offset}, #{limit}")
+  List<Cooking> findByPage(Page page);
+
   /**
    * get top 6.
    *
@@ -61,7 +65,7 @@ public interface CookingMapper {
   int markDeleted(@Param("cookingId") long cookingId);
 
   /**
-   * select one user's queryAll recipes
+   * select one user's findAll recipes
    *
    * @return List
    */

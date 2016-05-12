@@ -27,7 +27,7 @@ public class CommentApi {
   private CommentService commentService;
 
   /**
-   * @return queryAll Comments.
+   * @return findAll Comments.
    */
   @RequestMapping()
   public ResponseEntity all() {

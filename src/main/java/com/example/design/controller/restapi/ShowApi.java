@@ -39,7 +39,7 @@ public class ShowApi {
   /**
    * 返回所有作品.
    *
-   * @return queryAll articles list.
+   * @return findAll articles list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})

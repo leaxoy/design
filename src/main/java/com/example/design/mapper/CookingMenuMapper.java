@@ -1,5 +1,6 @@
 package com.example.design.mapper;
 
+import com.example.design.component.model.Page;
 import com.example.design.model.Cooking;
 import com.example.design.model.MenuCooking;
 
@@ -21,6 +22,13 @@ import java.util.List;
 @Repository
 @Mapper
 public interface CookingMenuMapper {
+
+  @Select("SELECT FROM `menu_cooking` WHERE `menuId` = #{menuId}")
+  List<MenuCooking> findByMenuId(@Param("menuId") long menuId);
+
+  @Select("SELECT FROM `menu_cooking` WHERE `menuId` = #{menuId} LIMIT #{offset}, #{limit}")
+  List<MenuCooking> findByMenuIdAndPage(@Param("menuId") long menuId, Page page);
+
   /**
    * add one recipe to a menu.
    */
@@ -34,7 +42,7 @@ public interface CookingMenuMapper {
   int deleteCookingFromMenu(MenuCooking menuCooking);
 
   /**
-   * select one menu's  queryAll recipes.
+   * select one menu's findAll recipes.
    */
   @Select("SELECT * FROM `cooking` WHERE `cookingId` IN (SELECT `cookingId` FROM `menu_cooking` "
           + "WHERE `menuId` = #{menuId} AND `state`=0) AND `state`=0")

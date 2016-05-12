@@ -61,7 +61,7 @@ public class ShowService {
   }
 
   /**
-   * select one user's queryAll show.
+   * select one user's findAll show.
    *
    * @return List
    */
@@ -70,7 +70,7 @@ public class ShowService {
   }
 
   /**
-   * select one cooking's queryAll show.
+   * select one cooking's findAll show.
    *
    * @return List
    */

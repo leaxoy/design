@@ -33,7 +33,7 @@ public class MenuApi {
   /**
    * 返回所有菜单.
    *
-   * @return queryAll menu list.
+   * @return findAll menu list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
 //  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
