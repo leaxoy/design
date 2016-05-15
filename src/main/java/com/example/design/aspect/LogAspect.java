@@ -2,12 +2,12 @@ package com.example.design.aspect;
 
 import com.google.gson.Gson;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -38,13 +38,18 @@ public class LogAspect {
   private long endTimeMillis = 0; // 结束时间
 
 
-  @Before("execution(* com.example.design.controller..*.*(..))")
-  public void doBeforeInServiceLayer(JoinPoint joinPoint) {
+  @Pointcut("execution(* com.example.design.controller..*.*(..))")
+  void log() {
+    // define a log pointCut.
+  }
+
+  @Before("log()")
+  public void doBeforeInServiceLayer() {
     startTimeMillis = System.currentTimeMillis(); // 记录方法开始执行的时间
   }
 
-  @After("execution(* com.example.design.controller..*.*(..))")
-  public void doAfterInServiceLayer(JoinPoint joinPoint) {
+  @After("log()")
+  public void doAfterInServiceLayer() {
     endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
     this.printOptLog();
   }
@@ -52,12 +57,12 @@ public class LogAspect {
   /**
    * 记录日志.
    *
-   * @param pjp ProceedingJoinPoint
+   * @param proceedingJoinPoint ProceedingJoinPoint
    * @return Object
    * @throws Throwable 可能抛出的错误
    */
-  @Around("execution(* com.example.design.controller..*.*(..))")
-  public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
+  @Around("log()")
+  public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     /**
      * 1.获取request信息
      * 2.根据request获取session
@@ -81,7 +86,7 @@ public class LogAspect {
 
     // 执行完方法的返回值：调用proceed()方法，就会触发切入点方法执行
     outputParamMap = new HashMap<>();
-    Object result = pjp.proceed();// result的值就是被拦截方法的返回值
+    Object result = proceedingJoinPoint.proceed();// result的值就是被拦截方法的返回值
     outputParamMap.put("result", result);
 
     return result;

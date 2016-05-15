@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("register")
-@CrossOrigin(origins = {"http://localhost:8080"}, methods = {RequestMethod.POST})
 public class RegisterApi {
 
   /**

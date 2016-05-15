@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,32 +26,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClickAspect {
   private final Logger logger = LoggerFactory.getLogger(ClickAspect.class);
-
   @Autowired
   private ClickCountService clickCountService;
 
+  @Pointcut("execution(* com.example.design.controller.restapi..*.*(..))")
+  void apiCut() {
+  }
 
-  @Before("execution(* com.example.design.controller.restapi..*.*(..))")
+  @Before("apiCut())")
   public void doCountServiceBeforeRequest(JoinPoint joinPoint) {
 
   }
 
-  @After("execution(* com.example.design.controller.restapi..*.*(..))")
+  @After("apiCut()")
   public void doCountServiceAfterRequest(JoinPoint joinPoint) {
 
   }
 
-  @Around("execution(* com.example.design.controller.restapi..*.*(..))")
+  @Around("apiCut()")
   public Object doCountServiceInsideRequest(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     return proceedingJoinPoint.proceed();
   }
 
-  @AfterReturning("execution(* com.example.design.controller.restapi..*.*(..))")
+  @AfterReturning("apiCut()")
   public void doCountServiceAfterReturn(JoinPoint joinPoint) {
 
   }
 
-  @AfterThrowing("execution(* com.example.design.controller.restapi..*.*(..))")
+  @AfterThrowing("apiCut()")
   public void doCountServiceAfterThrow(JoinPoint joinPoint) {
 
   }

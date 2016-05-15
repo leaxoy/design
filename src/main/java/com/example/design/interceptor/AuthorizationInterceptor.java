@@ -23,7 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 自定义拦截器，对请求进行身份验证 Created by lxh on 4/20/16.
+ * 自定义拦截器，对请求进行身份验证.
+ *
+ * @author lxh
+ * @version 0.1
+ * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter
  */
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
@@ -93,6 +97,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
           final HttpServletRequest request,
           final HttpServletResponse response,
           final Object handler) throws Exception {
+
     //如果不是映射到方法直接通过
     if (!(handler instanceof HandlerMethod)) {
       return true;
