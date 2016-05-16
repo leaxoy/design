@@ -1,6 +1,7 @@
 package com.example.design.configuration;
 
 
+import com.example.design.constant.TokenConstant;
 import com.example.design.interceptor.AuthorizationInterceptor;
 import com.example.design.resolver.CurrentUserMethodArgumentResolver;
 
@@ -66,6 +67,8 @@ public class AppMvcConfig extends WebMvcConfigurerAdapter {
    */
   @Override
   public final void addInterceptors(final InterceptorRegistry registry) {
+    authorizationInterceptor.setAuthHeader(TokenConstant.AUTHORIZATION);
+    authorizationInterceptor.setHttpHeaderPrefix(TokenConstant.PREFIX);
     registry.addInterceptor(authorizationInterceptor);
   }
 

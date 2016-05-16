@@ -34,8 +34,12 @@ public class CommentService {
     return commentMapper.findByUserId(userId);
   }
 
-  public int save(Comment comment) {
+  public int add(Comment comment) {
     return commentMapper.add(comment);
+  }
+
+  public int update(Comment comment) {
+    return commentMapper.update(comment);
   }
 
   public int delete(Comment comment) {

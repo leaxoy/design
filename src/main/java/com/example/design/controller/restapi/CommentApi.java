@@ -1,11 +1,16 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.annotation.Authorization;
+import com.example.design.annotation.CurrentUser;
+import com.example.design.constant.Role;
 import com.example.design.model.Comment;
+import com.example.design.model.User;
 import com.example.design.service.impl.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/comment")
+@CrossOrigin("*")
 public class CommentApi {
   @Autowired
   private CommentService commentService;
@@ -30,6 +36,7 @@ public class CommentApi {
    * @return findAll Comments.
    */
   @RequestMapping()
+  @Authorization({Role.ADMIN})
   public ResponseEntity all() {
     List<Comment> comments = commentService.all();
     if (comments == null) {
@@ -78,7 +85,28 @@ public class CommentApi {
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity<Comment> add(@RequestBody Comment comment) {
+  @Authorization
+  public ResponseEntity<Comment> add(@RequestBody Comment comment, @CurrentUser User user) {
+    comment.setUserId(user.getUserId());
+    int count = commentService.add(comment);
+    if (count == 0) {
+      return ResponseEntity.ok(null);
+    }
+    return ResponseEntity.ok(comment);
+  }
+
+
+  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+  @Authorization
+  public ResponseEntity<Comment> update(@PathVariable long id,
+                                        @RequestBody Comment comment,
+                                        @CurrentUser User user) {
+    comment.setUserId(user.getUserId());
+    comment.setCommentId(id);
+    int count = commentService.update(comment);
+    if (count == 0) {
+      return ResponseEntity.ok(null);
+    }
     return ResponseEntity.ok(comment);
   }
 }

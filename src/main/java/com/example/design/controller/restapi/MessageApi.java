@@ -1,11 +1,13 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.annotation.Authorization;
 import com.example.design.model.Message;
 import com.example.design.service.impl.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/message")
+@CrossOrigin("*")
 public class MessageApi {
   @Autowired
   private MessageService messageService;
@@ -45,6 +48,7 @@ public class MessageApi {
    * 新建留言.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
+  @Authorization
   public ResponseEntity addMessage(@RequestBody Message message) {
     int count = messageService.addMessage(message);
     if (1 == count) {
@@ -60,6 +64,7 @@ public class MessageApi {
    * @return 是否删除成功.
    */
   @RequestMapping(value = "{messageId}", method = RequestMethod.DELETE)
+  @Authorization
   public ResponseEntity deleteMessage(@PathVariable long messageId) {
     int count = messageService.deleteMessage(messageId);
     if (1 == count) {

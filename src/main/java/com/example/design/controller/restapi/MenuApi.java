@@ -1,5 +1,7 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.annotation.Authorization;
+import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.Menu;
 import com.example.design.model.MenuCooking;
@@ -9,6 +11,7 @@ import com.example.design.service.impl.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/menu")
+@CrossOrigin("*")
 public class MenuApi {
 
   @Autowired
@@ -36,7 +40,6 @@ public class MenuApi {
    * @return findAll menu list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity all() {
     List<Menu> list = menuService.all();
     if (list != null) {
@@ -62,7 +65,6 @@ public class MenuApi {
    * @return 指定id 的菜单.
    */
   @RequestMapping(value = "{menuId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity menuId(@PathVariable long menuId) {
     Menu menu = menuService.findById(menuId);
 
@@ -79,7 +81,6 @@ public class MenuApi {
    * @return 指定id的菜单中的菜谱.
    */
   @RequestMapping(value = "{menuId}/cooking", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity showId(@PathVariable long menuId) {
     List<Cooking> list = menuService.findAllCookingOfMenu(menuId);
 
@@ -96,7 +97,7 @@ public class MenuApi {
    * @return 新添加的菜单信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Menu menu) {
     int count = menuService.addMenu(menu);
     if (count > 0) {
@@ -112,7 +113,7 @@ public class MenuApi {
    * @return 更改的作品信息.
    */
   @RequestMapping(value = "{menuId}", method = RequestMethod.PUT)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity update(@PathVariable long menuId, @RequestBody Menu menu) {
     menu.setMenuId(menuId);
     int count = menuService.updateMenu(menu);
@@ -129,7 +130,7 @@ public class MenuApi {
    * @return 删除菜单.
    */
   @RequestMapping(value = "{menuId}", method = RequestMethod.DELETE)
-//  @Authorization({Role.ADMIN, Role.USER})
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long menuId) {
     int count = menuService.markMenuDelete(menuId);
     if (count > 0) {
@@ -143,7 +144,7 @@ public class MenuApi {
    * 为某一菜单添加菜谱.
    */
   @RequestMapping(value = "{menuId}/cooking/{cookingId}", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity addShowToCooking(@PathVariable long menuId, @PathVariable long cookingId) {
     MenuCooking menuCooking = new MenuCooking();
     menuCooking.setMenuId(menuId);
@@ -160,7 +161,7 @@ public class MenuApi {
    * 将菜谱从菜单中删除.
    */
   @RequestMapping(value = "{menuId}/cooking/{cookingId}", method = RequestMethod.DELETE)
-//  @Authorization({Role.ADMIN, Role.USER})
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity deleteCookingFromMenu(@PathVariable long menuId, @PathVariable long cookingId) {
     MenuCooking menuCooking = new MenuCooking();
     menuCooking.setMenuId(menuId);
@@ -176,7 +177,7 @@ public class MenuApi {
    * 对某一作品点赞或取消赞.
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity LikeIt(@RequestBody MenuLikeForm menuLikeForm) {
     MenuLike menuLike = new MenuLike();
     menuLike.setMenuId(menuLikeForm.getMenuId());

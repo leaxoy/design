@@ -1,5 +1,6 @@
 package com.example.design.controller;
 
+import com.example.design.annotation.Authorization;
 import com.example.design.service.impl.CookingService;
 import com.example.design.service.impl.MenuService;
 import com.example.design.service.impl.UserService;
@@ -35,6 +36,7 @@ public class HomeController {
     return ResponseEntity.ok("Hello, world");
   }
 
+  @Authorization
   @CrossOrigin(origins = {"http://localhost:8080"})
   @RequestMapping(value = "/greeting", method = RequestMethod.GET)
   public ResponseEntity greeting() {

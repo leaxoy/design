@@ -10,6 +10,7 @@ import com.example.design.service.impl.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/report")
+@CrossOrigin("*")
 public class ReportApi {
   @Autowired
   private ReportService reportService;
@@ -52,6 +54,7 @@ public class ReportApi {
    * @return 是否成功
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
+  @Authorization
   public ResponseEntity addReport(@RequestBody Report report, @CurrentUser User user) {
     long userId = user.getUserId();
     report.setUserId(userId);
@@ -69,6 +72,7 @@ public class ReportApi {
    * @return 是否成功删除.
    */
   @RequestMapping(value = "{reportId}", method = RequestMethod.DELETE)
+  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity removeReport(@PathVariable long reportId) {
     Report report = new Report();
     report.setReportId(reportId);

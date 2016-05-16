@@ -2,7 +2,6 @@ package com.example.design.controller.restapi;
 
 import com.example.design.annotation.Authorization;
 import com.example.design.annotation.CurrentUser;
-import com.example.design.constant.Role;
 import com.example.design.model.Comment;
 import com.example.design.model.Cooking;
 import com.example.design.model.Menu;
@@ -22,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +39,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/user")
+@CrossOrigin("*")
 public class UserApi {
   @Autowired
   private UserService userService;
@@ -113,7 +114,6 @@ public class UserApi {
    * @return user's comments
    */
   @RequestMapping("{id}/comment")
-  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity getCommentsByUserId(@PathVariable long id) {
     List<Comment> comments = commentService.byUserId(id);
     if (comments == null) {
@@ -214,7 +214,7 @@ public class UserApi {
    * 修改用户个人信息.
    */
   @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
-  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity changeInfo(@PathVariable long userId, @RequestBody User user) {
     int count = userService.updateInfo(user);
     if (1 == count) {
@@ -231,7 +231,6 @@ public class UserApi {
    * @return 菜谱列表.
    */
   @RequestMapping(value = "{id}/cooking", method = RequestMethod.GET)
-//  @Authorization({Role.USER, Role.ADMIN, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingByuserId(@PathVariable long id) {
     List<Cooking> list = cookingService.findAllCookingByUserId(id);
     if (list == null) {
@@ -247,7 +246,6 @@ public class UserApi {
    * @return 作品列表.
    */
   @RequestMapping(value = "{id}/show", method = RequestMethod.GET)
-//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
   public ResponseEntity showByUserId(@PathVariable long id) {
     List<Show> list = showService.findByUserId(id);
     if (list == null) {
@@ -263,7 +261,6 @@ public class UserApi {
    * @return 菜单列表.
    */
   @RequestMapping(value = "{id}/menu", method = RequestMethod.GET)
-//  @Authorization({Role.USER, Role.ADMIN, Role.LIMITED_USER, Role.GUEST})
   public ResponseEntity menuByUserId(@PathVariable long id) {
     List<Menu> list = menuService.findAllMenuByUserId(id);
     if (list == null) {

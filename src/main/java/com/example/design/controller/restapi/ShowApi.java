@@ -1,5 +1,7 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.annotation.Authorization;
+import com.example.design.constant.Role;
 import com.example.design.model.Message;
 import com.example.design.model.Show;
 import com.example.design.model.ShowLike;
@@ -9,6 +11,7 @@ import com.example.design.service.impl.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/show")
+@CrossOrigin("*")
 public class ShowApi {
 
   /**
@@ -42,7 +46,7 @@ public class ShowApi {
    * @return findAll articles list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  @Authorization({Role.ADMIN})
   public ResponseEntity all() {
     List<Show> list = showService.findAll();
     if (list != null) {
@@ -58,7 +62,7 @@ public class ShowApi {
    * @return 指定id 的作品.
    */
   @RequestMapping(value = "{showId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
+  @Authorization({Role.ADMIN, Role.USER, Role.LIMITED_USER})
   public ResponseEntity showId(@PathVariable long showId) {
     Show show = showService.findById(showId);
 
@@ -76,7 +80,7 @@ public class ShowApi {
    * @return 新添加的作品信息.
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity add(@RequestBody Show show) {
     int count = showService.add(show);
     if (count > 0) {
@@ -92,7 +96,7 @@ public class ShowApi {
    * @return 更改的作品信息.
    */
   @RequestMapping(value = "{showId}", method = RequestMethod.PUT)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER, Role.ADMIN})
   public ResponseEntity update(@PathVariable long showId, @RequestBody Show show) {
     show.setShowId(showId);
     int count = showService.update(show);
@@ -109,7 +113,7 @@ public class ShowApi {
    * @return 删除的作品信息.
    */
   @RequestMapping(value = "{showId}", method = RequestMethod.DELETE)
-  //  @Authorization({Role.ADMIN, Role.USER})
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long showId) {
     int count = showService.markDeleted(showId);
     if (count > 0) {
@@ -122,7 +126,7 @@ public class ShowApi {
    * 对某一作品点赞或取消赞
    */
   @RequestMapping(value = "like", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity likeIt(@RequestBody ShowLikeForm showLikeForm) {
     ShowLike showLike = new ShowLike();
     showLike.setShowId(showLikeForm.getShowId());

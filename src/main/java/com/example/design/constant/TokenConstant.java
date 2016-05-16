@@ -15,4 +15,6 @@ public class TokenConstant {
   public static final String AUTHORIZATION = "Authorization";
 
   public static final byte[] JWT_SECRET_KEY = "DE12F3AC7E9D17CA".getBytes();
+
+  public static final String PREFIX = "";
 }
