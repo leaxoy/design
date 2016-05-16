@@ -81,6 +81,13 @@ public interface CookingMapper {
           + "%#{keywords}% OR `cookingStyle` Like %#{keyword}%  AND `state` = 0")
   List<Cooking> findByKeyword(@Param("keyword") String keyword);
 
+
+  /**
+   *
+   */
+  @Select("SELECT * FROM `cooking` WHERE `cookingStyle` = #{category}")
+  List<Cooking> category(@Param("category") String category);
+
   /**
    * select findAll cooking.
    */

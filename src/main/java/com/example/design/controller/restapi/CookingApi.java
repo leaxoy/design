@@ -1,5 +1,7 @@
 package com.example.design.controller.restapi;
 
+import com.example.design.annotation.Authorization;
+import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.CookingLike;
 import com.example.design.model.Show;
@@ -41,9 +43,19 @@ public class CookingApi {
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
   @CrossOrigin("*")
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST})
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
+    if (list != null) {
+      return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+
+  @RequestMapping(value = "category/{category}", method = RequestMethod.GET)
+  @CrossOrigin("*")
+  public ResponseEntity category(@PathVariable String category) {
+    List<Cooking> list = cookingService.category(category);
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -68,7 +80,6 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity allShow(@PathVariable long cookingId) {
     List<Show> list = showService.findByCookingId(cookingId);
     if (list != null) {
@@ -82,7 +93,6 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity oneShow(@PathVariable long cookingId, @PathVariable long showId) {
     Show show = showService.findById(showId);
     if (show == null) {
@@ -96,7 +106,7 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.PUT)
-//  @Authorization({Role.USER})
+  @Authorization
   public ResponseEntity addShowToCooking(@PathVariable long cookingId, @PathVariable long showId) {
     int count = showService.addShowToCooking(cookingId, showId);
     if (count > 0) {
@@ -113,7 +123,6 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
-//  @Authorization({Role.ADMIN, Role.USER, Role.GUEST, Role.LIMITED_USER})
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
 
@@ -131,7 +140,7 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Cooking cooking) {
     /**
      * 创建菜单
@@ -152,7 +161,7 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.PUT)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity update(@PathVariable long cookingId, @RequestBody Cooking cooking) {
     cooking.setCookingId(cookingId);
     int count = cookingService.updateCooking(cooking);
@@ -170,7 +179,7 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.DELETE)
-//  @Authorization({Role.ADMIN, Role.USER})
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long cookingId) {
     int count = cookingService.markCookingDelete(cookingId);
     if (count == 1) {
@@ -184,7 +193,7 @@ public class CookingApi {
    */
   @CrossOrigin("*")
   @RequestMapping(value = "like", method = RequestMethod.POST)
-//  @Authorization({Role.USER})
+  @Authorization({Role.USER})
   public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {
     CookingLike cookingLike = new CookingLike();
     cookingLike.setCookingId(cookingLikeForm.getCookingId());

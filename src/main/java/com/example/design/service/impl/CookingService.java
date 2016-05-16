@@ -35,6 +35,14 @@ public class CookingService {
     return cookingMapper.add(cooking);
   }
 
+
+  /**
+   * find cookings by category
+   */
+  public List<Cooking> category(String category) {
+    return cookingMapper.category(category);
+  }
+
   /**
    * select one recipe by cookingId.
    *
