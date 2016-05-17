@@ -35,8 +35,8 @@ public class CommentApi {
   /**
    * @return findAll Comments.
    */
-  @RequestMapping()
-  @Authorization({Role.ADMIN})
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity all() {
     List<Comment> comments = commentService.all();
     if (comments == null) {
@@ -51,7 +51,7 @@ public class CommentApi {
    */
   @RequestMapping(value = "{id}", method = RequestMethod.GET)
   public ResponseEntity id(@PathVariable int id) {
-    Comment comment = commentService.id(id);
+    Comment comment = commentService.findById(id);
     if (comment == null) {
       return ResponseEntity.notFound().build();
     }
@@ -64,7 +64,7 @@ public class CommentApi {
    */
   @RequestMapping("{id}/comment")
   public ResponseEntity comment(@PathVariable int id) {
-    Comment comment = commentService.id(id);
+    Comment comment = commentService.findById(id);
     if (comment == null) {
       return ResponseEntity.notFound().build();
     }
@@ -77,7 +77,7 @@ public class CommentApi {
    */
   @RequestMapping("{id}/commentdate")
   public ResponseEntity commentDate(@PathVariable int id) {
-    Comment comment = commentService.id(id);
+    Comment comment = commentService.findById(id);
     if (comment == null) {
       return ResponseEntity.notFound().build();
     }

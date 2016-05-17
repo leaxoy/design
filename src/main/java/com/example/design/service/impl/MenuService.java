@@ -1,5 +1,6 @@
 package com.example.design.service.impl;
 
+import com.example.design.component.model.Page;
 import com.example.design.mapper.CookingMenuMapper;
 import com.example.design.mapper.MenuLikeMapper;
 import com.example.design.mapper.MenuMapper;
@@ -35,6 +36,13 @@ public class MenuService {
    */
   public int addMenu(Menu menu) {
     return menuMapper.add(menu);
+  }
+
+  /**
+   *
+   */
+  public List<Menu> findByPage(Page page) {
+    return menuMapper.findByPage(page);
   }
 
   /**

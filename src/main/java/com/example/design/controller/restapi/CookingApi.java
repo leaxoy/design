@@ -29,6 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/cooking")
+@CrossOrigin("*")
 public class CookingApi {
 
   @Autowired
@@ -42,7 +43,6 @@ public class CookingApi {
    * @return findAll cooking list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
-  @CrossOrigin("*")
   public ResponseEntity all() {
     List<Cooking> list = cookingService.all();
     if (list != null) {
@@ -53,7 +53,6 @@ public class CookingApi {
 
 
   @RequestMapping(value = "category/{category}", method = RequestMethod.GET)
-  @CrossOrigin("*")
   public ResponseEntity category(@PathVariable String category) {
     List<Cooking> list = cookingService.category(category);
     if (list != null) {
@@ -65,7 +64,6 @@ public class CookingApi {
   /**
    * get top 6.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "top6", method = RequestMethod.GET)
   public ResponseEntity top6() {
     List<Cooking> cookings = cookingService.top6();
@@ -78,7 +76,6 @@ public class CookingApi {
   /**
    * 返回某一菜谱的所有作品.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "/{cookingId}/show", method = RequestMethod.GET)
   public ResponseEntity allShow(@PathVariable long cookingId) {
     List<Show> list = showService.findByCookingId(cookingId);
@@ -91,7 +88,6 @@ public class CookingApi {
   /**
    * 返回某一菜谱的某一作品.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.GET)
   public ResponseEntity oneShow(@PathVariable long cookingId, @PathVariable long showId) {
     Show show = showService.findById(showId);
@@ -104,7 +100,6 @@ public class CookingApi {
   /**
    * 为某一菜谱添加作品.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}/show/{showId}", method = RequestMethod.PUT)
   @Authorization
   public ResponseEntity addShowToCooking(@PathVariable long cookingId, @PathVariable long showId) {
@@ -121,7 +116,6 @@ public class CookingApi {
    * @param cookingId 菜谱id.
    * @return 指定id 的菜谱.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.GET)
   public ResponseEntity cookingId(@PathVariable long cookingId) {
     Cooking cooking = cookingService.findById(cookingId);
@@ -138,7 +132,6 @@ public class CookingApi {
    * @param cooking 菜谱body.
    * @return 新添加的菜谱信息.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @Authorization({Role.USER})
   public ResponseEntity add(@RequestBody Cooking cooking) {
@@ -159,7 +152,6 @@ public class CookingApi {
    * @param cooking 菜谱body.
    * @return 更改的菜谱信息.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.PUT)
   @Authorization({Role.USER})
   public ResponseEntity update(@PathVariable long cookingId, @RequestBody Cooking cooking) {
@@ -177,7 +169,6 @@ public class CookingApi {
    * @param cookingId 菜谱id
    * @return 删除的菜谱信息.
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "{cookingId}", method = RequestMethod.DELETE)
   @Authorization({Role.ADMIN, Role.USER})
   public ResponseEntity markDelete(@PathVariable long cookingId) {
@@ -191,7 +182,6 @@ public class CookingApi {
   /**
    * 用户点赞或者取消点赞. 对某一菜谱点赞或取消赞
    */
-  @CrossOrigin("*")
   @RequestMapping(value = "like", method = RequestMethod.POST)
   @Authorization({Role.USER})
   public ResponseEntity likeIt(@RequestBody CookingLikeForm cookingLikeForm) {

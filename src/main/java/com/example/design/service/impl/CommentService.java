@@ -1,5 +1,6 @@
 package com.example.design.service.impl;
 
+import com.example.design.component.model.Page;
 import com.example.design.mapper.CommentMapper;
 import com.example.design.model.Comment;
 
@@ -26,12 +27,16 @@ public class CommentService {
     return commentMapper.findAll();
   }
 
-  public Comment id(long id) {
+  public Comment findById(long id) {
     return commentMapper.queryById(id);
   }
 
-  public List<Comment> byUserId(long userId) {
+  public List<Comment> findByUserId(long userId) {
     return commentMapper.findByUserId(userId);
+  }
+
+  public List<Comment> findByPage(Page page) {
+    return commentMapper.findByPage(page);
   }
 
   public int add(Comment comment) {

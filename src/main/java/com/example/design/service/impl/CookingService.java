@@ -1,5 +1,6 @@
 package com.example.design.service.impl;
 
+import com.example.design.component.model.Page;
 import com.example.design.mapper.CookingLikeMapper;
 import com.example.design.mapper.CookingMapper;
 import com.example.design.model.Cooking;
@@ -51,6 +52,13 @@ public class CookingService {
    */
   public Cooking findById(long cookingId) {
     return cookingMapper.findById(cookingId);
+  }
+
+  /**
+   *
+   */
+  public List<Cooking> findByPage(Page page) {
+    return cookingMapper.findByPage(page);
   }
 
   /**

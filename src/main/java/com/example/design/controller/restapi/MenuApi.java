@@ -1,6 +1,7 @@
 package com.example.design.controller.restapi;
 
 import com.example.design.annotation.Authorization;
+import com.example.design.component.model.Page;
 import com.example.design.constant.Role;
 import com.example.design.model.Cooking;
 import com.example.design.model.Menu;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,7 +42,16 @@ public class MenuApi {
    * @return findAll menu list.
    */
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity all() {
+  @Authorization({Role.USER, Role.ADMIN})
+  public ResponseEntity all(@RequestParam(required = false, value = "offset") long offset,
+                            @RequestParam(required = false, value = "limit") long limit) {
+    if (offset != 0 && limit != 0) {
+      List<Menu> list = menuService.findByPage(new Page(offset, limit));
+      if (list != null) {
+        return new ResponseEntity<>(list, HttpStatus.OK);
+      }
+      return ResponseEntity.notFound().build();
+    }
     List<Menu> list = menuService.all();
     if (list != null) {
       return new ResponseEntity<>(list, HttpStatus.OK);

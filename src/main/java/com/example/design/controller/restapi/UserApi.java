@@ -115,7 +115,7 @@ public class UserApi {
    */
   @RequestMapping("{id}/comment")
   public ResponseEntity getCommentsByUserId(@PathVariable long id) {
-    List<Comment> comments = commentService.byUserId(id);
+    List<Comment> comments = commentService.findByUserId(id);
     if (comments == null) {
       return ResponseEntity.notFound().build();
     }

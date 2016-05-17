@@ -1,5 +1,6 @@
 package com.example.design.mapper;
 
+import com.example.design.component.model.Page;
 import com.example.design.model.Menu;
 
 import org.apache.ibatis.annotations.Insert;
@@ -26,6 +27,10 @@ public interface MenuMapper {
   @Insert("INSERT INTO `menu`(`menuName`, `menuPicture`, `authorId`, `menuDate`) VALUES"
           + "(#{menuName}, #{menuPicture}, #{authorId}, #{menuDate})")
   int add(Menu menu);
+
+
+  @Select("SELECT * FROM `menu` LIMIT offset, limit")
+  List<Menu> findByPage(Page page);
 
   /**
    * select findAll information by menuId.
