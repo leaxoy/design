@@ -1,5 +1,7 @@
 package com.example.design.constant;
 
+import org.jetbrains.annotations.Contract;
+
 /**
  * 认证结果 AuthResult 返回值   code 返回信息 message 返回内容 content.
  */
@@ -59,14 +61,17 @@ public class AuthResult {
     this.content = content;
   }
 
+  @Contract("_ -> !null")
   public static AuthResult ok(Object content) {
     return new AuthResult(AuthResultStatus.SUCCESS, content);
   }
 
+  @Contract(" -> !null")
   public static AuthResult ok() {
     return new AuthResult(AuthResultStatus.SUCCESS);
   }
 
+  @Contract(" -> !null")
   public static AuthResult error(AuthResultStatus error) {
     return new AuthResult(error);
   }

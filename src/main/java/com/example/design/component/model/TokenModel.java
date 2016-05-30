@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Created by lxh on 16/5/10.
  */
 public class TokenModel implements Serializable {
+  private long userId;
   private String account;
   private String nickName;
   private Role role;
@@ -47,5 +48,13 @@ public class TokenModel implements Serializable {
 
   public String payload() {
     return this.account + this.nickName + ":" + this.role.name();
+  }
+
+  public long getUserId() {
+    return userId;
+  }
+
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 }

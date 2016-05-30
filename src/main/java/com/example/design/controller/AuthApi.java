@@ -67,6 +67,7 @@ public class AuthApi {
     TokenModel tokenModel = new TokenModel();
     tokenModel.setAccount(user.getAccount());
     tokenModel.setNickName(user.getNickName());
+    tokenModel.setUserId(user.getUserId());
     tokenModel.setRole(user.getRole());
     //生成一个token，保存用户登录状态
     tokenModel = tokenManager.generateToken(tokenModel);
